@@ -1,0 +1,31 @@
+---
+title: "PRJNA214736_Assign_Tax"
+author: "Bryshal Moore"
+date: "2026-02-02"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Assign Taxonomy
+
+Using taxonomy from https://zenodo.org/records/13984843?utm_source=chatgpt.com
+GTDB currated 16srRNA gene sequences formatted for DADA2
+* https://zenodo.org/records/13984843?utm_source=chatgpt.com -- from GTDB release 220 (2024-04-18)
+
+```{r}
+taxa <- assignTaxonomy(seqtab.nochim, "~/wsg_gtdb_tax/mock_data/MBARC26/16s_fasta/DADA2_databases/GTDB_bac120_arc53_ssu_r220_genus.fa.gz",tryRC = TRUE, multithread=FALSE)
+```
+
+```{r}
+taxa <- addSpecies(taxa, "~/wsg_gtdb_tax/mock_data/MBARC26/16s_fasta/DADA2_databases/GTDB_bac120_arc53_ssu_r220_species.fa.gz", tryRC = T)
+```
+
+# GTDB R226 Taxonomy
+```{r}
+taxa_r226 <- assignTaxonomy(seqtab.nochim, "~/wsg_gtdb_tax/GTDB_bac120_arc53_ssu_r226_fullTaxo.fna.gz",tryRC = TRUE, multithread=FALSE)
+```
+

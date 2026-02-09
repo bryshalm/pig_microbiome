@@ -1,0 +1,111 @@
+---
+title: "PRJNA214736_DADA2"
+author: "Bryshal Moore"
+date: "2026-01-29"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+#Install binaries from Bioconductor version 3.16. See tutorial [DAADA2 Installation](https://benjjneb.github.io/dada2/dada-installation.html) and [dada2 tutorial](https://benjjneb.github.io/dada2/tutorial.html)
+
+#Install BiocManager
+```{r}
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+```
+
+#Install DADA2
+```{r}
+#BiocManager::install("dada2")
+```
+#Load the DADA2 library
+```{r}
+
+library(dada2); packageVersion("dada2")
+```
+
+#Set the path to  fastq files
+```{r}
+path <- "//home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA214736" #Change me to the directory containing the fastq files(unzipped)
+
+list.files(path)
+
+# In side of the folder containing my fastq files
+```
+
+```{r}
+fnFs <- sort(list.files(path, pattern="fastq", full.names=TRUE))
+
+sample.names <- sapply(strsplit(basename(fnFs), "_"), `[`, 1)
+
+```
+
+
+
+```{r}
+sample.names
+```
+
+```{r}
+plotQualityProfile(fnFs[1:2])
+
+```
+
+```{r}
+filt_path <- file.path(path, "filtered")
+dir.create(filt_path)
+
+filtFs <- file.path(filt_path, basename(fnFs))
+
+out <- filterAndTrim(
+  fnFs, filtFs,
+  truncLen = 150,     # adjust from quality plot
+  maxN = 0,
+  maxEE = 2,
+  truncQ = 2,
+  rm.phix = TRUE,
+  compress = TRUE,
+  multithread = TRUE
+)
+
+```
+
+```{r}
+
+errF <- learnErrors(filtFs, multithread=TRUE)
+plotErrors(errF, nominalQ=TRUE)
+
+```
+
+```{r}
+derepFs <- derepFastq(filtFs)
+names(derepFs) <- sample.names
+
+```
+
+
+```{r}
+dadaFs <- dada(derepFs, err=errF, multithread=TRUE)
+
+```
+
+```{r}
+seqtab <- makeSequenceTable(dadaFs)
+
+```
+
+```{r}
+seqtab.nochim <- removeBimeraDenovo(seqtab, method="consensus", multithread=TRUE)
+
+```
+
+```{r}
+
+write.csv(seqtab.nochim,  file = "PRJNA214736_seqtab.nochim.csv", row.names = F)
+```
+
