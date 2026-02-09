@@ -11,6 +11,8 @@
 *.fa.gz
 *.fna
 *.fna.gz
+*.sra
+*.sra*
 
 # Large / generated outputs
 results/
