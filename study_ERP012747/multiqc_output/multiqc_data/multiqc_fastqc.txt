@@ -1,0 +1,21 @@
+Sample	Filename	File type	Encoding	Total Sequences	Total Bases	Sequences flagged as poor quality	Sequence length	%GC	total_deduplicated_percentage	avg_sequence_length	median_sequence_length	basic_statistics	per_base_sequence_quality	per_sequence_quality_scores	per_base_sequence_content	per_sequence_gc_content	per_base_n_content	sequence_length_distribution	sequence_duplication_levels	overrepresented_sequences	adapter_content
+10296.A	10296.A.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	124304.0	31.4 Mbp	0.0	191-296	53.0	4.311204788261038	251.99996782082636	252	pass	pass	pass	fail	warn	pass	warn	fail	fail	pass
+10296.B	10296.B.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	113481.0	28.6 Mbp	0.0	194-296	53.0	4.277368017553599	252.00027317348278	252	pass	pass	pass	fail	fail	pass	warn	fail	fail	pass
+10296.C	10296.C.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	125494.0	31.7 Mbp	0.0	190-296	54.0	3.4272554863180713	252.0006534176933	252	pass	pass	pass	fail	fail	pass	warn	fail	fail	pass
+10296.D	10296.D.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	132267.0	33.4 Mbp	0.0	195-296	53.0	3.940514262816878	252.00293346034914	252	pass	pass	pass	fail	fail	pass	warn	fail	fail	pass
+10296.E	10296.E.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	75548.0	19 Mbp	0.0	207-296	53.0	3.6771324191242654	252.56282098798115	252	pass	pass	pass	fail	fail	pass	warn	fail	fail	pass
+10296.F	10296.F.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	91820.0	23.2 Mbp	0.0	190-296	53.0	4.1287301241559575	251.99663472010457	252	pass	pass	pass	fail	warn	pass	warn	fail	fail	pass
+10296.G	10296.G.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	87059.0	22 Mbp	0.0	190-296	53.0	5.112624771706544	252.0025614812943	252	pass	pass	pass	fail	pass	pass	warn	fail	fail	pass
+10296.H	10296.H.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	85366.0	21.5 Mbp	0.0	195-296	53.0	3.2577372724503904	252.00167513998548	252	pass	pass	pass	fail	fail	pass	warn	fail	fail	pass
+10296.I	10296.I.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	116868.0	29.5 Mbp	0.0	190-296	53.0	4.286032104596639	251.99644898517985	252	pass	pass	pass	fail	fail	pass	warn	fail	fail	pass
+10296.J	10296.J.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	130036.0	32.8 Mbp	0.0	190-296	53.0	4.394167768925528	252.0015226552647	252	pass	pass	pass	fail	fail	pass	warn	fail	fail	pass
+10296.K	10296.K.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	108539.0	27.4 Mbp	0.0	190-296	53.0	2.8100498438349346	252.0000092132782	252	pass	pass	pass	fail	fail	pass	warn	fail	fail	pass
+10296.L	10296.L.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	124379.0	31.4 Mbp	0.0	193-296	53.0	3.5793823716222195	252.00008039942435	252	pass	pass	pass	fail	fail	pass	warn	fail	fail	pass
+10296.M	10296.M.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	116961.0	29.5 Mbp	0.0	197-296	52.0	4.366412735869221	252.79390993579057	252	pass	pass	pass	fail	fail	pass	warn	fail	fail	pass
+10296.N	10296.N.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	112185.0	28.3 Mbp	0.0	190-296	53.0	3.5530596782100994	251.99623835628648	252	pass	pass	pass	fail	fail	pass	warn	fail	fail	pass
+10296.O	10296.O.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	131623.0	33.2 Mbp	0.0	190-296	53.0	3.558648564460619	251.99974928393974	252	pass	pass	pass	fail	fail	pass	warn	fail	fail	pass
+10296.P	10296.P.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	91593.0	23.1 Mbp	0.0	192-296	53.0	4.824604500343913	251.99836232026465	252	pass	pass	pass	fail	fail	pass	warn	fail	fail	pass
+10296.Q	10296.Q.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	135743.0	34.3 Mbp	0.0	192-296	53.0	4.165223989450653	252.00131866836597	252	pass	pass	pass	fail	fail	pass	warn	fail	fail	pass
+10296.R	10296.R.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	154357.0	39 Mbp	0.0	190-296	53.0	3.473117513297097	251.99746691112162	252	pass	pass	pass	fail	fail	pass	warn	fail	fail	pass
+10296.S	10296.S.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	99125.0	25 Mbp	0.0	194-296	53.0	3.9172761664564946	251.99911223203026	252	pass	pass	pass	fail	fail	pass	warn	fail	fail	pass
+10296.T	10296.T.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	92478.0	23.3 Mbp	0.0	195-296	53.0	3.978243474123575	252.00027033456607	252	pass	pass	pass	fail	fail	pass	warn	fail	fail	pass
