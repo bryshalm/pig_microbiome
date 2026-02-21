@@ -10,22 +10,123 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
+```{r}
+version
+```
+
+
+Install required Libraries
+```{r}
+#install.packages("BiocManager")
+#BiocManager::install("phyloseq")
+
+```
+
+
+```{r}
+#install.packages("Biostrings")
+```
+
+
+```{r}
+#install.packages("ggplot2")
+```
+
+
+```{r}
+#library(DECIPHER); packageVersion("DECIPHER")
+```
+
+Import Libraries
+```{r}
+library(DECIPHER); packageVersion("DECIPHER")
+```
+
+
+```{r}
+
+library(dada2); packageVersion("dada2")
+```
+
+
+
+```{r}
+library(phyloseq); packageVersion("phyloseq")
+```
+
+
+```{r}
+library(Biostrings); packageVersion("Biostrings")
+```
+
+
+```{r}
+library(ggplot2); packageVersion("ggplot2")
+```
+
+
+
 ## Assign Taxonomy
 
 Using taxonomy from https://zenodo.org/records/13984843?utm_source=chatgpt.com
 GTDB currated 16srRNA gene sequences formatted for DADA2
-* https://zenodo.org/records/13984843?utm_source=chatgpt.com -- from GTDB release 220 (2024-04-18)
+https://zenodo.org/records/13984843?utm_source=chatgpt.com -- from GTDB release 220 (2024-04-18)
 
 ```{r}
-taxa <- assignTaxonomy(seqtab.nochim, "~/wsg_gtdb_tax/mock_data/MBARC26/16s_fasta/DADA2_databases/GTDB_bac120_arc53_ssu_r220_genus.fa.gz",tryRC = TRUE, multithread=FALSE)
+#taxa_r220_gls <- assignTaxonomy(seqtab.nochim,"~/wsg_gtdb_tax/mock_data/MBARC26/16s_fasta/DADA2_databases/GTDB_bac120_arc53_ssu_r220_genus.fa.gz",tryRC = TRUE, multithread=FALSE)
 ```
 
 ```{r}
-taxa <- addSpecies(taxa, "~/wsg_gtdb_tax/mock_data/MBARC26/16s_fasta/DADA2_databases/GTDB_bac120_arc53_ssu_r220_species.fa.gz", tryRC = T)
+#taxa_r220_s <- addSpecies(taxa, "~/wsg_gtdb_tax/mock_data/MBARC26/16s_fasta/DADA2_databases/GTDB_bac120_arc53_ssu_r220_species.fa.gz", tryRC = T)
 ```
 
 # GTDB R226 Taxonomy
 ```{r}
-taxa_r226 <- assignTaxonomy(seqtab.nochim, "~/wsg_gtdb_tax/GTDB_bac120_arc53_ssu_r226_fullTaxo.fna.gz",tryRC = TRUE, multithread=FALSE)
+#taxa_r226_full <- assignTaxonomy(seqtab.nochim, "/home/brymoore/wsg_gtdb_tax/GTDB_bac120_arc53_ssu_r226_fullTaxo.fna.gz",tryRC = TRUE, multithread=FALSE)
 ```
+
+```{r}
+#taxa_r226_genus <- assignTaxonomy(seqtab.nochim, "/home/brymoore/wsg_gtdb_tax/GTDB_bac120_arc53_ssu_r226_genus.fna.gz",tryRC = TRUE, multithread=FALSE)
+```
+
+
+```{r}
+#taxa_r226_species <- addSpecies(taxa_r226_genus, "~/wsg_gtdb_tax/GTDB_bac120_arc53_ssu_r226_species_parsed_CLASS_SPP.fa.gz", tryRC = T, allowMultiple=TRUE, verbose=TRUE)
+```
+Not getting much species classification with `addSpecies`. going to try ID taxa in DECIPHER
+see:https://decipher.codes/Downloads.html <- link to training dataset
+see: https://benjjneb.github.io/dada2/tutorial.html
+
+```{r}
+#dna <- DNAStringSet(getSequences(seqtab.nochim)) # Create a DNAStringSet from the ASVs
+l#oad("~/wsg_gtdb_tax/GTDB_r226_classifier.RData") # CHANGE TO THE PATH OF YOUR TRAINING SET
+#ids <- IdTaxa(dna, trainingSet, strand="both", processors=NULL, verbose=TRUE) # use all processors
+#ranks <- c("domain", "phylum", "class", "order", "family", "genus", "species") # ranks of interest
+# Convert the output object of class "Taxa" to a matrix analogous to the output from assignTaxonomy
+#taxid <- t(sapply(ids, function(x) {
+#        m <- match(ranks, x$rank)
+#       taxa <- x$taxon[m]
+#        taxa[startsWith(taxa, "unclassified_")] <- NA
+#        taxa
+#}))
+#colnames(taxid) <- ranks; rownames(taxid) <- getSequences(seqtab.nochim)
+```
+# Write out all of the taxonomy files
+
+Save the file with the taxonomy from using DECIPHER
+```{r}
+#write.csv(taxid, "taxid.csv", row.names = T)
+```
+
+
+Save csv from the full taxonomy added as add taxonomy
+```{r}
+#write.csv(taxa_r226_full, "tax_full.csv", row.names = T)
+```
+
+Save csv from the species added seperately
+```{r}
+#write.csv(taxa_r226_species, "tax_species.csv", row.names = T)
+```
+
 
