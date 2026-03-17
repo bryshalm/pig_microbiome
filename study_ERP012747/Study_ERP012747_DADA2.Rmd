@@ -1,0 +1,795 @@
+---
+title: "Study_ERP012747_DADA2 "
+author: "Bryshal Moore"
+date: "2026-02-20"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+#Install binaries from Bioconductor version 3.16. See tutorial [DAADA2 Installation](https://benjjneb.github.io/dada2/dada-installation.html) and [dada2 tutorial](https://benjjneb.github.io/dada2/tutorial.html)
+
+#Install BiocManager
+```{r}
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+```
+
+#Install DADA2
+```{r}
+#BiocManager::install("dada2")
+```
+#Load the DADA2 library
+```{r}
+
+library(dada2); packageVersion("dada2")
+library(ggplot2)
+library(tidyverse)
+
+```
+
+```{r}
+getwd()
+```
+
+```{r}
+# Set the path to fastq files
+all_path <- "/home/brymoore/wsg_gtdb_tax/pig_microbiome/study_ERP012747"
+
+# Check filenames first
+head(list.files(all_path))
+
+studies <- list(
+  study_A = list(
+    pattern  = "^10296\\.A",
+    region   = "V1-V3",
+    truncLen = 240,
+    trimLeft = 0,
+    maxEE    = 2
+  ),
+  study_B = list(
+    pattern  = "^10296\\.B",
+    region   = "V1-V2",
+    truncLen = 240,
+    trimLeft = 0,
+    maxEE    = 2
+  ),
+  study_C = list(
+    pattern  = "^10296\\.C",
+    region   = "V4",
+    truncLen = 240,
+    trimLeft = 0,
+    maxEE    = 2
+  ),
+  study_D = list(
+    pattern  = "^10296\\.D",
+    region   = "V3-V4",
+    truncLen = 240,
+    trimLeft = 0,
+    maxEE    = 2
+  ),
+  study_E = list(
+    pattern  = "^10296\\.E",
+    region   = "V4",
+    truncLen = 240,
+    trimLeft = 0,
+    maxEE    = 2
+  ),
+  study_F = list(
+    pattern  = "^10296\\.F",
+    region   = "V1-V3",
+    truncLen = 240,
+    trimLeft = 0,
+    maxEE    = 2
+  ),
+  study_G = list(
+    pattern  = "^10296\\.G",
+    region   = "V4",
+    truncLen = 240,
+    trimLeft = 0,
+    maxEE    = 2
+  ),
+  study_H = list(
+    pattern  = "^10296\\.H",
+    region   = "V4",
+    truncLen = 240,
+    trimLeft = 0,
+    maxEE    = 2
+  ),
+  study_I = list(
+    pattern  = "^10296\\.I",
+    region   = "V3-V5",
+    truncLen = 240,
+    trimLeft = 0,
+    maxEE    = 2
+  ),
+  study_J = list(
+    pattern  = "^10296\\.J",
+    region   = "V4",
+    truncLen = 240,
+    trimLeft = 0,
+    maxEE    = 2
+  ),
+  study_K = list(
+    pattern  = "^10296\\.K",
+    region   = "V4",
+    truncLen = 240,
+    trimLeft = 0,
+    maxEE    = 2
+  ),
+  study_L = list(
+    pattern  = "^10296\\.L",
+    region   = "V1-V3",
+    truncLen = 240,
+    trimLeft = 0,
+    maxEE    = 2
+  ),
+  study_M = list(
+    pattern  = "^10296\\.M",
+    region   = "V1-V3",
+    truncLen = 240,
+    trimLeft = 0,
+    maxEE    = 2
+  ),
+  study_N = list(
+    pattern  = "^10296\\.N",
+    region   = "V1-V3",
+    truncLen = 240,
+    trimLeft = 0,
+    maxEE    = 2
+  ),
+  study_O = list(
+    pattern  = "^10296\\.O",
+    region   = "V1-V3",
+    truncLen = 240,
+    trimLeft = 0,
+    maxEE    = 2
+  ),
+  study_P = list(
+    pattern  = "^10296\\.P",
+    region   = "V1-V2",
+    truncLen = 240,
+    trimLeft = 0,
+    maxEE    = 2
+  ),
+  study_Q = list(
+    pattern  = "^10296\\.Q",
+    region   = "V3",
+    truncLen = 240,
+    trimLeft = 0,
+    maxEE    = 2
+  ),
+  study_R = list(
+    pattern  = "^10296\\.R",
+    region   = "V1-V3",
+    truncLen = 240,
+    trimLeft = 0,
+    maxEE    = 2
+  ),
+  study_S = list(
+    pattern  = "^10296\\.S",
+    region   = "V3",
+    truncLen = 240,
+    trimLeft = 0,
+    maxEE    = 2
+  ),
+  study_T = list(
+    pattern  = "^10296\\.T",
+    region   = "V1-V3",
+    truncLen = 240,
+    trimLeft = 0,
+    maxEE    = 2
+  )
+)
+```
+
+```{r}
+# Run this first, then go back and fill in truncLen for each study
+for (s_name in names(studies)) {
+  s <- studies[[s_name]]
+  
+  fq_files <- sort(list.files(all_path, pattern = s$pattern, full.names = TRUE))
+  
+  if (length(fq_files) == 0) {
+    cat("\n⚠️  No files found for", s_name, "at path:", all_path, "\n")
+    cat("Files present:", paste(head(list.files(all_path)), collapse = ", "), "\n")
+    next
+  }
+  
+  cat("\nFound", length(fq_files), "files for", s_name, "\n")
+  
+  n_plot <- min(9, length(fq_files))
+  sample_idx <- sample(length(fq_files), n_plot)
+  
+  p <- plotQualityProfile(fq_files[sample_idx])
+  print(p + ggtitle(paste("Quality Profiles:", s_name, "-", s$region)))
+}
+```
+In gray-scale is a heat map of the frequency of each quality score at each base position. The mean quality score at each position is shown by the green line, and the quartiles of the quality score distribution by the orange lines. The red line shows the scaled proportion of reads that extend to at least that position (this is more useful for other sequencing technologies, as Illumina reads are typically all the same length, hence the flat red line).
+
+
+```{r filter-and-trim}
+#Update truncLen in the studies list above before running this chunk
+filtered_results <- list()
+
+for (s_name in names(studies)) {
+  s <- studies[[s_name]]
+  
+  fq_files <- sort(list.files(all_path, pattern = s$pattern, full.names = TRUE))
+  
+  if (length(fq_files) == 0) {
+    cat("\n⚠️  No files found for", s_name, "\n")
+    next
+  }
+  
+  if (is.na(s$truncLen)) {
+    cat("\n⚠️  truncLen is still NA for", s_name, "-- skipping. Set it after viewing quality plots.\n")
+    next
+  }
+  
+  sample_names <- sub("\\.fastq\\.gz$", "", basename(fq_files))
+  
+  filt_path <- file.path(all_path, "filtered", s_name)
+  filtered  <- file.path(filt_path, paste0(sample_names, "_filt.fastq.gz"))
+  names(filtered) <- sample_names
+  
+  out <- filterAndTrim(
+    fq_files, filtered,
+    truncLen    = s$truncLen,
+    trimLeft    = s$trimLeft,
+    maxEE       = s$maxEE,
+    truncQ      = 2,
+    rm.phix     = TRUE,
+    compress    = TRUE,
+    multithread = TRUE
+  )
+  
+  cat("\n--- Filter summary:", s_name, "---\n")
+  print(out)
+  
+  filtered_results[[s_name]] <- list(
+    stats    = out,
+    filtered = filtered[file.exists(filtered)]
+  )
+}
+```
+```{r learn-errors}
+error_models <- list()
+
+for (s_name in names(studies)) {
+  
+  if (is.null(filtered_results[[s_name]])) {
+    cat("\n⚠️  No filtered results for", s_name, "-- skipping.\n")
+    next
+  }
+  
+  cat("\nLearning errors for:", s_name, "\n")
+  
+  filt_files <- filtered_results[[s_name]]$filtered
+  err <- learnErrors(filt_files, multithread = TRUE)
+  
+  print(plotErrors(err, nominalQ = TRUE) + ggtitle(s_name))
+  
+  error_models[[s_name]] <- err
+}
+```
+```{r}
+dada_results  <- list()
+derep_results <- list()
+
+for (s_name in names(studies)) {
+  
+  if (is.null(filtered_results[[s_name]]) || is.null(error_models[[s_name]])) {
+    cat("\n⚠️  Skipping", s_name, "-- missing filtered reads or error model.\n")
+    next
+  }
+  
+  cat("\nDenoising:", s_name, "\n")
+  
+  filt_files <- filtered_results[[s_name]]$filtered
+  err        <- error_models[[s_name]]
+  
+  cat("Number of samples:", length(filt_files), "\n")
+  
+  derep <- derepFastq(filt_files)
+  
+  # If only one sample, derepFastq returns a single object — wrap it in a list
+  if (class(derep) == "derep") {
+    derep <- list(derep)
+    names(derep) <- names(filt_files)
+  } else {
+    names(derep) <- names(filt_files)
+  }
+  
+  dada_out <- dada(derep, err = err, multithread = TRUE)
+  
+  # Same fix for dada output
+  if (class(dada_out) == "dada") {
+    dada_out <- list(dada_out)
+    names(dada_out) <- names(filt_files)
+  }
+  
+  derep_results[[s_name]] <- derep
+  dada_results[[s_name]]  <- dada_out
+}
+```
+
+```{r}
+# 1. Check filtered_results
+length(filtered_results)
+names(filtered_results)
+
+# 2. Check error_models
+length(error_models)
+names(error_models)
+
+# 3. Check what the safety check is actually seeing
+for (s_name in names(studies)) {
+  cat("\n", s_name, "\n")
+  cat("filtered_results NULL?", is.null(filtered_results[[s_name]]), "\n")
+  cat("error_models NULL?",     is.null(error_models[[s_name]]), "\n")
+}
+```
+
+```{r denoise}
+dada_results  <- list()
+derep_results <- list()
+
+for (s_name in names(studies)) {
+  
+  cat("\n--- Starting:", s_name, "---\n")
+  
+  filt_files <- filtered_results[[s_name]]$filtered
+  err        <- error_models[[s_name]]
+  
+  cat("Number of filtered files:", length(filt_files), "\n")
+  cat("Files exist:", all(file.exists(filt_files)), "\n")
+  
+  cat("Running derepFastq...\n")
+  derep <- tryCatch({
+    derepFastq(filt_files)
+  }, error = function(e) {
+    cat("derepFastq failed:", e$message, "\n")
+    NULL
+  })
+  
+  if (is.null(derep)) next
+  
+  if (class(derep) == "derep") {
+    derep <- list(derep)
+    names(derep) <- names(filt_files)
+  } else {
+    names(derep) <- names(filt_files)
+  }
+  
+  cat("Derep successful. Samples:", length(derep), "\n")
+  
+  cat("Running dada...\n")
+  dada_out <- tryCatch({
+    dada(derep, err = err, multithread = TRUE)
+  }, error = function(e) {
+    cat("dada failed:", e$message, "\n")
+    NULL
+  })
+  
+  if (is.null(dada_out)) next
+  
+  if (class(dada_out) == "dada") {
+    dada_out <- list(dada_out)
+    names(dada_out) <- names(filt_files)
+  }
+  
+  cat("Denoising successful for", s_name, "\n")
+  
+  derep_results[[s_name]] <- derep
+  dada_results[[s_name]]  <- dada_out
+}
+
+cat("\nStudies successfully denoised:", length(dada_results), "\n")
+cat("Names:", paste(names(dada_results), collapse = ", "), "\n")
+```
+
+
+
+
+```{r}
+seq_tables <- list()
+
+for (s_name in names(studies)) {
+  
+  if (is.null(dada_results[[s_name]])) {
+    cat("\n⚠️  No dada results for", s_name, "-- skipping.\n")
+    next
+  }
+  
+  seqtab <- makeSequenceTable(dada_results[[s_name]])
+  
+  cat("\nAmplicon length distribution for", s_name, ":\n")
+  print(table(nchar(getSequences(seqtab))))
+  
+  seq_tables[[s_name]] <- seqtab
+}
+
+```
+
+
+Chimera Removal per Study
+```{r}
+seqtab_nochim <- list()
+
+for (s_name in names(seq_tables)) {
+  seqtab_nochim[[s_name]] <- removeBimeraDenovo(
+    seq_tables[[s_name]],
+    method      = "consensus",
+    multithread = TRUE,
+    verbose     = TRUE
+  )
+  
+  cat("\n", s_name, "- Fraction retained after chimera removal:",
+      round(sum(seqtab_nochim[[s_name]]) / sum(seq_tables[[s_name]]), 3), "\n")
+}
+```
+
+
+Track Reads Per Study
+```{r}
+get_n <- function(x) sum(getUniques(x))
+
+track_list <- lapply(names(studies), function(s_name) {
+  
+  if (is.null(filtered_results[[s_name]]) || is.null(dada_results[[s_name]])) {
+    return(NULL)
+  }
+  
+  raw_stats <- filtered_results[[s_name]]$stats
+  dada_out  <- dada_results[[s_name]]
+  
+  # Denoised counts
+  denoised <- if (class(dada_out) == "dada") {
+    rep(get_n(dada_out), nrow(raw_stats))
+  } else {
+    sapply(dada_out, get_n)
+  }
+  
+  # Chimera-removed counts
+  nonchim <- if (!is.null(seqtab_nochim[[s_name]])) {
+    rowSums(seqtab_nochim[[s_name]])
+  } else {
+    rep(NA, nrow(raw_stats))
+  }
+  
+  data.frame(
+    study    = s_name,
+    sample   = rownames(raw_stats),
+    input    = raw_stats[, 1],
+    filtered = raw_stats[, 2],
+    denoised = denoised,
+    nonchim  = nonchim
+  )
+})
+
+track_df <- do.call(rbind, Filter(Negate(is.null), track_list))
+print(track_df)
+
+# Also print percentage retained at each step
+track_df$pct_filtered <- round(track_df$filtered / track_df$input * 100, 1)
+track_df$pct_denoised <- round(track_df$denoised / track_df$input * 100, 1)
+track_df$pct_nonchim  <- round(track_df$nonchim  / track_df$input * 100, 1)
+
+print(track_df)
+```
+
+```{r}
+names(seqtab_nochim)
+length(seqtab_nochim)
+```
+
+```{r}
+file.exists("/home/brymoore/wsg_gtdb_tax/curated_GTDB/GTDB_bac120_arc53_ssu_r226_genus.fna.gz")
+```
+
+
+```{r}
+# ASVs per study
+sapply(seqtab_nochim, function(x) length(getSequences(x)))
+
+# Total if assigned separately (current approach)
+sum(sapply(seqtab_nochim, function(x) length(getSequences(x))))
+
+# Total if deduplicated (new approach)
+length(unique(unlist(lapply(seqtab_nochim, getSequences))))
+```
+
+```{r}
+# Get all unique ASVs across all studies
+all_asvs <- unique(unlist(lapply(seqtab_nochim, getSequences)))
+cat("Unique ASVs to assign:", length(all_asvs), "\n")
+
+# Make a dummy seqtab with all unique ASVs
+dummy_seqtab <- matrix(1L,
+                        nrow = 1,
+                        ncol = length(all_asvs),
+                        dimnames = list("dummy", all_asvs))
+
+# Assign taxonomy ONCE
+cat("\nAssigning taxonomy on", length(all_asvs), "unique ASVs...\n")
+taxa_r226_all <- assignTaxonomy(
+  dummy_seqtab,
+  "/home/brymoore/wsg_gtdb_tax/curated_GTDB/GTDB_bac120_arc53_ssu_r226_genus.fna.gz",
+  tryRC       = TRUE,
+  multithread = TRUE
+)
+
+# Add species ONCE
+cat("\nAdding species...\n")
+taxa_species_r226_all <- addSpecies(
+  taxa_r226_all,
+  "/home/brymoore/wsg_gtdb_tax/curated_GTDB/GTDB_bac120_arc53_ssu_r226_species_parsed_CLASS_SPP_CLD.fa.gz",
+  tryRC   = TRUE,
+  verbose = TRUE
+)
+
+# Map back to each study
+taxa_r226         <- list()
+taxa_species_r226 <- list()
+
+for (s_name in names(seqtab_nochim)) {
+  study_asvs <- getSequences(seqtab_nochim[[s_name]])
+  
+  taxa_r226[[s_name]]         <- taxa_r226_all[rownames(taxa_r226_all) %in% study_asvs, , drop = FALSE]
+  taxa_species_r226[[s_name]] <- taxa_species_r226_all[rownames(taxa_species_r226_all) %in% study_asvs, , drop = FALSE]
+  
+  cat(s_name, ":", nrow(taxa_r226[[s_name]]), "ASVs mapped back\n")
+}
+```
+
+```{r}
+# Sanity check - mapped ASVs should match original counts
+cat("\nSanity check:\n")
+cat("Original ASV counts:\n")
+print(sapply(seqtab_nochim, function(x) length(getSequences(x))))
+cat("\nMapped back ASV counts:\n")
+print(sapply(taxa_r226, nrow))
+```
+
+
+```{}
+taxa_r226 <- list()
+
+for (s_name in names(seqtab_nochim)) {
+  
+  cat("\nAssigning taxonomy for:", s_name, "\n")
+  
+  taxa_r226[[s_name]] <- assignTaxonomy(
+    seqtab_nochim[[s_name]],
+    "/home/brymoore/wsg_gtdb_tax/curated_GTDB/GTDB_bac120_arc53_ssu_r226_genus.fna.gz",
+    tryRC      = TRUE,
+    multithread = TRUE
+  )
+  
+  cat("Done:", s_name, "-", nrow(taxa_r226[[s_name]]), "ASVs assigned\n")
+}
+
+# Check results for any study
+head(taxa_r226[["study_A"]])
+```
+
+```{r}
+file.exists("/home/brymoore/wsg_gtdb_tax/curated_GTDB/GTDB_bac120_arc53_ssu_r226_species_parsed_CLASS_SPP_CLD.fa.gz")
+```
+
+```{}
+taxa_species_r226 <- list()
+
+for (s_name in names(taxa_r226)) {
+  
+  cat("\nAdding species for:", s_name, "\n")
+  
+  taxa_species_r226[[s_name]] <- addSpecies(
+    taxa_r226[[s_name]],
+    "/home/brymoore/wsg_gtdb_tax/curated_GTDB/GTDB_bac120_arc53_ssu_r226_species_parsed_CLASS_SPP_CLD.fa.gz",
+    tryRC      = TRUE,
+    verbose    = TRUE
+  )
+  
+  cat("Done:", s_name, "-", 
+      sum(!is.na(taxa_species_r226[[s_name]][, "Species"])), 
+      "ASVs assigned to species\n")
+}
+```
+
+```{r}
+# Check results
+head(taxa_species_r226[["study_A"]])
+```
+
+
+```{}
+# Create output directory
+out_dir <- "/home/brymoore/wsg_gtdb_tax/pig_microbiome/study_ERP012747/results"
+dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
+
+# 1. Write track reads summary
+write.csv(track_df, 
+          file.path(out_dir, "read_tracking.csv"), 
+          row.names = FALSE)
+
+# 2. Write seqtab_nochim per study (ASV counts per sample)
+for (s_name in names(seqtab_nochim)) {
+  write.csv(seqtab_nochim[[s_name]],
+            file.path(out_dir, paste0(s_name, "_seqtab_nochim.csv")),
+            row.names = TRUE)
+}
+
+# 3. Write taxonomy per study
+for (s_name in names(taxa)) {
+  write.csv(taxa[[s_name]],
+            file.path(out_dir, paste0(s_name, "_taxonomy.csv")),
+            row.names = TRUE)
+}
+
+# 4. Write taxonomy with species per study
+for (s_name in names(taxa_species)) {
+  write.csv(taxa_species[[s_name]],
+            file.path(out_dir, paste0(s_name, "_taxonomy_species.csv")),
+            row.names = TRUE)
+}
+
+# 5. Confirm all files were written
+cat("\nFiles written to", out_dir, ":\n")
+print(list.files(out_dir))
+```
+
+
+```{}
+# Create output directory
+out_dir <- "/home/brymoore/wsg_gtdb_tax/pig_microbiome/study_ERP012747/results"
+dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
+
+# 1. Write track reads summary
+write.csv(track_df, 
+          file.path(out_dir, "read_tracking.csv"), 
+          row.names = FALSE)
+
+# 2. Write seqtab_nochim per study (ASV counts per sample)
+for (s_name in names(seqtab_nochim)) {
+  write.csv(seqtab_nochim[[s_name]],
+            file.path(out_dir, paste0(s_name, "_seqtab_nochim.csv")),
+            row.names = TRUE)
+}
+
+# 3. Write taxonomy per study
+for (s_name in names(taxa)) {
+  write.csv(taxa[[s_name]],
+            file.path(out_dir, paste0(s_name, "_taxonomy.csv")),
+            row.names = TRUE)
+}
+
+# 4. Write taxonomy with species per study
+for (s_name in names(taxa_species)) {
+  write.csv(taxa_species[[s_name]],
+            file.path(out_dir, paste0(s_name, "_taxonomy_species.csv")),
+            row.names = TRUE)
+}
+
+# 5. Confirm all files were written
+cat("\nFiles written to", out_dir, ":\n")
+print(list.files(out_dir))
+```
+
+---
+
+```{r}
+# Create output directory
+out_dir <- "/home/brymoore/wsg_gtdb_tax/pig_microbiome/study_ERP012747/results"
+dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
+
+# 1. Write track reads summary
+write.csv(track_df,
+          file.path(out_dir, "read_tracking.csv"),
+          row.names = FALSE)
+
+# 2. Write seqtab_nochim per study
+for (s_name in names(seqtab_nochim)) {
+  write.csv(seqtab_nochim[[s_name]],
+            file.path(out_dir, paste0(s_name, "_seqtab_nochim.csv")),
+            row.names = TRUE)
+}
+
+# 3. Write taxonomy per study
+for (s_name in names(taxa_r226)) {
+  write.csv(taxa_r226[[s_name]],
+            file.path(out_dir, paste0(s_name, "_taxonomy_r226.csv")),
+            row.names = TRUE)
+}
+
+# 4. Write taxonomy with species per study
+for (s_name in names(taxa_species_r226)) {
+  write.csv(taxa_species_r226[[s_name]],
+            file.path(out_dir, paste0(s_name, "_taxonomy_species_r226.csv")),
+            row.names = TRUE)
+}
+
+# 5. Write full deduplicated taxonomy tables
+write.csv(taxa_r226_all,
+          file.path(out_dir, "all_unique_asvs_taxonomy_r226.csv"),
+          row.names = TRUE)
+
+write.csv(taxa_species_r226_all,
+          file.path(out_dir, "all_unique_asvs_taxonomy_species_r226.csv"),
+          row.names = TRUE)
+
+# Confirm everything written
+cat("\nAll files written to:", out_dir, "\n")
+print(list.files(out_dir))
+```
+
+
+
+### Written Out Files
+```
+results/
+├── read_tracking.csv                    # all studies read counts
+├── study_X_seqtab_nochim.csv            # ASV table study A
+├── study_X_taxonomy.csv                 # taxonomy to genus study A
+├── study_X_taxonomy_species.csv         # taxonomy with species study A
+
+```
+---
+
+
+```{}
+library(DECIPHER)
+
+# Load the training set once outside the loop
+load("~/wsg_gtdb_tax/GTDB_r226_classifier.RData")
+
+ranks <- c("domain", "phylum", "class", "order", "family", "genus", "species")
+
+taxa_decipher <- list()
+
+for (s_name in names(seqtab_nochim)) {
+  
+  cat("\nRunning DECIPHER taxonomy for:", s_name, "\n")
+  
+  # Create DNAStringSet from ASVs
+  dna <- DNAStringSet(getSequences(seqtab_nochim[[s_name]]))
+  
+  # Run IdTaxa
+  ids <- IdTaxa(
+    dna, 
+    trainingSet, 
+    strand     = "both", 
+    processors = NULL,    # uses all available cores
+    verbose    = TRUE
+  )
+  
+  # Convert to matrix
+  taxid <- t(sapply(ids, function(x) {
+    m     <- match(ranks, x$rank)
+    taxa  <- x$taxon[m]
+    taxa[startsWith(taxa, "unclassified_")] <- NA
+    taxa
+  }))
+  
+  colnames(taxid) <- ranks
+  rownames(taxid) <- getSequences(seqtab_nochim[[s_name]])
+  
+  taxa_decipher[[s_name]] <- taxid
+  
+  cat("Done:", s_name, "-", nrow(taxid), "ASVs assigned\n")
+  cat("Species assigned:", sum(!is.na(taxid[, "species"])), "\n")
+}
+```
+
+
+Have a chart that shows .
+
+for the sktech did a breath filter to see 
+make a table for singleton and excludin singletons
+
+
+for next week bring he pollution metagenomes. 
