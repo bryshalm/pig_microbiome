@@ -9,3 +9,26 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r}
+getwd()
+```
+
+Read in libraries
+```{r}
+library(phyloseq)
+library(Biostrings)
+library(tidyverse)
+```
+
+
+```{r}
+#See your sample names from seqtab_nochim
+ps_all_samples <- unlist(lapply(seqtab_nochim, rownames))
+head(ps_all_samples)
+length(ps_all_samples)
+```
+
+
+
+
+

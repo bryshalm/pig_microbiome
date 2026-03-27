@@ -1,0 +1,23 @@
+---
+title: "PRJNA214736_PS_object"
+author: "Bryshal Moore"
+date: "2026-03-17"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(phyloseq); packageVersion("phyloseq")
+library(Biostrings); packageVersion("Biostrings")
+library(ggplot2); packageVersion("ggplot2")
+
+```
+
+```{r}
+read_csv()
+```
+
+

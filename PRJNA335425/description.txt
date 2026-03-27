@@ -1,0 +1,24 @@
+eces metagenome
+feces metagenome Targeted Locus (Loci)
+16S rRNA gene sequencing of swine fecal samples from normal, healthy pigs fed standard diets.
+Accession	PRJNA335425
+Data Type	Targeted Locus (Loci)
+Scope	Environment
+Organism	feces metagenome[Taxonomy ID: 1861841]
+unclassified sequences; metagenomes; organismal metagenomes; feces metagenome
+Grants	
+"none" (Grant ID appropriated funds, United States Departement of Agriculture)
+Submission	Registration date: 26-Jul-2016
+National Animal Disease Center
+Relevance	Agricultural
+Project Data:
+Resource Name	Number
+of Links
+Sequence data
+SRA Experiments	47
+Other datasets
+BioSample	49
+SRA Data Details
+Parameter	Value
+Data volume, Mbases	390
+Data volume, Mbytes	247
