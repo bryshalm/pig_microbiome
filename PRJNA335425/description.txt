@@ -1,4 +1,4 @@
-eces metagenome
+feces metagenome
 feces metagenome Targeted Locus (Loci)
 16S rRNA gene sequencing of swine fecal samples from normal, healthy pigs fed standard diets.
 Accession	PRJNA335425
