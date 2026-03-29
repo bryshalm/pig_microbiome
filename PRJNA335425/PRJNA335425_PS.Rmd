@@ -50,25 +50,26 @@ seq_tab_t <- t(seq_tab)
 head(seq_tab_t)
 ```
 
-```{r}
+```{}
 # Extract sequences from rownames and replace with ASV IDs
 seqs <- DNAStringSet(rownames(seq_tab_t))
 names(seqs) <- paste0("ASV", seq(1, nrow(seq_tab_t)))
 ```
 
-```{r}
+```{}
 # Replace sequence rownames with ASV IDs
 rownames(seq_tab_t) <- paste0("ASV", seq(1, nrow(seq_tab_t)))
 ```
 
 
-```{r}
+```{}
 # Verify
 dim(seq_tab_t)          # rows = ASVs, cols = samples
 head(rownames(seq_tab_t))  # should show ASV1, ASV2...
 head(colnames(seq_tab_t))  # should show sample names
 seqs                    # DNAStringSet with ASV sequences
 ```
+
 ```{}
 # Save the sequences as a fasta file
 writeXStringSet(seqs, filepath = "ASVs.fasta")
@@ -83,10 +84,110 @@ write.csv(seq_tab_t, file = "seq_table_transposed.csv")
 
 
 ### Construct the Phyloseq Object
+
 ```{r}
-ps <- phyloseq(otu_table(seq_tab_t, taxa_are_rows=FALSE),
-               sample_data(meta_data),
-               tax_table(taxa_id))
+# They should all match
+rownames(seq_tab_t)   # ASV1, ASV2... (if taxa_are_rows=TRUE)
 ```
 
+```{r}
+rownames(taxa_id)     # should also be ASV1, ASV2...
+```
+
+```{r}
+rownames(meta_data)   # should be sample names e.g. SRR5515450...
+```
+
+```{r}
+colnames(seq_tab_t)   # should also be sample names
+```
+```{r}
+class(seq_tab_t)    # should be "matrix"
+class(meta_data)  # should be "data.frame"
+class(taxa)       # should be "matrix"
+```
+```{r}
+
+# Quick check - should return TRUE
+all(rownames(meta_data) %in% rownames(seq_tab))
+all(rownames(seq_tab) %in% rownames(meta_data))
+```
+```{r}
+# OTU table taxa - should be sequences
+head(colnames(seq_tab))
+
+# Tax table taxa - should also be sequences
+head(rownames(taxa))
+
+# Are they identical?
+all(colnames(seq_tab) == rownames(taxa))
+```
+
+```{r}
+# Check all three objects explicitly
+dim(seq_tab)
+dim(taxa_id)
+dim(meta_data)
+```
+
+
+```{r}
+# Check names
+head(colnames(seq_tab))    # taxa in otu table
+```
+
+```{r}
+head(rownames(taxa_id))    # taxa in tax table
+```
+
+```{r}
+# Are they exactly equal?
+identical(colnames(seq_tab), rownames(taxa_id))
+```
+
+```{r}
+# Check sample names
+identical(rownames(seq_tab), rownames(meta_data))
+```
+### Troubeshooting with AI
+
+```{r}
+# Detach and reload phyloseq
+detach("package:phyloseq", unload=TRUE)
+library(phyloseq)
+```
+
+
+
+```{r}
+# Build each component separately first
+OTU <- otu_table(seq_tab, taxa_are_rows = FALSE)
+SAM <- sample_data(meta_data)
+TAX <- tax_table(as.matrix(taxa_id))
+```
+
+
+```{r}
+# Check each component individually
+taxa_names(OTU) |> head()
+taxa_names(TAX) |> head()
+sample_names(OTU)
+sample_names(SAM)
+```
+
+```{r}
+ps <- phyloseq(OTU, SAM, TAX)
+ps
+```
+```{r}
+dna <- Biostrings::DNAStringSet(taxa_names(ps))
+names(dna) <- taxa_names(ps)
+ps <- merge_phyloseq(ps, dna)
+taxa_names(ps) <- paste0("ASV", seq(ntaxa(ps)))
+ps
+```
+```{}
+# Save ASVs as fasta file
+Biostrings::writeXStringSet(refseq(ps), filepath = "ASVs.fasta")
+```
 
