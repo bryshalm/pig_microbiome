@@ -38,22 +38,55 @@ head(taxa_id)
 ```
 ### Load the metadata
 ```{r}
-meta_data <- read.csv("PRJNA335425_runinfo.csv")
+meta_data <- read.csv("SraRunTable.csv", row.names = 1, header = T, check.names = FALSE)
 head(meta_data)
 ```
 
-Remove Unnecessary columns
+### Transpose the sequence table
 ```{r}
+# Transpose the sequence table
+seq_tab_t <- t(seq_tab)
+
+head(seq_tab_t)
+```
+
+```{r}
+# Extract sequences from rownames and replace with ASV IDs
+seqs <- DNAStringSet(rownames(seq_tab_t))
+names(seqs) <- paste0("ASV", seq(1, nrow(seq_tab_t)))
+```
+
+```{r}
+# Replace sequence rownames with ASV IDs
+rownames(seq_tab_t) <- paste0("ASV", seq(1, nrow(seq_tab_t)))
+```
+
+
+```{r}
+# Verify
+dim(seq_tab_t)          # rows = ASVs, cols = samples
+head(rownames(seq_tab_t))  # should show ASV1, ASV2...
+head(colnames(seq_tab_t))  # should show sample names
+seqs                    # DNAStringSet with ASV sequences
+```
+```{}
+# Save the sequences as a fasta file
+writeXStringSet(seqs, filepath = "ASVs.fasta")
 
 ```
 
+```{}
+
+# Save the transposed table
+write.csv(seq_tab_t, file = "seq_table_transposed.csv")
+```
 
 
 ### Construct the Phyloseq Object
 ```{r}
-ps <- phyloseq(otu_table(seq_tab, taxa_are_rows=FALSE),
-               sample_data(samdf),
-               tax_table(taxa))
+ps <- phyloseq(otu_table(seq_tab_t, taxa_are_rows=FALSE),
+               sample_data(meta_data),
+               tax_table(taxa_id))
 ```
 
 
