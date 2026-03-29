@@ -1,0 +1,21 @@
+pig gut metagenome
+Swine ileum Raw sequence reads
+The ileal microbiota post infection with E coli and fed a feed supplement
+Accession	PRJNA302730
+Data Type	Raw sequence reads
+Scope	Environment
+Organism	pig gut metagenome[Taxonomy ID: 1510822]
+unclassified sequences; metagenomes; organismal metagenomes; pig gut metagenome
+Grants	
+"Swine plasma immunoglobulins against post-weaning diarrhoea" (Grant ID 34009-12-0471, Green Development and Demonstration Program)
+Submission	Registration date: 19-Nov-2015
+DTU
+Relevance	Agricultural
+Project Data:
+Resource Name	Number
+of Links
+Sequence data
+SRA Experiments	24
+Other datasets
+BioSample	24
+SRA Data Details

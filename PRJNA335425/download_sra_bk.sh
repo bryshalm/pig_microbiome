@@ -1,17 +1,26 @@
 #!/bin/bash
-# File containing the list of SRA accession numbers
 SRA_LIST="SRR_Acc_List.txt"
-# Directory for output files
 OUT_DIR="fastq_files"
+SPLIT_DIR="fastq_files/split"
 mkdir -p "$OUT_DIR"
+mkdir -p "$SPLIT_DIR"
 
-# Loop through each accession number in the list
 while IFS= read -r accession; do
-  echo "Processing $accession"
-  # Use prefetch to download the .sra file (optional, fasterq-dump can do it in one go)
-  # prefetch "$accession" 
-
-  # Use fasterq-dump to download and convert to fastq format directly
-  # The --split-files flag is crucial for paired-end data
-  fasterq-dump --split-files -O "$OUT_DIR" "$accession"
+    echo "Processing $accession..."
+    fasterq-dump -O "$OUT_DIR" "$accession"
+    
+    echo "Splitting $accession..."
+    seqtk seq -1 "$OUT_DIR/${accession}.fastq" | gzip > "$SPLIT_DIR/${accession}_1.fastq.gz"
+    seqtk seq -2 "$OUT_DIR/${accession}.fastq" | gzip > "$SPLIT_DIR/${accession}_2.fastq.gz"
+    
+    # Verify
+    r1=$(zcat "$SPLIT_DIR/${accession}_1.fastq.gz" | wc -l)
+    r2=$(zcat "$SPLIT_DIR/${accession}_2.fastq.gz" | wc -l)
+    echo "$accession: R1=$((r1/4)) reads, R2=$((r2/4)) reads"
+    
+    # Delete interleaved file to save disk space
+    rm "$OUT_DIR/${accession}.fastq"
+    
 done < "$SRA_LIST"
+
+echo "All done!"
