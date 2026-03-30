@@ -87,11 +87,11 @@ write.csv(seq_tab_t, file = "seq_table_transposed.csv")
 
 ```{r}
 # They should all match
-rownames(seq_tab_t)   # ASV1, ASV2... (if taxa_are_rows=TRUE)
+rownames(seq_tab_t)   
 ```
 
 ```{r}
-rownames(taxa_id)     # should also be ASV1, ASV2...
+rownames(taxa_id)     # should also be same sequences
 ```
 
 ```{r}
@@ -104,7 +104,7 @@ colnames(seq_tab_t)   # should also be sample names
 ```{r}
 class(seq_tab_t)    # should be "matrix"
 class(meta_data)  # should be "data.frame"
-class(taxa)       # should be "matrix"
+class(taxa_id)       # should be "matrix"
 ```
 ```{r}
 
@@ -117,10 +117,10 @@ all(rownames(seq_tab) %in% rownames(meta_data))
 head(colnames(seq_tab))
 
 # Tax table taxa - should also be sequences
-head(rownames(taxa))
+head(rownames(taxa_id))
 
 # Are they identical?
-all(colnames(seq_tab) == rownames(taxa))
+all(colnames(seq_tab) == rownames(taxa_id))
 ```
 
 ```{r}
@@ -186,8 +186,13 @@ ps <- merge_phyloseq(ps, dna)
 taxa_names(ps) <- paste0("ASV", seq(ntaxa(ps)))
 ps
 ```
-```{}
+```{r}
+refseq(ps)
+```
+
+
+```{ls}
 # Save ASVs as fasta file
-Biostrings::writeXStringSet(refseq(ps), filepath = "ASVs.fasta")
+Biostrings::writeXStringSet(refseq(ps), filepath = "/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA335425/ASV.fasta")
 ```
 
