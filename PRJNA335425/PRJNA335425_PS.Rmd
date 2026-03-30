@@ -191,8 +191,8 @@ refseq(ps)
 ```
 
 
-```{ls}
+```{r}
 # Save ASVs as fasta file
-Biostrings::writeXStringSet(refseq(ps), filepath = "/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA335425/ASV.fasta")
+#Biostrings::writeXStringSet(refseq(ps), filepath = "/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA335425/ASVs.fasta")
 ```
 
