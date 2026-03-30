@@ -1,5 +1,5 @@
 {
-    "report_multiqc_command": "/home/brymoore/.local/share/mamba/envs/multiqc_env/bin/multiqc fastqc_output/ -o multiqc_output",
+    "report_multiqc_command": "/home/brymoore/.local/share/mamba/envs/multiqc_env/bin/multiqc fastqc_output -o multiqc_output",
     "report_data_sources": {
         "FastQC": {
             "all_sections": {
@@ -308,7 +308,7 @@
             }
         }
     },
-    "report_creation_date": "2026-03-29, 13:00 PDT",
+    "report_creation_date": "2026-03-29, 20:40 PDT",
     "report_plot_data": {
         "fastqc_sequence_counts_plot": {
             "id": "fastqc_sequence_counts_plot",
@@ -45029,7 +45029,7 @@
         }
     },
     "config_analysis_dir": [
-        "fastqc_output/"
+        "fastqc_output"
     ],
     "config_git_hash": null,
     "config_intro_text": null,
