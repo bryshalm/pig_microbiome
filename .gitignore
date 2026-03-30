@@ -17,6 +17,8 @@
 *.rds
 *.Rhistory
 *.RDataTmp
+*.tar.gz
+*.tar
 
 # Large / generated outputs
 results/
