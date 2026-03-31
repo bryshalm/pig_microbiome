@@ -47,3 +47,77 @@ head(meta_data)
 ```
 
 
+### Transpose the sequence table
+```{r}
+# Transpose the sequence table
+seq_tab_t <- t(seq_tab)
+
+head(seq_tab_t)
+```
+
+```{r}
+
+# Save the transposed table
+write.csv(seq_tab_t, file = "seq_table_transposed.csv")
+```
+
+### Construct the Phyloseq Object
+
+```{r}
+rownames(meta_data)   # should be sample names e.g. SRR5515450...
+```
+
+```{r}
+colnames(seq_tab_t)   # should also be sample names
+```
+
+```{r}
+class(seq_tab_t)    # should be "matrix"
+class(meta_data)  # should be "data.frame"
+class(taxa_id)       # should be "matrix"
+```
+
+
+### Quick check - should return TRUE
+```{r}
+all(rownames(meta_data) %in% rownames(seq_tab))
+all(rownames(seq_tab) %in% rownames(meta_data))
+```
+# Are they identical?
+```{r}
+all(colnames(seq_tab) == rownames(taxa_id))
+```
+
+```{r}
+# Build each component separately first
+OTU <- otu_table(seq_tab, taxa_are_rows = FALSE)
+SAM <- sample_data(meta_data)
+TAX <- tax_table(as.matrix(taxa_id))
+```
+
+
+```{r}
+ps <- phyloseq(OTU, SAM, TAX)
+ps
+```
+
+
+
+```{r}
+dna <- Biostrings::DNAStringSet(taxa_names(ps))
+names(dna) <- taxa_names(ps)
+ps <- merge_phyloseq(ps, dna)
+taxa_names(ps) <- paste0("ASV", seq(ntaxa(ps)))
+ps
+```
+
+```{r}
+refseq(ps)
+```
+
+
+```{r}
+# Save ASVs as fasta file
+Biostrings::writeXStringSet(refseq(ps), filepath = "/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB11368/ASVs.fasta") # Change path to current working directory
+```
+
