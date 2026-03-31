@@ -1,0 +1,17 @@
+Pig gut Metagenome
+Growth Performance and Gut Microbiota Comparison Between Black and White Swine
+Accession	PRJNA252973
+Data Type	Metagenome
+Scope	Environment
+Organism	pig gut metagenome[Taxonomy ID: 1510822]
+unclassified sequences; metagenomes; organismal metagenomes; pig gut metagenome
+Submission	Registration date: 17-Jun-2014
+Jeju National University
+Relevance	Agricultural
+Project Data:
+Resource Name	Number
+of Links
+Sequence data
+SRA Experiments	42
+Other datasets
+BioSample	42

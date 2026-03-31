@@ -1,0 +1,49 @@
+---
+title: "PRJEB11368_PS"
+author: "Bryshal Moore"
+date: "2026-03-31"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+### Load Libraries
+```{r}
+library(phyloseq); packageVersion("phyloseq")
+```
+
+```{r}
+library(Biostrings); packageVersion("Biostrings")
+```
+
+```{r}
+library(ggplot2); packageVersion("ggplot2")
+```
+
+```{r}
+getwd()
+```
+
+
+
+### Load Sequence Table
+```{r}
+seq_tab <- read.csv("sequence_table.csv", row.names = 1, check.names = FALSE) # Change to location of sequence table
+```
+
+### Load the taxonomy table
+```{r}
+taxa_id <- read.csv("taxid.csv", row.names = 1, check.names = FALSE)
+
+head(taxa_id)
+```
+### Load the metadata
+```{r}
+meta_data <- read.csv("SraRunTable.csv", row.names = 1, header = T, check.names = FALSE)
+head(meta_data)
+```
+
+
