@@ -1,0 +1,21 @@
+Piglet intestinal microbiome samples Metagenome
+Vaginally-delivered neonatal piglets were used to explore the impact of prebiotic supplementation of formula milk on the development of the intestinal microbiome. Neonatal piglets were randomized to receive formula milk (FORM, n=8), formula milk supplemented with 2 g/L each galactooligosaccharides and polydextrose (F+GP, n=9) or a sow-reared (SOW, n=12) reference group for 19 days. Culture-independent methods were used to perform a broad characterization of the ileal and colonic bacterial microbiome. Specifically, identifying bacterial taxa stimulated by the selected prebiotics. Less...
+Accession	PRJNA266806
+Data Type	Metagenome
+Scope	Environment
+Organism	pig gut metagenome[Taxonomy ID: 1510822]
+unclassified sequences; metagenomes; organismal metagenomes; pig gut metagenome
+Submission	Registration date: 10-Nov-2014
+University of Illinois-Urbana Champaign
+Relevance	Environmental
+Project Data:
+Resource Name	Number
+of Links
+Sequence data
+SRA Experiments	53
+Other datasets
+BioSample	52
+SRA Data Details
+Parameter	Value
+Data volume, Mbases	220
+Data volume, Mbytes	508
