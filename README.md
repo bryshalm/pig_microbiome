@@ -9,6 +9,7 @@ Github page for storage of workflow and code associated with pig microbiome proj
 | [PRJEB11368](https://github.com/bryshalm/pig_microbiome/tree/main/PRJEB11368) | V4 | 20 | Colon digesta | Illumina  MiSeq | |   
 | [PRJNA266576](https://github.com/bryshalm/pig_microbiome/tree/main/PRJNA214736) | V3 to V4 | 48 | Colon digesta, fecal| 454 FLX| |   
 | [PRJNA252973](https://github.com/bryshalm/pig_microbiome/tree/main/PRJNA252973)| V4 | 42 | Fecal | Illumina  MiSeq | |   
+| [PRJNA266806](https://github.com/bryshalm/pig_microbiome/tree/main/PRJNA266806)| V3 to V4 |53|Colon, ileal digest|454 FLX||
 
 (Holman, et al. 2017)               
 
