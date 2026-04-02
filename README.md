@@ -1,5 +1,5 @@
 # Pig Microbiome Project
-Github page for storage of workflow and code associated with pig microbiome project
+Github page for storage of workflow and code associated with pig microbiome project.
 
 
 | BioProject | Hypervariable Region | Num. Samples| Sample type| Seq Platform| Reference|
