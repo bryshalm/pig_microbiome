@@ -44,9 +44,11 @@ list.files(path)
 ```
 
 ```{r}
-fnFs <- sort(list.files(path, pattern="fastq.gz", full.names=TRUE))
+# Single-end reads
+fnFs <- sort(list.files(path, pattern = ".fastq.gz", full.names = TRUE))
 
-sample.names <- sapply(strsplit(basename(fnFs), "_"), `[`, 1)
+# Extract sample names by removing the .fastq.gz suffix
+sample.names <- sapply(strsplit(basename(fnFs), ".fastq.gz"), `[`, 1)
 
 ```
 
@@ -173,6 +175,20 @@ Save the file with the taxonomy from using DECIPHER
 getwd()
 ```
 
+### Need to change sample names on the sequence table
+```{r}
+library(stringr)
+```
+
+
+```{}
+seqtab.nochim[,0] <- str_remove(seqtab.nochim[,0], ".fastq.gz")
+  
+```
+
+```{r}
+getwd()
+```
 
 ```{r}
 #write.csv(taxid, "taxid.csv", row.names = T)
