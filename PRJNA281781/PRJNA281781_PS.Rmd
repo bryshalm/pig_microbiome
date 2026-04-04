@@ -26,7 +26,7 @@ library(ggplot2); packageVersion("ggplot2")
 ```{r}
 getwd()
 
-setwd()
+
 ```
 
 
@@ -116,7 +116,7 @@ refseq(ps)
 ```
 
 
-```{r}
+```{}
 # Save ASVs as fasta file
-#Biostrings::writeXStringSet(refseq(ps), filepath = "/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA302730/ASVs.fasta") # Change path to current working directory
+Biostrings::writeXStringSet(refseq(ps), filepath = "/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA281781/ASVs.fasta") # Change path to current working directory
 ```
