@@ -57,7 +57,7 @@ seq_tab_t <- t(seq_tab)
 head(seq_tab_t)
 ```
 
-```{}
+```{r}
 
 # Save the transposed table
 write.csv(seq_tab_t, file = "seq_table_transposed.csv")
@@ -104,6 +104,8 @@ TAX <- tax_table(as.matrix(taxa_id))
 ps <- phyloseq(OTU, SAM, TAX)
 ps
 ```
+
+
 ```{r}
 dna <- Biostrings::DNAStringSet(taxa_names(ps))
 names(dna) <- taxa_names(ps)
@@ -119,5 +121,5 @@ refseq(ps)
 
 ```{}
 # Save ASVs as fasta file
-Biostrings::writeXStringSet(refseq(ps), filepath = "/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA281781/ASVs.fasta") # Change path to current working directory
+Biostrings::writeXStringSet(refseq(ps), filepath = "/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA267233/ASVs.fasta") # Change path to current working directory
 ```

@@ -1,0 +1,45 @@
+---
+title: "PRJEB8696_DADA"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Install binaries from Bioconductor version 3.16. See tutorial [DAADA2 Installation](https://benjjneb.github.io/dada2/dada-installation.html) and [dada2 tutorial](https://benjjneb.github.io/dada2/tutorial.html)
+
+#### Install BiocManager
+```{r}
+#if (!requireNamespace("BiocManager", quietly = TRUE))
+#    install.packages("BiocManager")
+```
+
+### Install DADA2
+```{r}
+#BiocManager::install("dada2")
+```
+
+### Load the DADA2 library
+```{r}
+
+library(dada2); packageVersion("dada2")
+```
+
+```{r}
+getwd()
+```
+
+### Set the path to  fastq files
+```{r}
+path <- "/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA267233/fastq_files" #Change me to the directory containing the fastq files(unzipped)
+
+list.files(path)
+
+# In side of the folder containing my fastq files
+```
