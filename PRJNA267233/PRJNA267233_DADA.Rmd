@@ -34,7 +34,7 @@ getwd()
 
 ### Set the path to  fastq files
 ```{r}
-path <- "/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA252973/fastq_files" #Change me to the directory containing the fastq files(unzipped)
+path <- "/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA267233/fastq_files" #Change me to the directory containing the fastq files(unzipped)
 
 list.files(path)
 
@@ -96,8 +96,8 @@ names(filtRs) <- sample.names
 ```
 
 ```{r}
-out <- filterAndTrim(fnFs, filtFs, fnRs, filtRs, truncLen=c(250,240),
-              maxN=2, maxEE=c(2,5), truncQ=2, rm.phix=TRUE,
+out <- filterAndTrim(fnFs, filtFs, fnRs, filtRs, truncLen=c(250,245),
+              maxN=0, maxEE=c(2,5), truncQ=2, rm.phix=TRUE,
               compress=TRUE, multithread=TRUE) # On Windows set multithread=FALSE (only needed for filterAndTrim)
 head(out)
 ```
@@ -123,6 +123,21 @@ plotErrors(errF, nominalQ=TRUE)
 ```{r}
 plotErrors(errR, nominalQ=TRUE)
 ```
+
+
+```{r}
+# Check for non-ACGT characters in filtered files
+# Check which samples have non-ACGT characters
+library(ShortRead)
+
+# Read first filtered sample and check
+fq <- readFastq(filtFs[1])
+seqs <- as.character(sread(fq))
+bad <- grep("[^ACGTacgt]", seqs)
+length(bad)  # how many bad reads
+head(seqs[bad])  # what do they look like
+```
+
 
 ### Sample Inference
 ```{r}
@@ -200,9 +215,9 @@ colnames(taxid) <- ranks; rownames(taxid) <- getSequences(seqtab.nochim)
 
 Save the file with the taxonomy from using DECIPHER
 ```{r}
-#write.csv(taxid, "taxid.csv", row.names = T)
+write.csv(taxid, "taxid.csv", row.names = T)
 ```
 
 ```{r}
-#write.csv(seqtab.nochim, "sequence_table.csv", row.names = T)
+write.csv(seqtab.nochim, "sequence_table.csv", row.names = T)
 ```
