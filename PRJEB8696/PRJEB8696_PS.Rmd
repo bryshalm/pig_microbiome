@@ -1,0 +1,143 @@
+---
+title: "PRJEB8696_PS"
+author: "Bryshal Moore"
+date: "2026-04-08"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+### Load Libraries
+```{r}
+library(phyloseq); packageVersion("phyloseq")
+```
+
+```{r}
+library(Biostrings); packageVersion("Biostrings")
+```
+
+```{r}
+library(ggplot2); packageVersion("ggplot2")
+```
+
+```{r}
+getwd()
+
+
+```
+
+
+### Load Sequence Table
+```{r}
+seq_tab <- read.csv("sequence_table.csv", row.names = 1, check.names = FALSE) # Change to location of sequence table
+```
+
+### Load the taxonomy table
+```{r}
+taxa_id <- read.csv("taxid.csv", row.names = 1, check.names = FALSE)
+
+head(taxa_id)
+```
+### Load the metadata
+```{r}
+meta_data <- read.csv("SraRunTable.csv", row.names = 1, header = T, check.names = FALSE)
+head(meta_data)
+```
+
+```{r}
+library(dplyr)
+library(stringr)
+```
+
+```{r}
+rownames(seq_tab) <- sub("\\.fastq\\.gz$", "", rownames(seq_tab))
+```
+
+
+### Transpose the sequence table
+```{r}
+# Transpose the sequence table
+seq_tab_t <- t(seq_tab)
+
+head(seq_tab_t)
+```
+
+```{}
+
+# Save the transposed table
+write.csv(seq_tab_t, file = "seq_table_transposed.csv")
+```
+
+
+### Construct the Phyloseq Object
+
+```{r}
+rownames(meta_data)   # should be sample names e.g. SRR5515450...
+```
+
+```{r}
+colnames(seq_tab_t)   # should also be sample names
+```
+
+```{r}
+class(seq_tab_t)    # should be "matrix"
+class(meta_data)  # should be "data.frame"
+class(taxa_id)       # should be "matrix"
+```
+
+
+### Quick check - should return TRUE
+```{r}
+all(rownames(meta_data) %in% rownames(seq_tab))
+all(rownames(seq_tab) %in% rownames(meta_data))
+```
+# Are they identical?
+```{r}
+all(colnames(seq_tab) == rownames(taxa_id))
+```
+
+
+```{r}
+# Build each component separately first
+OTU <- otu_table(seq_tab, taxa_are_rows = FALSE)
+SAM <- sample_data(meta_data)
+TAX <- tax_table(as.matrix(taxa_id))
+```
+
+
+```{r}
+ps <- phyloseq(OTU, SAM, TAX)
+ps
+```
+
+
+```{r}
+dna <- Biostrings::DNAStringSet(taxa_names(ps))
+names(dna) <- taxa_names(ps)
+ps <- merge_phyloseq(ps, dna)
+taxa_names(ps) <- paste0("ASV", seq(ntaxa(ps)))
+ps
+```
+
+```{r}
+refseq(ps)
+```
+
+Get working directory, and change file path to save ASVs.fasta file
+```{r}
+getwd()
+```
+
+
+```{}
+# Save ASVs as fasta file
+Biostrings::writeXStringSet(refseq(ps), filepath = "/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB8696/ASVs.fasta") # Change path to current working directory
+```
+
+```{}
+write.csv(seq_tab, "sequence_table.csv", row.names = T)
+```
