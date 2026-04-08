@@ -218,6 +218,6 @@ Save the file with the taxonomy from using DECIPHER
 write.csv(taxid, "taxid.csv", row.names = T)
 ```
 
-```{r}
+```{}
 write.csv(seqtab.nochim, "sequence_table.csv", row.names = T)
 ```
