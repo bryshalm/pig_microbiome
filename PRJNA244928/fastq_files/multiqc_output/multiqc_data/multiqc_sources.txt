@@ -1,0 +1,17 @@
+Module	Section	Sample Name	Source
+FastQC	all_sections	SRR1303790	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA244928/fastq_files/fastqc_output/SRR1303790_fastqc.zip
+FastQC	all_sections	SRR1303835	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA244928/fastq_files/fastqc_output/SRR1303835_fastqc.zip
+FastQC	all_sections	SRR1303836	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA244928/fastq_files/fastqc_output/SRR1303836_fastqc.zip
+FastQC	all_sections	SRR1303837	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA244928/fastq_files/fastqc_output/SRR1303837_fastqc.zip
+FastQC	all_sections	SRR1303838	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA244928/fastq_files/fastqc_output/SRR1303838_fastqc.zip
+FastQC	all_sections	SRR1303841	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA244928/fastq_files/fastqc_output/SRR1303841_fastqc.zip
+FastQC	all_sections	SRR1303842	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA244928/fastq_files/fastqc_output/SRR1303842_fastqc.zip
+FastQC	all_sections	SRR1303843	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA244928/fastq_files/fastqc_output/SRR1303843_fastqc.zip
+FastQC	all_sections	SRR1303844	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA244928/fastq_files/fastqc_output/SRR1303844_fastqc.zip
+FastQC	all_sections	SRR1303845	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA244928/fastq_files/fastqc_output/SRR1303845_fastqc.zip
+FastQC	all_sections	SRR1303846	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA244928/fastq_files/fastqc_output/SRR1303846_fastqc.zip
+FastQC	all_sections	SRR1303847	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA244928/fastq_files/fastqc_output/SRR1303847_fastqc.zip
+FastQC	all_sections	SRR1303848	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA244928/fastq_files/fastqc_output/SRR1303848_fastqc.zip
+FastQC	all_sections	SRR1303849	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA244928/fastq_files/fastqc_output/SRR1303849_fastqc.zip
+FastQC	all_sections	SRR1303850	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA244928/fastq_files/fastqc_output/SRR1303850_fastqc.zip
+FastQC	all_sections	SRR1304095	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA244928/fastq_files/fastqc_output/SRR1304095_fastqc.zip
