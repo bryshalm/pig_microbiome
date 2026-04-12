@@ -73,7 +73,7 @@ filtFs <- file.path(filt_path, basename(fnFs))
 
 out <- filterAndTrim(
   fnFs, filtFs,
-  truncLen = 150,     # adjust from quality plot
+  truncLen = 240,     # adjust from quality plot
   maxN = 2,
   maxEE = 2,
   truncQ = 2,
@@ -90,6 +90,7 @@ out <- filterAndTrim(
 head(out)
 ```
 
+### Learn Errors
 
 ```{r}
 
@@ -98,6 +99,8 @@ plotErrors(errF, nominalQ=TRUE)
 
 ```
 
+
+## Dereplicate
 
 ```{r}
 derepFs <- derepFastq(filtFs)
@@ -116,6 +119,7 @@ seqtab <- makeSequenceTable(dadaFs)
 
 dim(seqtab)
 ```
+
 ```{r}
 # Inspect distribution of sequence lengths
 table(nchar(getSequences(seqtab)))
@@ -129,6 +133,7 @@ seqtab.nochim <- removeBimeraDenovo(seqtab, method="consensus", multithread=TRUE
 ```{r}
 dim(seqtab.nochim)
 ```
+
 ```{r}
 sum(seqtab.nochim)/sum(seqtab)
 ```
@@ -171,29 +176,15 @@ colnames(taxid) <- ranks; rownames(taxid) <- getSequences(seqtab.nochim)
 ### Write out all of the taxonomy files
 
 Save the file with the taxonomy from using DECIPHER
-```{r}
-getwd()
-```
-
-### Need to change sample names on the sequence table
-```{r}
-library(stringr)
-```
-
-
-```{}
-seqtab.nochim[,0] <- str_remove(seqtab.nochim[,0], ".fastq.gz")
-  
-```
 
 ```{r}
 getwd()
 ```
 
 ```{r}
-#write.csv(taxid, "taxid.csv", row.names = T)
+write.csv(taxid, "taxid.csv", row.names = T)
 ```
 
 ```{r}
-#write.csv(seqtab.nochim, "sequence_table.csv", row.names = T)
+write.csv(seqtab.nochim, "sequence_table.csv", row.names = T)
 ```
