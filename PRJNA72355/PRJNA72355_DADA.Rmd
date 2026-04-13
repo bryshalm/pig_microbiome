@@ -1,0 +1,52 @@
+---
+title: "PRJNA72355_DADA"
+author: "Bryshal Moore"
+date: "2026-04-13"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+#Install binaries from Bioconductor version 3.16. See tutorial [DAADA2 Installation](https://benjjneb.github.io/dada2/dada-installation.html) and [dada2 tutorial](https://benjjneb.github.io/dada2/tutorial.html)
+
+#### Install BiocManager
+```{r}
+#if (!requireNamespace("BiocManager", quietly = TRUE))
+#    install.packages("BiocManager")
+```
+
+### Install DADA2
+```{r}
+#BiocManager::install("dada2")
+```
+
+### Load the DADA2 library
+```{r}
+
+library(dada2); packageVersion("dada2")
+```
+
+```{r}
+getwd()
+```
+
+```{r}
+library(DECIPHER); packageVersion("DECIPHER")
+```
+
+```{r}
+getwd()
+```
+
+
+### Set the path to  fastq files
+```{r}
+path <- "/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA257705/fastq_files" #Change me to the directory containing the fastq files(unzipped)
+
+list.files(path)
+
+# In side of the folder containing my fastq files
+```

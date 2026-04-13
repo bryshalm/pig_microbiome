@@ -9,22 +9,123 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+### Load Libraries
+```{r}
+library(phyloseq); packageVersion("phyloseq")
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r}
+library(Biostrings); packageVersion("Biostrings")
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r}
+library(ggplot2); packageVersion("ggplot2")
+```
+
+```{r}
+getwd()
+
+
+```
+
+
+### Load Sequence Table
+```{r}
+seq_tab <- read.csv("sequence_table.csv", row.names = 1, check.names = FALSE) # Change to location of sequence table
+```
+
+### Load the taxonomy table
+```{r}
+taxa_id <- read.csv("taxid.csv", row.names = 1, check.names = FALSE)
+
+head(taxa_id)
+```
+### Load the metadata
+```{r}
+meta_data <- read.csv("SraRunTable.csv", row.names = 1, header = T, check.names = FALSE)
+head(meta_data)
+```
+
+### Transpose the sequence table
+```{r}
+# Transpose the sequence table
+seq_tab_t <- t(seq_tab)
+
+head(seq_tab_t)
+```
+
+```{}
+
+# Save the transposed table
+write.csv(seq_tab_t, file = "seq_table_transposed.csv")
+```
+
+
+### Construct the Phyloseq Object
+
+```{r}
+rownames(meta_data)   # should be sample names e.g. SRR5515450...
+```
+
+```{r}
+colnames(seq_tab_t)   # should also be sample names
+```
+
+```{r}
+class(seq_tab_t)    # should be "matrix"
+class(meta_data)  # should be "data.frame"
+class(taxa_id)       # should be "matrix"
+```
+
+
+### Quick check - should return TRUE
+```{r}
+all(rownames(meta_data) %in% rownames(seq_tab))
+all(rownames(seq_tab) %in% rownames(meta_data))
+```
+# Are they identical?
+```{r}
+all(colnames(seq_tab) == rownames(taxa_id))
+```
+
+
+```{r}
+# Build each component separately first
+OTU <- otu_table(seq_tab, taxa_are_rows = FALSE)
+SAM <- sample_data(meta_data)
+TAX <- tax_table(as.matrix(taxa_id))
+```
+
+
+```{r}
+ps <- phyloseq(OTU, SAM, TAX)
+ps
+```
+
+
+```{r}
+dna <- Biostrings::DNAStringSet(taxa_names(ps))
+names(dna) <- taxa_names(ps)
+ps <- merge_phyloseq(ps, dna)
+taxa_names(ps) <- paste0("ASV", seq(ntaxa(ps)))
+ps
+```
+
+```{r}
+refseq(ps)
+```
+
+```{r}
+getwd()
+```
+
+
+```{r}
+# Save ASVs as fasta file
+Biostrings::writeXStringSet(refseq(ps), filepath = "/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA257705/ASVs.fasta") # Change path to current working directory
+```
+
+```{r}
+write.csv(seq_tab, "sequence_table.csv", row.names = T)
+```
