@@ -16,7 +16,10 @@ Github page for storage of workflow and code associated with pig microbiome proj
 
 Each BioProject folder contains:
 
-SraRunTable.csv = metadata table; sequence_table.csv = sequence table with abundance data; taxid = taxonomy table 
+* SraRunTable.csv = metadata table
+*  sequence_table.csv = sequence table with abundance data
+*  sequence_table_transposed.csv = transposed sequence table
+*  taxid = taxonomy table 
 
 
 ## References
