@@ -39,10 +39,14 @@ library(dada2); packageVersion("dada2")
 library(DECIPHER); packageVersion("DECIPHER")
 ```
 
+```{r}
+getwd()
+```
+
 
 ### Set the path to  fastq files
 ```{r}
-path <- "/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB11368/fastq_files" #Change me to the directory containing the fastq files(unzipped)
+path <- "/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA237795/fastq_files" #Change me to the directory containing the fastq files(unzipped)
 
 list.files(path)
 
@@ -88,7 +92,7 @@ length(filtFs)
 
 ```{r}
 out <- filterAndTrim(fnFs, filtFs, 
-                     truncLen= 245,
+                     truncLen= 400,
                      maxEE= 2, 
                      truncQ=2, 
                      rm.phix=TRUE,
