@@ -92,7 +92,7 @@ length(filtFs)
 
 ```{r}
 out <- filterAndTrim(fnFs, filtFs, 
-                     truncLen= 400,
+                     truncLen= 150,
                      maxEE= 2, 
                      truncQ=2, 
                      rm.phix=TRUE,
