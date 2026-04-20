@@ -176,9 +176,9 @@ colnames(taxid) <- ranks; rownames(taxid) <- getSequences(seqtab.nochim)
 
 Save the file with the taxonomy from using DECIPHER
 ```{r}
-#write.csv(taxid, "taxid.csv", row.names = T)
+write.csv(taxid, "taxid.csv", row.names = T)
 ```
 
 ```{r}
-#write.csv(seqtab.nochim, "sequence_table.csv", row.names = T)
+write.csv(seqtab.nochim, "sequence_table.csv", row.names = T)
 ```

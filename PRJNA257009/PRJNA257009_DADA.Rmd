@@ -87,6 +87,32 @@ plotQualityProfile(fnRs[1:2])
 ```
 
 
+### Mismatch Reads Check
+```{r}
+library(ShortRead)
+```
+
+```{r}
+# Count reads in each file
+countFastq <- function(f) length(readLines(gzcon(file(f, "rb")))) / 4
+
+fwd_counts <- sapply(fnFs, countFastq)
+rev_counts <- sapply(fnRs, countFastq)
+
+```
+
+```{r}
+
+# Find mismatched pairs
+mismatch_idx <- which(fwd_counts != rev_counts)
+data.frame(
+  forward = fnFs[mismatch_idx],
+  fwd_n   = fwd_counts[mismatch_idx],
+  rev_n   = rev_counts[mismatch_idx]
+)
+```
+
+
 ### Filter and Trim
 Assign the filenames for the filtered fastq.gz files.
 ```{r}
@@ -98,9 +124,9 @@ names(filtRs) <- sample.names
 ```
 
 ```{r}
-out <- filterAndTrim(fnFs, filtFs, fnRs, filtRs, truncLen=c(245,235),
+out <- filterAndTrim(fnFs, filtFs, fnRs, filtRs, truncLen=c(0,0),
               maxN=2, maxEE=c(2,5), truncQ=2, rm.phix=TRUE,
-              compress=TRUE, multithread=TRUE) # On Windows set multithread=FALSE (only needed for filterAndTrim)
+              compress=TRUE, multithread=FALSE) # On Windows set multithread=FALSE (only needed for filterAndTrim)
 head(out)
 ```
 
