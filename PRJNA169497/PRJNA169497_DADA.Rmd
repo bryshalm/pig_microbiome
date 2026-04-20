@@ -1,7 +1,7 @@
 ---
-title: "PRJNA214736_DADA"
+title: "PRJNA169497_DADA"
 author: "Bryshal Moore"
-date: "2026-04-19"
+date: "2026-04-20"
 output: html_document
 ---
 
@@ -9,11 +9,6 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-
-
-```{r}
-getwd()
-```
 
 
 #Install binaries from Bioconductor version 3.16. See tutorial [DAADA2 Installation](https://benjjneb.github.io/dada2/dada-installation.html) and [dada2 tutorial](https://benjjneb.github.io/dada2/tutorial.html)
@@ -29,6 +24,12 @@ getwd()
 #BiocManager::install("dada2")
 ```
 
+
+```{r}
+getwd()
+```
+
+
 ### Load the DADA2 library
 ```{r}
 
@@ -38,14 +39,11 @@ library(dada2); packageVersion("dada2")
 ```{r}
 library(DECIPHER); packageVersion("DECIPHER")
 ```
-```{r}
-getwd()
-```
 
 
 ### Set the path to  fastq files
 ```{r}
-path <- "/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA214736/fastq_files" #Change me to the directory containing the fastq files(unzipped)
+path <- "/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA169497/fastq_files" #Change me to the directory containing the fastq files(unzipped)
 
 list.files(path)
 
@@ -108,8 +106,6 @@ errF <- learnErrors(filtFs, multithread=TRUE)
 ```{r}
 plotErrors(errF, nominalQ=TRUE)
 ```
-
-
 ### Dereplicate
 ```{r}
 derepFs <- derepFastq(filtFs)
@@ -140,8 +136,6 @@ seqtab.nochim <- removeBimeraDenovo(seqtab, method = "consensus", multithread = 
 ```{r}
 dim(seqtab.nochim)
 ```
-
-
 ```{r}
 sum(seqtab.nochim)/sum(seqtab)
 ```
