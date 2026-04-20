@@ -136,6 +136,8 @@ seqtab.nochim <- removeBimeraDenovo(seqtab, method = "consensus", multithread = 
 ```{r}
 dim(seqtab.nochim)
 ```
+
+
 ```{r}
 sum(seqtab.nochim)/sum(seqtab)
 ```
