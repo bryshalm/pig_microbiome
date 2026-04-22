@@ -548,7 +548,7 @@ load(&quot;/home/brymoore/wsg_gtdb_tax/curated_GTDB/GTDB_r226_classifier.RData&q
 ids &lt;- IdTaxa(dna, trainingSet, strand=&quot;both&quot;, processors=NULL, verbose=TRUE) # use all processors</code></pre>
 <pre><code>## ================================================================================
 ## 
-## Time difference of 285.77 secs</code></pre>
+## Time difference of 290.27 secs</code></pre>
 <pre class="r"><code>ranks &lt;- c(&quot;domain&quot;, &quot;phylum&quot;, &quot;class&quot;, &quot;order&quot;, &quot;family&quot;, &quot;genus&quot;, &quot;species&quot;) # ranks of interest
 #Convert the output object of class &quot;Taxa&quot; to a matrix analogous to the utput from assignTaxonomy
 taxid &lt;- t(sapply(ids, function(x) {

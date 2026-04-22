@@ -1,0 +1,27 @@
+Dietary Silicate: A Biogenic Strategy to Enhance Growth, Gut Health, and Nutrient Utilization in Finishing Pigs through Low-Carbon Diets
+This project investigates the effects of dietary silicate supplementation on
+growth performance and gut microbiome composition in growing-finishing pigs under different
+
+dietary protein levels. Fecal samples were collected from pigs fed high-protein or low-protein
+
+(LP; 2% reduced crude protein) diets with or without 0.1% silicate over a 10-week feeding trial.
+
+Microbial community structure was analyzed using sequencing-based approaches to
+
+assess alpha and beta diversity, as well as taxonomic composition. While no significant
+
+differences were observed in diversity indices, silicate supplementation altered microbial
+
+composition, increasing the relative abundance of beneficial taxa such as Lactobacillus and
+
+Lactobacillaceae. These changes were associated with improved growth performance,
+
+enhanced nutrient digestibility, and reduced fecal emissions of ammonia, hydrogen sulfide, and
+
+carbon dioxide.
+
+This dataset provides insight into diet-induced modulation of the swine gut microbiome
+
+and its relationship with nutrient utilization and environmental emissions, supporting low-carbon
+
+feeding strategies in pig production.
