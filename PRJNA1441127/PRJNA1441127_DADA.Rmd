@@ -1,0 +1,86 @@
+---
+title: "PRJNA1441127_DADA"
+author: "Bryshal Moore"
+date: "2026-04-22"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Setup
+Load libraries, setup paths, prepare environment:
+
+```{r}
+library(dada2);packageVersion("dada2")
+
+library(Biostrings); packageVersion("Biostrings")
+
+library(ShortRead); packageVersion("ShortRead")
+```
+
+```{r}
+getwd()
+```
+
+
+```{}
+path <- "~/Desktop/LRAS/Data/Fecal1" # CHANGE ME to location of the First Replicate fastq files
+path.out <- "Figures/"
+path.rds <- "RDS/"
+fns1 <- list.files(path1, pattern="fastq.gz", full.names=TRUE)
+F27 <- "AGRGTTYGATYMTGGCTCAG"
+R1492 <- "RGYTACCTTGTTACGACTT"
+rc <- dada2:::rc
+theme_set(theme_bw())
+```
+
+
+```{r}
+path.raw <- "fastq_files"   # folder with your *_subreads.fastq.gz files
+path.trim <- "trimmed"
+path.filt <- "filtered"
+dir.create(path.trim, showWarnings = FALSE)
+dir.create(path.filt, showWarnings = FALSE)
+
+fastqs <- sort(list.files(path.raw, pattern="_subreads.fastq.gz", full.names=TRUE))
+sample.names <- sub("_subreads.fastq.gz", "", basename(fastqs))
+
+
+```
+
+
+```{r}
+FWD <- "AGAGTTTGATCMTGGCTCAG"   # 27F
+REV <- "AAGTCGTAACAAGGTARCCGTA" # 1492R RC
+```
+
+
+```{r}
+# Remove primers
+prim <- removePrimers(
+  fastqs, 
+  trimmed.fastqs, 
+  primer.fwd = FWD, 
+  orient = TRUE,    # auto-orients reads 5'→3', important for PacBio
+  verbose = TRUE
+)
+print(prim)
+```
+
+```{r}
+F27   <- "AGRGTTYGATYMTGGCTCAG"
+R1492 <- "RGYTACCTTGTTACGACTT"
+
+prim <- removePrimers(
+  fastqs,
+  trimmed.fastqs,
+  primer.fwd = F27,
+  primer.rev = dada2:::rc(R1492),
+  orient = TRUE,
+  verbose = TRUE
+)
+print(prim)
+```
+

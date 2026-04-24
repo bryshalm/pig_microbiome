@@ -1,0 +1,27 @@
+This is cutadapt 2.6 with Python 3.7.12
+Command line parameters: -G ATTACCGCGGCTGCTGG -g CCGAGTTTGATCMTGGCTCAG --discard-untrimmed --minimum-length 200 -o trimmed/SRR5515459_R1.fastq.gz -p trimmed/SRR5515459_R2.fastq.gz SRR5515459_1.fastq.gz SRR5515459_2.fastq.gz -j 4
+Processing reads on 4 cores in paired-end mode ...
+Finished in 0.46 s (34 us/read; 1.74 M reads/minute).
+
+=== Summary ===
+
+Total read pairs processed:             13,414
+  Read 1 with adapter:                       0 (0.0%)
+  Read 2 with adapter:                       0 (0.0%)
+Pairs that were too short:                   0 (0.0%)
+Pairs written (passing filters):             0 (0.0%)
+
+Total basepairs processed:     8,075,228 bp
+  Read 1:     4,037,614 bp
+  Read 2:     4,037,614 bp
+Total written (filtered):              0 bp (0.0%)
+  Read 1:             0 bp
+  Read 2:             0 bp
+
+=== First read: Adapter 1 ===
+
+Sequence: CCGAGTTTGATCMTGGCTCAG; Type: regular 5'; Length: 21; Trimmed: 0 times.
+
+=== Second read: Adapter 2 ===
+
+Sequence: ATTACCGCGGCTGCTGG; Type: regular 5'; Length: 17; Trimmed: 0 times.

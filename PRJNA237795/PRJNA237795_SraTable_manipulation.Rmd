@@ -1,0 +1,59 @@
+---
+title: "PRJNA237795_SraTable_manipulation"
+author: "Bryshal Moore"
+date: "2026-04-24"
+output: html_document
+---
+```{r}
+library(tidyverse)
+library(dplyr)
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+met_dat <- read_csv("SraRunTable_full.csv")
+
+```
+```{r}
+head(met_dat)
+```
+
+```{r}
+met_dat_amp <-  met_dat %>% 
+  filter(`Assay Type` == "AMPLICON")
+
+head(met_dat_amp)
+```
+
+
+```{r}
+# Save the SraTable with just the Amplicon sequences
+
+write_csv(met_dat_amp, "SraRunTable.csv")
+```
+
+```{r}
+met_dat_other <- met_dat %>% 
+  filter(!`Assay Type` == "AMPLICON")
+
+head(met_dat_other)
+```
+
+```{r}
+mv_list <- met_dat_other %>% 
+  select(Run) %>% 
+    mutate(Run = paste0(Run, ".fastq.gz")) %>% 
+  mutate
+
+head(mv_list)
+```
+
+```{r}
+# Save as a list to sort out the none amplicon sequences
+
+#write_tsv(mv_list, "move_list.txt", col_names = F)
+```
+
