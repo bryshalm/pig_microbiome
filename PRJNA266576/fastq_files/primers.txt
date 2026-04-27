@@ -1,0 +1,20 @@
+S1 Table. List of primers used in this study.			
+Primer	Target	Primer sequence 5' - 3'	Reference
+strA_F	aminoglycoside phosphotransferase	ACCCTAAAACTCTTCAATGC	Faldynova et al 2013
+strA_R	aminoglycoside phosphotransferase	TCCCCAATACATTGAATAGG	Faldynova et al 2013
+sul1_F	dihydropteroate synthase	GTCTAAGAGCGGCGCAATAC	Faldynova et al 2013
+sul1_R	dihydropteroate synthase	GGATCAGACGTCGTGGATGT	Faldynova et al 2013
+sul2_F	dihydropteroate synthase	CGCAATGTGATCCATGATGT	Faldynova et al 2013
+sul2_R	dihydropteroate synthase	GCGAAATCATCTGCCAAACT	Faldynova et al 2013
+tet(B)_F	tetracycline efflux protein	TACAGGGATTATTGGTGAGC	Faldynova et al 2013
+tet(B)_R	tetracycline efflux protein	ACATGAAGGTCATCGATAGC	Faldynova et al 2013
+tet(A)_F	tetracycline efflux protein	CGATCTTCCAAGCGTTTGTT	Faldynova et al 2013
+tet(A)_R	tetracycline efflux protein	CCAGAAGAACGAAGCCAGTC	Faldynova et al 2013
+cat_F	chloramphenicol acetyl transferase	GGGAAATAGGCCAGGTTTTC	Faldynova et al 2013
+cat_R	chloramphenicol acetyl transferase	TCCATGAGCAAACTGAAACG	Faldynova et al 2013
+16Suniv_F	all bacteria	GAGGAAGGIGIGGAIGACGT	Tseng et all. 2003
+16Suniv_R	all bacteria	AGICCCGIGAACGTATTCAC	Tseng et all. 2003
+			
+			
+Faldynova M, Videnska P, Havlickova H, Sisak F, Juricova H et al. (2013) Prevalence of antibiotic resistance genes in faecal samples from cattle, pigs and poultry. Vet Med Czech 58: 298-304.			
+Tseng CP, Cheng JC, Tseng CC, Wang C, Chen YL et al. (2003) Broad-range ribosomal RNA real-time PCR after removal of DNA from reagents: melting profiles for clinically important bacteria. Clin Chem 49: 306-309.			

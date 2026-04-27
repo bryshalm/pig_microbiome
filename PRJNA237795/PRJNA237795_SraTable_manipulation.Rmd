@@ -22,6 +22,11 @@ head(met_dat)
 ```
 
 ```{r}
+tail(met_dat)
+```
+
+
+```{r}
 met_dat_amp <-  met_dat %>% 
   filter(`Assay Type` == "AMPLICON")
 
@@ -32,7 +37,7 @@ head(met_dat_amp)
 ```{r}
 # Save the SraTable with just the Amplicon sequences
 
-write_csv(met_dat_amp, "SraRunTable.csv")
+#write_csv(met_dat_amp, "SraRunTable.csv")
 ```
 
 ```{r}

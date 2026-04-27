@@ -1,7 +1,7 @@
 ---
 title: "PRJNA237795_DADA"
 author: "Bryshal Moore"
-date: "2026-04-18"
+date: "2026-04-18"l
 output: html_document
 ---
 
@@ -92,7 +92,7 @@ length(filtFs)
 
 ```{r}
 out <- filterAndTrim(fnFs, filtFs, 
-                     truncLen= 150,
+                     truncLen= 100,
                      maxEE= 2, 
                      truncQ=2, 
                      rm.phix=TRUE,
@@ -180,9 +180,9 @@ colnames(taxid) <- ranks; rownames(taxid) <- getSequences(seqtab.nochim)
 
 Save the file with the taxonomy from using DECIPHER
 ```{r}
-#write.csv(taxid, "taxid.csv", row.names = T)
+write.csv(taxid, "taxid.csv", row.names = T)
 ```
 
 ```{r}
-#write.csv(seqtab.nochim, "sequence_table.csv", row.names = T)
+write.csv(seqtab.nochim, "sequence_table.csv", row.names = T)
 ```

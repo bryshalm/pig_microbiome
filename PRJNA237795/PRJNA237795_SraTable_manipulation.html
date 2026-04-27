@@ -397,6 +397,23 @@ display: none;
 ## #   host_body_product &lt;chr&gt;, host_body_temp &lt;dbl&gt;, Host_diet &lt;chr&gt;,
 ## #   host_family_relationship &lt;chr&gt;, host_growth_cond &lt;chr&gt;,
 ## #   host_last_meal &lt;chr&gt;, host_life_stage &lt;chr&gt;, host_sex &lt;chr&gt;, …</code></pre>
+<pre class="r"><code>tail(met_dat)</code></pre>
+<pre><code>## # A tibble: 6 × 62
+##   Run        `Assay Type` AvgSpotLen   Bases BioProject BioSample BioSampleModel
+##   &lt;chr&gt;      &lt;chr&gt;             &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;         
+## 1 SRR5368903 WGS                 739  8.36e7 PRJNA2377… SAMN0264… MIMS.me,MIGS/…
+## 2 SRR5368904 OTHER               443  1.86e7 PRJNA2377… SAMN0264… MIMS.me,MIGS/…
+## 3 SRR5368905 RNA-Seq              99  7.21e9 PRJNA2377… SAMN0264… MIMS.me,MIGS/…
+## 4 SRR5368906 WGS                 757  5.10e7 PRJNA2377… SAMN0264… MIMS.me,MIGS/…
+## 5 SRR5368907 RNA-Seq             100  4.08e9 PRJNA2377… SAMN0264… MIMS.me,MIGS/…
+## 6 SRR5368908 WGS                 766  8.33e7 PRJNA2377… SAMN0264… MIMS.me,MIGS/…
+## # ℹ 55 more variables: Bytes &lt;dbl&gt;, `Center Name` &lt;chr&gt;, Consent &lt;chr&gt;,
+## #   `DATASTORE filetype` &lt;chr&gt;, `DATASTORE provider` &lt;chr&gt;,
+## #   `DATASTORE region` &lt;chr&gt;, Experiment &lt;chr&gt;, geo_loc_name_country &lt;chr&gt;,
+## #   geo_loc_name_country_continent &lt;chr&gt;, geo_loc_name &lt;chr&gt;, Host_age &lt;chr&gt;,
+## #   host_body_product &lt;chr&gt;, host_body_temp &lt;dbl&gt;, Host_diet &lt;chr&gt;,
+## #   host_family_relationship &lt;chr&gt;, host_growth_cond &lt;chr&gt;,
+## #   host_last_meal &lt;chr&gt;, host_life_stage &lt;chr&gt;, host_sex &lt;chr&gt;, …</code></pre>
 <pre class="r"><code>met_dat_amp &lt;-  met_dat %&gt;% 
   filter(`Assay Type` == &quot;AMPLICON&quot;)
 
@@ -419,7 +436,7 @@ head(met_dat_amp)</code></pre>
 ## #   host_last_meal &lt;chr&gt;, host_life_stage &lt;chr&gt;, host_sex &lt;chr&gt;, …</code></pre>
 <pre class="r"><code># Save the SraTable with just the Amplicon sequences
 
-write_csv(met_dat_amp, &quot;SraRunTable.csv&quot;)</code></pre>
+#write_csv(met_dat_amp, &quot;SraRunTable.csv&quot;)</code></pre>
 <pre class="r"><code>met_dat_other &lt;- met_dat %&gt;% 
   filter(!`Assay Type` == &quot;AMPLICON&quot;)
 
