@@ -1,0 +1,85 @@
+This is cutadapt 4.4 with Python 3.7.12
+Command line parameters: -g CCTACGGGAGGCAGCAG -a GACTACNVGGGTWTCTAAT --rc --discard-untrimmed --minimum-length 50 -o trimmed/SRR1687002_trimmed.fastq.gz SRR1687002.fastq.gz -j 4
+Processing single-end reads on 4 cores ...
+Finished in 0.228 s (101.058 µs/read; 0.59 M reads/minute).
+
+=== Summary ===
+
+Total reads processed:                   2,255
+Reads with adapters:                     1,146 (50.8%)
+Reverse-complemented:                      991 (43.9%)
+
+== Read fate breakdown ==
+Reads that were too short:                 991 (43.9%)
+Reads discarded as untrimmed:            1,109 (49.2%)
+Reads written (passing filters):           155 (6.9%)
+
+Total basepairs processed:     1,016,021 bp
+Total written (filtered):         65,677 bp (6.5%)
+
+=== Adapter 1 ===
+
+Sequence: CCTACGGGAGGCAGCAG; Type: regular 5'; Length: 17; Trimmed: 154 times; Reverse-complemented: 0 times
+
+Minimum overlap: 3
+No. of allowed errors:
+1-9 bp: 0; 10-17 bp: 1
+
+Overview of removed sequences
+length	count	expect	max.err	error counts
+11	154	0.0	1	154
+
+
+=== Adapter 2 ===
+
+Sequence: GACTACNVGGGTWTCTAAT; Type: regular 3'; Length: 19; Trimmed: 992 times; Reverse-complemented: 991 times
+
+Minimum overlap: 3
+No. of allowed errors:
+1-9 bp: 0; 10-18 bp: 1
+
+Bases preceding removed adapters:
+  A: 0.1%
+  C: 0.3%
+  G: 99.6%
+  T: 0.0%
+  none/other: 0.0%
+WARNING:
+    The adapter is preceded by 'G' extremely often.
+    The provided adapter sequence could be incomplete at its 5' end.
+    Ignore this warning when trimming primers.
+
+Overview of removed sequences
+length	count	expect	max.err	error counts
+3	1	35.2	0	1
+432	2	0.0	1	0 2
+433	68	0.0	1	0 68
+434	211	0.0	1	0 211
+435	80	0.0	1	0 80
+436	77	0.0	1	0 77
+437	103	0.0	1	0 103
+438	20	0.0	1	0 20
+439	3	0.0	1	0 3
+440	3	0.0	1	0 3
+441	1	0.0	1	0 1
+443	3	0.0	1	0 3
+445	1	0.0	1	0 1
+450	1	0.0	1	0 1
+451	1	0.0	1	0 1
+452	15	0.0	1	0 15
+453	94	0.0	1	0 94
+454	91	0.0	1	0 91
+455	20	0.0	1	0 20
+456	4	0.0	1	0 4
+457	1	0.0	1	0 1
+458	11	0.0	1	0 11
+459	159	0.0	1	0 159
+460	16	0.0	1	0 16
+461	4	0.0	1	0 4
+462	1	0.0	1	0 1
+463	1	0.0	1	0 1
+
+
+WARNING:
+    One or more of your adapter sequences may be incomplete.
+    Please see the detailed output above.
