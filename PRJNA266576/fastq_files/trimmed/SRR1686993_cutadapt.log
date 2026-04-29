@@ -1,7 +1,7 @@
 This is cutadapt 4.4 with Python 3.7.12
-Command line parameters: -g CCTACGGGAGGCAGCAG -a GACTACNVGGGTWTCTAAT --rc --discard-untrimmed --minimum-length 50 -o trimmed/SRR1686993_trimmed.fastq.gz SRR1686993.fastq.gz -j 4
+Command line parameters: -g CCTACGGGAGGCAGCAG -a GACTACNVGGGTWTCTAAT --rc --minimum-length 50 -o trimmed/SRR1686993_trimmed.fastq.gz SRR1686993.fastq.gz -j 4
 Processing single-end reads on 4 cores ...
-Finished in 0.441 s (85.108 µs/read; 0.70 M reads/minute).
+Finished in 0.506 s (97.681 µs/read; 0.61 M reads/minute).
 
 === Summary ===
 
@@ -11,11 +11,10 @@ Reverse-complemented:                        4 (0.1%)
 
 == Read fate breakdown ==
 Reads that were too short:                   9 (0.2%)
-Reads discarded as untrimmed:            2,236 (43.2%)
-Reads written (passing filters):         2,935 (56.7%)
+Reads written (passing filters):         5,171 (99.8%)
 
 Total basepairs processed:     2,334,868 bp
-Total written (filtered):      1,287,996 bp (55.2%)
+Total written (filtered):      2,300,094 bp (98.5%)
 
 === Adapter 1 ===
 

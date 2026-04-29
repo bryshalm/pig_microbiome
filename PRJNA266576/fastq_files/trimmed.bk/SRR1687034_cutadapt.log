@@ -1,0 +1,79 @@
+This is cutadapt 4.4 with Python 3.7.12
+Command line parameters: -g CCTACGGGAGGCAGCAG -a GACTACNVGGGTWTCTAAT --rc --discard-untrimmed --minimum-length 50 -o trimmed/SRR1687034_trimmed.fastq.gz SRR1687034.fastq.gz -j 4
+Processing single-end reads on 4 cores ...
+Finished in 0.629 s (56.080 µs/read; 1.07 M reads/minute).
+
+=== Summary ===
+
+Total reads processed:                  11,217
+Reads with adapters:                     6,472 (57.7%)
+Reverse-complemented:                       62 (0.6%)
+
+== Read fate breakdown ==
+Reads that were too short:                  72 (0.6%)
+Reads discarded as untrimmed:            4,743 (42.3%)
+Reads written (passing filters):         6,402 (57.1%)
+
+Total basepairs processed:     5,058,168 bp
+Total written (filtered):      2,818,635 bp (55.7%)
+
+=== Adapter 1 ===
+
+Sequence: CCTACGGGAGGCAGCAG; Type: regular 5'; Length: 17; Trimmed: 6413 times; Reverse-complemented: 5 times
+
+Minimum overlap: 3
+No. of allowed errors:
+1-9 bp: 0; 10-17 bp: 1
+
+Overview of removed sequences
+length	count	expect	max.err	error counts
+3	4	175.3	0	4
+6	1	2.7	0	1
+9	1	0.0	0	1
+10	28	0.0	1	9 19
+11	6349	0.0	1	6287 62
+12	30	0.0	1	1 29
+
+
+=== Adapter 2 ===
+
+Sequence: GACTACNVGGGTWTCTAAT; Type: regular 3'; Length: 19; Trimmed: 59 times; Reverse-complemented: 57 times
+
+Minimum overlap: 3
+No. of allowed errors:
+1-9 bp: 0; 10-18 bp: 1
+
+Bases preceding removed adapters:
+  A: 86.4%
+  C: 3.4%
+  G: 3.4%
+  T: 6.8%
+  none/other: 0.0%
+WARNING:
+    The adapter is preceded by 'A' extremely often.
+    The provided adapter sequence could be incomplete at its 5' end.
+    Ignore this warning when trimming primers.
+
+Overview of removed sequences
+length	count	expect	max.err	error counts
+3	2	175.3	0	2
+434	3	0.0	1	0 3
+435	14	0.0	1	0 14
+436	9	0.0	1	0 9
+437	5	0.0	1	0 5
+438	4	0.0	1	0 4
+439	1	0.0	1	0 1
+441	1	0.0	1	0 1
+451	2	0.0	1	0 2
+455	1	0.0	1	0 1
+456	1	0.0	1	0 1
+459	2	0.0	1	0 2
+460	8	0.0	1	0 8
+461	2	0.0	1	0 2
+462	3	0.0	1	0 3
+468	1	0.0	1	0 1
+
+
+WARNING:
+    One or more of your adapter sequences may be incomplete.
+    Please see the detailed output above.

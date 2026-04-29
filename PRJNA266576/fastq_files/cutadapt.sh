@@ -7,7 +7,6 @@ for FQ in *.fastq.gz; do
         -g CCTACGGGAGGCAGCAG \
         -a GACTACNVGGGTWTCTAAT \
         --rc \
-        --discard-untrimmed \
         --minimum-length 50 \
         -o trimmed/${SAMPLE}_trimmed.fastq.gz \
         "$FQ" \

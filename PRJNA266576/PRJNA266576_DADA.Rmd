@@ -41,7 +41,7 @@ library(DECIPHER); packageVersion("DECIPHER")
 
 ### Set the path to  fastq files
 ```{r}
-path <- "/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA266576/fastq_files" #Change me to the directory containing the fastq files(unzipped)
+path <- "/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA266576/fastq_files/trimmed" #Change me to the directory containing the fastq files(zipped)
 
 list.files(path)
 
@@ -54,7 +54,7 @@ list.files(path)
 fnFs <- sort(list.files(path, pattern = ".fastq.gz", full.names = TRUE))
 
 # Extract sample names by removing the .fastq.gz suffix
-sample.names <- sapply(strsplit(basename(fnFs), ".fastq.gz"), `[`, 1)
+sample.names <- sapply(strsplit(basename(fnFs), "_trimmed.fastq.gz"), `[`, 1)
 ```
 
 
@@ -87,7 +87,7 @@ length(filtFs)
 
 ```{r}
 out <- filterAndTrim(fnFs, filtFs, 
-                     truncLen= 400,
+                     truncLen= 150,
                      maxEE= 2, 
                      truncQ=2, 
                      rm.phix=TRUE,
@@ -177,10 +177,10 @@ colnames(taxid) <- ranks; rownames(taxid) <- getSequences(seqtab.nochim)
 
 Save the file with the taxonomy from using DECIPHER
 ```{r}
-#write.csv(taxid, "taxid.csv", row.names = T)
+write.csv(taxid, "taxid.csv", row.names = T)
 ```
 
 ```{r}
-#write.csv(seqtab.nochim, "sequence_table.csv", row.names = T)
+write.csv(seqtab.nochim, "sequence_table.csv", row.names = T)
 ```
 
