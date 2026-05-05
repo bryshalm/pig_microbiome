@@ -36,7 +36,7 @@ getwd()
 
 #Set the path to  fastq files
 ```{r}
-path <- "/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA266806/fastq_files" #Change me to the directory containing the fastq files
+path <- "/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA266806/fastq_files/trimmed" #Change me to the directory containing the fastq files
 
 list.files(path)
 
@@ -45,10 +45,10 @@ list.files(path)
 
 ```{r}
 # Single-end reads
-fnFs <- sort(list.files(path, pattern = ".fastq.gz", full.names = TRUE))
+fnFs <- sort(list.files(path, pattern = "_trimmed.fastq.gz", full.names = TRUE))
 
 # Extract sample names by removing the .fastq.gz suffix
-sample.names <- sapply(strsplit(basename(fnFs), ".fastq.gz"), `[`, 1)
+sample.names <- sapply(strsplit(basename(fnFs), "_trimmed.fastq.gz"), `[`, 1)
 
 ```
 
@@ -151,6 +151,11 @@ head(track)
 ### Add Tax DECIPHER
 
 https://decipher.codes/Downloads.html
+```{r}
+library(DECIPHER)
+```
+
+
 
 ```{r}
 dna <- DNAStringSet(getSequences(seqtab.nochim)) # Create a DNAStringSet from the ASVs
@@ -175,20 +180,6 @@ Save the file with the taxonomy from using DECIPHER
 getwd()
 ```
 
-### Need to change sample names on the sequence table
-```{r}
-library(stringr)
-```
-
-
-```{}
-seqtab.nochim[,0] <- str_remove(seqtab.nochim[,0], ".fastq.gz")
-  
-```
-
-```{r}
-getwd()
-```
 
 ```{r}
 #write.csv(taxid, "taxid.csv", row.names = T)
