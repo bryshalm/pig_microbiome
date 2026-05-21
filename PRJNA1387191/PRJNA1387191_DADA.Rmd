@@ -12,6 +12,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 #Install binaries from Bioconductor version 3.16. See tutorial [DAADA2 Installation](https://benjjneb.github.io/dada2/dada-installation.html) and [dada2 tutorial](https://benjjneb.github.io/dada2/tutorial.html)
 
+```{r}
+getwd()
+```
+
+
 #### Install BiocManager
 ```{r}
 #if (!requireNamespace("BiocManager", quietly = TRUE))
@@ -31,7 +36,7 @@ library(dada2); packageVersion("dada2")
 
 ### Set the path to  fastq files
 ```{r}
-path <- "/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA335425/fastq_files" #Change me to the directory containing the fastq files(unzipped)
+path <- "/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA1387191/fastq_files" #Change me to the directory containing the fastq files(unzipped)
 
 list.files(path)
 
@@ -90,16 +95,21 @@ names(filtRs) <- sample.names
 ```
 
 ```{r}
-out <- filterAndTrim(fnFs, filtFs, fnRs, filtRs, truncLen=c(290,260),
+out <- filterAndTrim(fnFs, filtFs, fnRs, filtRs, truncLen=c(0,0),
               maxN=0, maxEE=c(2,5), truncQ=2, rm.phix=TRUE,
-              compress=TRUE, multithread=FALSE) # On Windows set multithread=FALSE (only needed for filterAndTrim)
+              compress=TRUE, multithread=TRUE) # On Windows set multithread=FALSE (only needed for filterAndTrim)
 head(out)
 ```
+
+
+
 ### Learn Error Rates
 
 ```{r}
 errF <- learnErrors(filtFs, multithread=TRUE)
 ```
+
+
 ```{r}
 errR <- learnErrors(filtRs, multithread=TRUE)
 ```
@@ -113,6 +123,9 @@ plotErrors(errF, nominalQ=TRUE)
 ```{r}
 plotErrors(errR, nominalQ=TRUE)
 ```
+**These are some really bad error rates**
+
+
 
 ### Sample Inference
 ```{r}
@@ -167,21 +180,18 @@ rownames(track) <- sample.names
 head(track)
 ```
 
-### Assign taxonomy
-```{}
-taxa <- assignTaxonomy(seqtab.nochim, "/home/brymoore/wsg_gtdb_tax/curated_GTDB/GTDB_bac120_arc53_ssu_r226_genus.fna.gz", multithread=TRUE)
+
+```
+Considerations for your own data: This is a great place to do a last sanity check. Outside of filtering, there should no step in which a majority of reads are lost. If a majority of reads failed to merge, you may need to revisit the truncLen parameter used in the filtering step and make sure that the truncated reads span your amplicon. If a majority of reads were removed as chimeric, you may need to revisit the removal of primers, as the ambiguous nucleotides in unremoved primers interfere with chimera identification.
+```
+*there is a large drop in my merged sequences, have to revisit filter and trim, when went to retrim, decided not to select a trunk length and it is much better with not large drop off at merging
+```{r}
+#BiocManager::install("DECIPHER")
 ```
 
-```{}
-taxa.print <- taxa # Removing sequence rownames for display only
-rownames(taxa.print) <- NULL
-head(taxa.print)
-```
 
-
-Add the Species
-```{}
-taxa_species <- addSpecies(taxa, "GTDB_bac120_arc53_ssu_r226_species_parsed_CLASS_SPP_CLD.fa.gz")
+```{r}
+library(DECIPHER); packageVersion("DECIPHER")
 ```
 
 
