@@ -1,0 +1,19 @@
+Sample	Filename	File type	Encoding	Total Sequences	Total Bases	Sequences flagged as poor quality	Sequence length	%GC	total_deduplicated_percentage	avg_sequence_length	median_sequence_length	basic_statistics	per_base_sequence_quality	per_tile_sequence_quality	per_sequence_quality_scores	per_base_sequence_content	per_sequence_gc_content	per_base_n_content	sequence_length_distribution	sequence_duplication_levels	overrepresented_sequences	adapter_content
+DRR811138_1	DRR811138_1.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	81584.0	20.3 Mbp	0.0	250.0	53.0	4.893116297313198	250.0	250	pass	pass	warn	pass	fail	fail	pass	pass	fail	fail	pass
+DRR811138_2	DRR811138_2.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	81584.0	20.3 Mbp	0.0	250.0	50.0	3.421013924298882	250.0	250	pass	pass	warn	pass	fail	fail	pass	pass	fail	fail	pass
+DRR811139_1	DRR811139_1.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	83334.0	20.8 Mbp	0.0	250.0	54.0	5.606355149158807	250.0	250	pass	pass	pass	pass	fail	fail	pass	pass	fail	fail	pass
+DRR811139_2	DRR811139_2.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	83334.0	20.8 Mbp	0.0	250.0	52.0	3.7739698082415343	250.0	250	pass	pass	pass	pass	fail	fail	pass	pass	fail	fail	pass
+DRR811140_1	DRR811140_1.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	77558.0	19.3 Mbp	0.0	250.0	54.0	5.421748884705639	250.0	250	pass	pass	pass	pass	fail	fail	pass	pass	fail	fail	pass
+DRR811140_2	DRR811140_2.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	77558.0	19.3 Mbp	0.0	250.0	53.0	3.508342143943887	250.0	250	pass	pass	warn	pass	fail	fail	pass	pass	fail	fail	pass
+DRR811141_1	DRR811141_1.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	86357.0	21.5 Mbp	0.0	250.0	54.0	6.609771066618804	250.0	250	pass	pass	pass	pass	fail	fail	pass	pass	fail	fail	pass
+DRR811141_2	DRR811141_2.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	86357.0	21.5 Mbp	0.0	250.0	55.0	4.240536378058525	250.0	250	pass	pass	warn	pass	fail	fail	pass	pass	fail	fail	pass
+DRR811142_1	DRR811142_1.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	90942.0	22.7 Mbp	0.0	250.0	53.0	4.1180092806404085	250.0	250	pass	pass	pass	pass	fail	fail	pass	pass	fail	fail	pass
+DRR811142_2	DRR811142_2.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	90942.0	22.7 Mbp	0.0	250.0	54.0	3.1404631523388535	250.0	250	pass	pass	pass	pass	fail	fail	pass	pass	fail	fail	pass
+DRR811143_1	DRR811143_1.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	90562.0	22.6 Mbp	0.0	250.0	53.0	8.80391334113646	250.0	250	pass	pass	warn	pass	fail	fail	pass	pass	fail	fail	pass
+DRR811143_2	DRR811143_2.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	90562.0	22.6 Mbp	0.0	250.0	54.0	7.654424593096443	250.0	250	pass	pass	pass	pass	fail	fail	pass	pass	fail	fail	pass
+DRR811144_1	DRR811144_1.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	76308.0	19 Mbp	0.0	250.0	53.0	4.933951879226293	250.0	250	pass	pass	warn	pass	fail	fail	pass	pass	fail	fail	pass
+DRR811144_2	DRR811144_2.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	76308.0	19 Mbp	0.0	250.0	52.0	3.510772133983331	250.0	250	pass	pass	warn	pass	fail	fail	pass	pass	fail	fail	pass
+DRR811145_1	DRR811145_1.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	90364.0	22.5 Mbp	0.0	250.0	52.0	4.209641007480855	250.0	250	pass	pass	warn	pass	fail	fail	pass	pass	fail	fail	pass
+DRR811145_2	DRR811145_2.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	90364.0	22.5 Mbp	0.0	250.0	51.0	2.821920233721394	250.0	250	pass	pass	pass	pass	fail	fail	pass	pass	fail	fail	pass
+DRR811146_1	DRR811146_1.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	80797.0	20.1 Mbp	0.0	250.0	54.0	6.776241692142035	250.0	250	pass	pass	warn	pass	fail	fail	pass	pass	fail	fail	pass
+DRR811146_2	DRR811146_2.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	80797.0	20.1 Mbp	0.0	250.0	51.0	4.314516628092627	250.0	250	pass	pass	warn	pass	fail	fail	pass	pass	fail	fail	pass

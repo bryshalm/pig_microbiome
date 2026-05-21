@@ -1,0 +1,3 @@
+pig gut metagenome
+Therapeutic Efficacy and Mechanism of Complex Medium-chain triglycerides (CMCTs) Against PEDV Infection in Piglets (PRJCA029755)
+Using 16S rRNA gene sequencing, we observed how CMCTs affected the gut microbiota composition of PEDV-infected pigs.
