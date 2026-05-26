@@ -21,6 +21,21 @@ Github page for storage of workflow and code associated with pig microbiome proj
 * [PRJDB33433](https://www.ebi.ac.uk/ena/browser/view/PRJDB33433): https://www.ncbi.nlm.nih.gov/Traces/study/?uids=41830381%2C41830380%2C41830379%2C41830378%2C41830377%2C41830376%2C41830375%2C41830374%2C41830373&o=acc_s%3Aa
 * [PRJNA1330057](https://www.ebi.ac.uk/ena/browser/view/PRJNA1330057):https://www.ncbi.nlm.nih.gov/Traces/study/?uids=41830381%2C41830380%2C41830379%2C41830378%2C41830377%2C41830376%2C41830375%2C41830374%2C41830373&o=acc_s%3Aa
 * [PRJNA1328842](https://www.ebi.ac.uk/ena/browser/view/PRJNA13288420): very large may need to exclude https://www.ncbi.nlm.nih.gov/Traces/study/?page=17&query_key=19&WebEnv=MCID_6a161c09803cc4d40763e6d6&o=acc_s%3Aa
+* [PRJNA1328342](https://www.ebi.ac.uk/ena/browser/view/PRJNA1328342):https://www.ncbi.nlm.nih.gov/Traces/study/?query_key=22&WebEnv=MCID_6a161c09803cc4d40763e6d6&o=acc_s%3Aa
+* [PRJNA1312286](https://www.ebi.ac.uk/ena/browser/view/PRJNA1312458): https://www.ncbi.nlm.nih.gov/bioproject/1312286
+* [PRJNA1311522](https://www.ebi.ac.uk/ena/browser/view/PRJNA1311522):https://www.ncbi.nlm.nih.gov/Traces/study/?WebEnv=MCID_6a161c09803cc4d40763e6d6&query_key=26&GALAXY_URL=https%3A%2F%2Fusegalaxy.org%2Ftool_runner%3Ftool_id%3Dsra_source
+* [PRJNA1297371](https://www.ebi.ac.uk/ena/browser/view/PRJNA1297371):https://www.ncbi.nlm.nih.gov/Traces/study/?query_key=36&WebEnv=MCID_6a161c09803cc4d40763e6d6&o=acc_s%3Aa
+* [PRJNA1290811](https://www.ebi.ac.uk/ena/browser/view/PRJNA1290811):https://www.ncbi.nlm.nih.gov/Traces/study/?query_key=39&WebEnv=MCID_6a161c09803cc4d40763e6d6&o=acc_s%3Aa
+* [PRJEB81249](https://www.ebi.ac.uk/ena/browser/view/PRJEB81249):https://www.ncbi.nlm.nih.gov/Traces/study/?page=19&query_key=48&WebEnv=MCID_6a161c09803cc4d40763e6d6&o=acc_s%3Aa large study both wgs and 16s
+* [PRJNA1227677](https://www.ebi.ac.uk/ena/browser/view/PRJNA1227677):https://www.ncbi.nlm.nih.gov/Traces/study/?query_key=56&WebEnv=MCID_6a161c09803cc4d40763e6d6&o=acc_s%3Aa
+* [PRJNA1223651](https://www.ebi.ac.uk/ena/browser/view/PRJNA1223651):https://www.ncbi.nlm.nih.gov/Traces/study/?page=4&query_key=61&WebEnv=MCID_6a161c09803cc4d40763e6d6&o=acc_s%3Aa
+* [PRJNA1223177](https://www.ebi.ac.uk/ena/browser/view/PRJNA1223177): https://www.ncbi.nlm.nih.gov/Traces/study/?query_key=63&WebEnv=MCID_6a161c09803cc4d40763e6d6&o=acc_s%3Aa
+* [PRJNA1210778](https://www.ebi.ac.uk/ena/browser/view/PRJNA1210778): https://www.ncbi.nlm.nih.gov/bioproject/1210778
+* [PRJNA1195218](https://www.ebi.ac.uk/ena/browser/view/PRJNA1195218): https://www.ncbi.nlm.nih.gov/bioproject/1195218
+* [PRJNA1185956](https://www.ebi.ac.uk/ena/browser/view/PRJNA1185956): https://www.ncbi.nlm.nih.gov/Traces/study/?page=2&query_key=82&WebEnv=MCID_6a161c09803cc4d40763e6d6&o=acc_s%3Aa
+* [PRJNA1180741}(https://www.ebi.ac.uk/ena/browser/view/PRJNA1180741): https://www.ncbi.nlm.nih.gov/Traces/study/?query_key=85&WebEnv=MCID_6a161c09803cc4d40763e6d6&o=acc_s%3Aa
+* [PRJNA1171598](https://www.ebi.ac.uk/ena/browser/view/PRJNA1171598):https://www.ncbi.nlm.nih.gov/Traces/study/?query_key=92&WebEnv=MCID_6a161c09803cc4d40763e6d6&o=acc_s%3Aa
+* [PRJNA1165505](https://www.ebi.ac.uk/ena/browser/view/PRJNA1165505):https://www.ncbi.nlm.nih.gov/Traces/study/?query_key=97&WebEnv=MCID_6a161c09803cc4d40763e6d6&o=acc_s%3Aa
 
 Each BioProject folder contains:
 
