@@ -12,7 +12,15 @@ Github page for storage of workflow and code associated with pig microbiome proj
 | [PRJNA266806](https://github.com/bryshalm/pig_microbiome/tree/main/PRJNA266806)| V3 to V4 |53|Colon, ileal digest|454 FLX||
 | [PRJNA281781](https://github.com/bryshalm/pig_microbiome/tree/main/PRJNA281781) | V4| 20 | Ileum, cecum digesta | Illumina  MiSeq | |
 
-(Holman, et al. 2017)               
+(Holman, et al. 2017)      
+
+**New BioProjects** 
+* [PRJNA1387191](https://www.ebi.ac.uk/ena/browser/view/PRJNA1387191) :https://www.ncbi.nlm.nih.gov/sra?linkname=bioproject_sra_all&from_uid=1387191
+* [PRJDB38429}(https://www.ebi.ac.uk/ena/browser/view/PRJDB38429):
+* [PRJNA1364848](https://www.ebi.ac.uk/ena/browser/view/PRJNA1364848): mixture of wgs and 16s https://www.ncbi.nlm.nih.gov/Traces/study/?query_key=8&WebEnv=MCID_6a161c09803cc4d40763e6d6&o=acc_s%3Aa
+* [PRJDB33433](https://www.ebi.ac.uk/ena/browser/view/PRJDB33433): https://www.ncbi.nlm.nih.gov/Traces/study/?uids=41830381%2C41830380%2C41830379%2C41830378%2C41830377%2C41830376%2C41830375%2C41830374%2C41830373&o=acc_s%3Aa
+* [PRJNA1330057](https://www.ebi.ac.uk/ena/browser/view/PRJNA1330057):https://www.ncbi.nlm.nih.gov/Traces/study/?uids=41830381%2C41830380%2C41830379%2C41830378%2C41830377%2C41830376%2C41830375%2C41830374%2C41830373&o=acc_s%3Aa
+* [PRJNA1328842](https://www.ebi.ac.uk/ena/browser/view/PRJNA13288420): very large may need to exclude https://www.ncbi.nlm.nih.gov/Traces/study/?page=17&query_key=19&WebEnv=MCID_6a161c09803cc4d40763e6d6&o=acc_s%3Aa
 
 Each BioProject folder contains:
 
