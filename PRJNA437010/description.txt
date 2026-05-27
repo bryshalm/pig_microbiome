@@ -1,0 +1,15 @@
+Project: PRJNA437010
+"Information on the gut microbiome of piglets during the weaning transition is still lacking. Here, we performed 16S rRNA gene sequencing to uncover the microbial community structure and membership of piglet gut microbiota during the weaning transition. The 16S rRNA gene sequencing revealed significant composition of the fecal microbiota between nursing and weaned piglets."
+Secondary Study Accession:SRP133974
+Study Title:Pig gut microbiome shifts during the weaning transition
+Center Name:mothur
+ENA-REFSEQ:N
+PROJECT-ID:437010
+ENA-FIRST-PUBLIC:2018-03-07
+ENA-LAST-UPDATE:2023-05-19
+
+
+The dynamics of the piglet gut microbiome during the weaning transition in association with health and nutrition.
+Guevarra RB, Hong SH, Cho JH, Kim BR, Shin J, Lee JH, Kang BN, Kim YH, Wattanaphansak S, Isaacson RE, Song M, Kim HB.
+1Department of Animal Resources Science, Dankook University, Cheonan, South Korea.
+J Anim Sci Biotechnol 954 (2018 )
