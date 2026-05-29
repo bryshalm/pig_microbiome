@@ -1,0 +1,28 @@
+Project: PRJNA427098
+Weanling piglets were fed with either a commercial diet or a high-fiber rapeseed diet. 16S rRNA gene amplicon sequencing was performed to investigate and compare the gut microbiota of these piglets for the different dietary treatment effects.
+Secondary Study Accession:SRP127551
+Study Title:Effects of an alternative high-fiber rapeseed diet on gut microbiota of piglets
+Center Name:Norwegian University of Life Sciences
+ENA-REFSEQ:N
+PROJECT-ID:427098
+ENA-FIRST-PUBLIC:2018-12-03
+ENA-LAST-UPDATE:2023-05-17
+Publications
+Publications citing this record
+Integrated multi-omics approach reveals novel associations in the rapeseed diet-microbiota-host axis in pigs.
+Onarman Umu ÖC, Mydland LT, Chen C, de Nanclares MP, Shurson GC, Urriola PE, Sørum H, Øverland M.
+Department of Paraclinical Sciences, Faculty of Veterinary Medicine, Norwegian University of Life Sciences, Ås N-1432, Norway.
+ISME Commun 4(1): ycae061 (2024 Jan)
+Show abstract
+Unpaywall (pdf)
+DOI (doi)
+Europe_PMC (html)
+Europe_PMC (pdf)
+Gut microbiota profiling in Norwegian weaner pigs reveals potentially beneficial effects of a high-fiber rapeseed diet.
+Onarman Umu ÖC, Fauske AK, Åkesson CP, Pérez de Nanclares M, Sørby R, Press CM, Øverland M, Sørum H.
+Department of Food Safety and Infection Biology, Faculty of Veterinary Medicine, Norwegian University of Life Sciences, Oslo, Norway.
+PLoS One 13(12): e0209439 (2018 )
+Show abstract
+DOI (doi)
+Europe_PMC (html)
+Europe_PMC (pdf)
