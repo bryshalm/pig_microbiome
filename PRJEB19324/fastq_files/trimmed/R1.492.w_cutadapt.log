@@ -1,4 +1,0 @@
-This is cutadapt 4.4 with Python 3.7.12
-Command line parameters: -g CCTACGGGAGGCAGCAG -a GACTACNVGGGTWTCTAAT --discard-untrimmed -o trimmed/R1.492.w_trimmed.fastq.gz R1.492.w.fastq.gz -j 4
-Processing single-end reads on 4 cores ...
-ERROR: Error in FASTQ file at line 4: Length of sequence and qualities differ

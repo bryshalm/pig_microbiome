@@ -6,7 +6,6 @@ for FQ in *.fastq.gz; do
 
     cutadapt \
         -g CCTACGGGAGGCAGCAG \
-        -a GACTACNVGGGTWTCTAAT \
         --discard-untrimmed \
         -o trimmed/${SAMPLE}_trimmed.fastq.gz \
         "$FQ" \
