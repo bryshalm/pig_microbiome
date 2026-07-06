@@ -1,0 +1,213 @@
+[2026-07-06 11:41:26,951] root                                               [DEBUG  ]  Logging to file: /tmp/tmpmkn49ojb/multiqc.log
+[2026-07-06 11:41:26,955] multiqc.core.update_config                         [DEBUG  ]  This is MultiQC v1.33
+[2026-07-06 11:41:26,955] multiqc.core.update_config                         [DEBUG  ]  Running Python 3.11.14 | packaged by conda-forge | (main, Jan 26 2026, 23:48:32) [GCC 14.3.0]
+[2026-07-06 11:41:26,963] urllib3.connectionpool                             [DEBUG  ]  Starting new HTTPS connection (1): api.multiqc.info:443
+[2026-07-06 11:41:27,549] urllib3.connectionpool                             [DEBUG  ]  https://api.multiqc.info:443 "GET /version?version_multiqc=1.33&version_python=3.11.14&operating_system=Linux&is_docker=False&is_singularity=False&is_conda=True&is_uv=False&is_ci=False&is_notebook=False&ai_summary=False&ai_summary_full=False&ai_provider=seqera HTTP/1.1" 200 178
+[2026-07-06 11:41:27,549] multiqc.core.version_check                         [WARNING]  MultiQC Version v1.35 now available!
+[2026-07-06 11:41:27,550] multiqc.core.version_check                         [DEBUG  ]  Latest MultiQC version is v1.35, released 2026-05-13
+[2026-07-06 11:41:27,551] multiqc.multiqc                                    [DEBUG  ]  Working dir : /home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB19324/fastq_files/trimmed
+[2026-07-06 11:41:27,552] multiqc.multiqc                                    [DEBUG  ]  Template    : default
+[2026-07-06 11:41:27,558] multiqc.multiqc                                    [DEBUG  ]  Command used: /home/brymoore/.local/share/mamba/envs/multiqc_env/bin/multiqc fastqc_output -o multiqc_output
+[2026-07-06 11:41:27,558] multiqc.core.file_search                           [INFO   ]  Search path: /home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB19324/fastq_files/trimmed/fastqc_output
+[2026-07-06 11:41:27,559] multiqc.core.file_search                           [DEBUG  ]  Analysing modules: bases2fastq, cellranger_arc, cells2stats, ribotish, seqkit, sompy, xenium, custom_content, ccs, ngsderive, purple, conpair, isoseq, lima, peddy, percolator, haplocheck, somalier, methylqa, mosdepth, phantompeakqualtools, qualimap, bamdst, preseq, hifiasm, quast, qorts, rna_seqc, rockhopper, rsem, rseqc, busco, checkm, bustools, goleft_indexcov, gffcompare, disambiguate, supernova, deeptools, sargasso, verifybamid, mirtrace, happy, mirtop, glimpse, gopeaks, homer, hops, macs2, theta2, snpeff, gatk, htseq, bcftools, featurecounts, fgbio, dragen, dragen_fastqc, dedup, pbmarkdup, damageprofiler, mapdamage, biobambam2, jcvi, mtnucratio, picard, vep, bakta, prokka, checkm2, qc3C, nanoq, nanostat, samblaster, samtools, bamtools, sambamba, ngsbits, pairtools, sexdeterrmine, seqera_cli, eigenstratdatabasetools, jellyfish, vcftools, longranger, stacks, varscan2, snippy, umicollapse, umitools, truvari, megahit, ganon, gtdbtk, bbmap, bismark, biscuit, diamond, hicexplorer, hicup, hicpro, salmon, kallisto, slamdunk, star, hisat2, tophat, bowtie2, bowtie1, hostile, cellranger, snpsplit, odgi, vg, pangolin, nextclade, freyja, humid, kat, leehom, librarian, nonpareil, adapterremoval, bbduk, clipandmerge, cutadapt, flexbar, sourmash, kaiju, kraken, malt, motus, trimmomatic, sickle, skewer, sortmerna, biobloomtools, seqfu, fastq_screen, afterqc, fastp, fastqc, sequali, filtlong, prinseqplusplus, pychopper, porechop, pycoqc, minionqc, anglerfish, multivcfanalyzer, clusterflow, checkqc, bcl2fastq, bclconvert, interop, ivar, flash, seqyclean, optitype, whatshap, spaceranger, xenome, xengsort, metaphlan, sylphtax, seqwho, telseq, ataqv, mgikit, mosaicatcher, software_versions
+[2026-07-06 11:41:27,559] multiqc.core.file_search                           [DEBUG  ]  Search keys: adapterremoval, afterqc, anglerfish, ataqv, bakta, bamdst, bamtools, bases2fastq, bbduk, bbmap, bcftools, bcl2fastq, bclconvert, biobambam2, biobloomtools, biscuit, bismark, bowtie1, bowtie2, busco, bustools, ccs, cellranger, cellranger_arc, cells2stats, checkm, checkm2, checkqc, clipandmerge, clusterflow, conpair, custom_content, cutadapt, damageprofiler, dedup, deeptools, diamond, disambiguate, dragen, dragen_fastqc, eigenstratdatabasetools, fastp, fastq_screen, fastqc, featurecounts, fgbio, filtlong, flash, flexbar, freyja, ganon, gatk, gffcompare, glimpse, goleft_indexcov, gopeaks, gtdbtk, haplocheck, happy, hicexplorer, hicpro, hicup, hifiasm, hisat2, homer, hops, hostile, htseq, humid, interop, isoseq, ivar, jcvi, jellyfish, kaiju, kallisto, kat, kraken, leehom, librarian, lima, longranger, macs2, malt, mapdamage, megahit, metaphlan, methylqa, mgikit, minionqc, mirtop, mirtrace, mosaicatcher, mosdepth, motus, mtnucratio, multiqc_data, multivcfanalyzer, nanoq, nanostat, nextclade, ngsbits, ngsderive, nonpareil, odgi, optitype, pairtools, pangolin, pbmarkdup, peddy, percolator, phantompeakqualtools, picard, porechop, preseq, prinseqplusplus, prokka, purple, pychopper, pycoqc, qc3C, qorts, qualimap, quast, ribotish, rna_seqc, rockhopper, rsem, rseqc, salmon, sambamba, samblaster, samtools, sargasso, seqera_cli, seqfu, seqkit, sequali, seqwho, seqyclean, sexdeterrmine, sickle, skewer, slamdunk, snippy, snpeff, snpsplit, software_versions, somalier, sompy, sortmerna, sourmash, spaceranger, stacks, star, supernova, sylphtax, telseq, theta2, tophat, trimmomatic, truvari, umicollapse, umitools, varscan2, vcftools, vep, verifybamid, vg, whatshap, xengsort, xenium, xenome
+[2026-07-06 11:41:29,183] multiqc.report                                     [DEBUG  ]  Summary of files that were skipped by the search: |skipped_module_specific_max_filesize: 150|, |skipped_no_match: 150|
+[2026-07-06 11:41:29,187] multiqc.core.exec_modules                          [DEBUG  ]  Running module: custom_content
+[2026-07-06 11:41:29,192] multiqc.core.exec_modules                          [DEBUG  ]  No samples found: custom_content
+[2026-07-06 11:41:29,192] multiqc.core.exec_modules                          [DEBUG  ]  Running module: fastqc
+[2026-07-06 11:41:29,665] multiqc.modules.fastqc.fastqc                      [INFO   ]  Found 150 reports
+[2026-07-06 11:41:29,666] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '1_S1'
+[2026-07-06 11:41:29,666] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '2_S2'
+[2026-07-06 11:41:29,666] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '3_S3'
+[2026-07-06 11:41:29,666] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '4_S4'
+[2026-07-06 11:41:29,666] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '5_S5'
+[2026-07-06 11:41:29,666] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '6_S6'
+[2026-07-06 11:41:29,666] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '7_S7'
+[2026-07-06 11:41:29,666] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '9_S8'
+[2026-07-06 11:41:29,666] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '11_S9'
+[2026-07-06 11:41:29,666] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '14_S10'
+[2026-07-06 11:41:29,666] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '15_S11'
+[2026-07-06 11:41:29,667] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '16_S12'
+[2026-07-06 11:41:29,667] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '17_S13'
+[2026-07-06 11:41:29,667] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '19_S14'
+[2026-07-06 11:41:29,667] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '20_S15'
+[2026-07-06 11:41:29,667] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '21_S16'
+[2026-07-06 11:41:29,667] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '22_S17'
+[2026-07-06 11:41:29,667] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '23_S18'
+[2026-07-06 11:41:29,667] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '24_S19'
+[2026-07-06 11:41:29,667] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '25_S20'
+[2026-07-06 11:41:29,667] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '26_S21'
+[2026-07-06 11:41:29,667] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '27_S22'
+[2026-07-06 11:41:29,667] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '28_S23'
+[2026-07-06 11:41:29,668] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '29_S24'
+[2026-07-06 11:41:29,668] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '30_S25'
+[2026-07-06 11:41:29,668] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '31_S27'
+[2026-07-06 11:41:29,668] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '32_S28'
+[2026-07-06 11:41:29,668] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '33_S29'
+[2026-07-06 11:41:29,669] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '34_S30'
+[2026-07-06 11:41:29,669] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '35_S31'
+[2026-07-06 11:41:29,669] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '36_S32'
+[2026-07-06 11:41:29,669] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '37_S33'
+[2026-07-06 11:41:29,669] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '38_S34'
+[2026-07-06 11:41:29,669] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '39_S35'
+[2026-07-06 11:41:29,669] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '40_S36'
+[2026-07-06 11:41:29,669] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '41_S37'
+[2026-07-06 11:41:29,670] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '42_S38'
+[2026-07-06 11:41:29,670] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '43_S39'
+[2026-07-06 11:41:29,670] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '44_S40'
+[2026-07-06 11:41:29,670] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '45_S41'
+[2026-07-06 11:41:29,670] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '46_S42'
+[2026-07-06 11:41:29,670] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '47_S43'
+[2026-07-06 11:41:29,670] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '50_S46'
+[2026-07-06 11:41:29,670] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '51_S47'
+[2026-07-06 11:41:29,670] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '52_S48'
+[2026-07-06 11:41:29,670] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '53_S1'
+[2026-07-06 11:41:29,671] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '54_S2'
+[2026-07-06 11:41:29,671] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '55_S3'
+[2026-07-06 11:41:29,671] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '56_S4'
+[2026-07-06 11:41:29,671] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '57_S5'
+[2026-07-06 11:41:29,671] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '58_S7'
+[2026-07-06 11:41:29,671] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '59_S8'
+[2026-07-06 11:41:29,671] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '60_S9'
+[2026-07-06 11:41:29,671] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: '361_S10'
+[2026-07-06 11:41:29,671] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.339.d42'
+[2026-07-06 11:41:29,672] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.339.d139'
+[2026-07-06 11:41:29,672] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.339.w'
+[2026-07-06 11:41:29,672] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.377.d42'
+[2026-07-06 11:41:29,672] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.377.d139'
+[2026-07-06 11:41:29,672] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.377.w'
+[2026-07-06 11:41:29,672] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.378.d42'
+[2026-07-06 11:41:29,672] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.378.d139'
+[2026-07-06 11:41:29,672] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.378.w'
+[2026-07-06 11:41:29,672] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.403.d42'
+[2026-07-06 11:41:29,672] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.403.d139'
+[2026-07-06 11:41:29,673] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.403.w'
+[2026-07-06 11:41:29,673] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.405.d42'
+[2026-07-06 11:41:29,673] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.405.d139'
+[2026-07-06 11:41:29,673] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.405.w'
+[2026-07-06 11:41:29,673] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.407.d42'
+[2026-07-06 11:41:29,673] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.407.d139'
+[2026-07-06 11:41:29,673] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.407.w'
+[2026-07-06 11:41:29,673] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.415.d42'
+[2026-07-06 11:41:29,673] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.415.d139'
+[2026-07-06 11:41:29,674] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.415.w'
+[2026-07-06 11:41:29,674] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.417.d42'
+[2026-07-06 11:41:29,674] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.417.d139'
+[2026-07-06 11:41:29,674] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.417.w'
+[2026-07-06 11:41:29,674] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.420.d42'
+[2026-07-06 11:41:29,674] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.420.d139'
+[2026-07-06 11:41:29,674] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.420.w'
+[2026-07-06 11:41:29,674] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.453.d42'
+[2026-07-06 11:41:29,674] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.453.d139'
+[2026-07-06 11:41:29,674] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.453.w'
+[2026-07-06 11:41:29,675] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.455.d42'
+[2026-07-06 11:41:29,675] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.455.d139'
+[2026-07-06 11:41:29,675] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.455.w'
+[2026-07-06 11:41:29,675] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.457.d42'
+[2026-07-06 11:41:29,675] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.457.d139'
+[2026-07-06 11:41:29,675] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.457.w'
+[2026-07-06 11:41:29,675] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.481.d42'
+[2026-07-06 11:41:29,675] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.481.d139'
+[2026-07-06 11:41:29,675] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.481.w'
+[2026-07-06 11:41:29,676] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.482.d42'
+[2026-07-06 11:41:29,676] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.482.d139'
+[2026-07-06 11:41:29,676] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.482.w'
+[2026-07-06 11:41:29,676] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.491.d42'
+[2026-07-06 11:41:29,676] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.491.d139'
+[2026-07-06 11:41:29,676] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.491.w'
+[2026-07-06 11:41:29,676] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.492.d42'
+[2026-07-06 11:41:29,676] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.492.d139'
+[2026-07-06 11:41:29,676] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.492.w'
+[2026-07-06 11:41:29,677] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.494.d42'
+[2026-07-06 11:41:29,677] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.494.d139'
+[2026-07-06 11:41:29,677] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.494.w'
+[2026-07-06 11:41:29,677] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.498.d42'
+[2026-07-06 11:41:29,677] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.498.d139'
+[2026-07-06 11:41:29,677] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.498.w'
+[2026-07-06 11:41:29,677] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.502.d42'
+[2026-07-06 11:41:29,677] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.502.d139'
+[2026-07-06 11:41:29,677] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.502.w'
+[2026-07-06 11:41:29,677] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.506.d42'
+[2026-07-06 11:41:29,678] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.506.d139'
+[2026-07-06 11:41:29,678] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.506.w'
+[2026-07-06 11:41:29,678] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.508.d42'
+[2026-07-06 11:41:29,678] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.508.d139'
+[2026-07-06 11:41:29,678] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.508.w'
+[2026-07-06 11:41:29,678] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.512.d42'
+[2026-07-06 11:41:29,678] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.512.d139'
+[2026-07-06 11:41:29,678] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.512.w'
+[2026-07-06 11:41:29,678] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.521.d42'
+[2026-07-06 11:41:29,679] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.521.d139'
+[2026-07-06 11:41:29,679] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.521.w'
+[2026-07-06 11:41:29,679] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.526.d42'
+[2026-07-06 11:41:29,679] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.526.d139'
+[2026-07-06 11:41:29,679] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.526.w'
+[2026-07-06 11:41:29,679] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.527.d42'
+[2026-07-06 11:41:29,679] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.527.d139'
+[2026-07-06 11:41:29,679] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.527.w'
+[2026-07-06 11:41:29,679] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.530.d42'
+[2026-07-06 11:41:29,679] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.530.d139'
+[2026-07-06 11:41:29,680] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.530.w'
+[2026-07-06 11:41:29,680] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.592.d42'
+[2026-07-06 11:41:29,680] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.592.d139'
+[2026-07-06 11:41:29,680] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.592.w'
+[2026-07-06 11:41:29,680] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.593.d42'
+[2026-07-06 11:41:29,680] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.593.d139'
+[2026-07-06 11:41:29,680] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.593.w'
+[2026-07-06 11:41:29,680] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.594.d42'
+[2026-07-06 11:41:29,680] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.594.d139'
+[2026-07-06 11:41:29,680] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.594.w'
+[2026-07-06 11:41:29,681] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.596.d42'
+[2026-07-06 11:41:29,681] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.596.d139'
+[2026-07-06 11:41:29,681] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.596.w'
+[2026-07-06 11:41:29,681] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.598.d42'
+[2026-07-06 11:41:29,681] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.598.d139'
+[2026-07-06 11:41:29,681] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.598.w'
+[2026-07-06 11:41:29,681] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.616.d42'
+[2026-07-06 11:41:29,681] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.616.d139'
+[2026-07-06 11:41:29,681] multiqc.modules.fastqc.fastqc                      [WARNING]  Sample had zero reads: 'R1.616.w'
+[2026-07-06 11:41:29,788] multiqc.plots.plot                                 [DEBUG  ]  merge_with_previous for fastqc_sequence_counts_plot: found old_data = False
+[2026-07-06 11:41:29,788] multiqc.plots.plot                                 [DEBUG  ]  merge_with_previous for fastqc_sequence_counts_plot: no old data or empty, using new data only
+[2026-07-06 11:41:30,125] multiqc.modules.fastqc.fastqc                      [DEBUG  ]  sequence_quality not found in FastQC reports
+[2026-07-06 11:41:30,126] multiqc.modules.fastqc.fastqc                      [DEBUG  ]  per_seq_quality not found in FastQC reports
+[2026-07-06 11:41:30,253] multiqc.plots.plot                                 [DEBUG  ]  merge_with_previous for fastqc_per_sequence_gc_content_plot: found old_data = False
+[2026-07-06 11:41:30,253] multiqc.plots.plot                                 [DEBUG  ]  merge_with_previous for fastqc_per_sequence_gc_content_plot: no old data or empty, using new data only
+[2026-07-06 11:41:30,416] multiqc.plots.plot                                 [DEBUG  ]  Plot fastqc_per_sequence_gc_content_plot has 150 series > config.plots_defer_loading_numseries=100, will defer render
+[2026-07-06 11:41:30,448] multiqc.plots.plot                                 [DEBUG  ]  merge_with_previous for fastqc_per_base_n_content_plot: found old_data = False
+[2026-07-06 11:41:30,449] multiqc.plots.plot                                 [DEBUG  ]  merge_with_previous for fastqc_per_base_n_content_plot: no old data or empty, using new data only
+[2026-07-06 11:41:30,492] multiqc.plots.plot                                 [DEBUG  ]  merge_with_previous for fastqc_sequence_duplication_levels_plot: found old_data = False
+[2026-07-06 11:41:30,492] multiqc.plots.plot                                 [DEBUG  ]  merge_with_previous for fastqc_sequence_duplication_levels_plot: no old data or empty, using new data only
+[2026-07-06 11:41:30,502] multiqc.plots.plot                                 [DEBUG  ]  Plot fastqc_sequence_duplication_levels_plot has 150 series > config.plots_defer_loading_numseries=100, will defer render
+[2026-07-06 11:41:30,515] multiqc.plots.table_object                         [DEBUG  ]  Table key 'samples' not found in data for 'fastqc_top_overrepresented_sequences_table'. Skipping. Check for possible typos between data keys and header keys
+[2026-07-06 11:41:30,516] multiqc.plots.table_object                         [DEBUG  ]  Table key 'total_count' not found in data for 'fastqc_top_overrepresented_sequences_table'. Skipping. Check for possible typos between data keys and header keys
+[2026-07-06 11:41:30,516] multiqc.plots.table_object                         [DEBUG  ]  Table key 'total_percent' not found in data for 'fastqc_top_overrepresented_sequences_table'. Skipping. Check for possible typos between data keys and header keys
+[2026-07-06 11:41:30,516] multiqc.plots.plot                                 [DEBUG  ]  merge_with_previous for fastqc_top_overrepresented_sequences_table: found old_data = False
+[2026-07-06 11:41:30,516] multiqc.plots.plot                                 [DEBUG  ]  merge_with_previous for fastqc_top_overrepresented_sequences_table: no old data or empty, using new data only
+[2026-07-06 11:41:30,516] multiqc.modules.fastqc.fastqc                      [DEBUG  ]  adapter_content not found in FastQC reports
+[2026-07-06 11:41:30,518] multiqc.plots.plot                                 [DEBUG  ]  merge_with_previous for fastqc-status-check-heatmap: found old_data = False
+[2026-07-06 11:41:30,518] multiqc.plots.plot                                 [DEBUG  ]  merge_with_previous for fastqc-status-check-heatmap: no old data or empty, using new data only
+[2026-07-06 11:41:30,659] multiqc.report                                     [DEBUG  ]  Wrote data file multiqc_fastqc.txt
+[2026-07-06 11:41:30,664] multiqc.report                                     [DEBUG  ]  Wrote data file multiqc_fastqc.json
+[2026-07-06 11:41:30,666] multiqc.base_module                                [DEBUG  ]  fastqc: deleting attribute self.order_of_duplication_levels
+[2026-07-06 11:41:30,666] multiqc.base_module                                [DEBUG  ]  fastqc: deleting attribute self.status_colours
+[2026-07-06 11:41:30,667] multiqc.core.software_versions                     [DEBUG  ]  Reading software versions from config.software_versions
+[2026-07-06 11:41:30,676] multiqc.report                                     [DEBUG  ]  Wrote data file multiqc_software_versions.txt
+[2026-07-06 11:41:30,676] multiqc.core.write_results                         [DEBUG  ]  Rendering plots
+[2026-07-06 11:41:30,791] multiqc.plots.plot                                 [DEBUG  ]  merge_with_previous for general_stats_table: found old_data = False
+[2026-07-06 11:41:30,791] multiqc.plots.plot                                 [DEBUG  ]  merge_with_previous for general_stats_table: no old data or empty, using new data only
+[2026-07-06 11:41:30,803] multiqc.plots.violin                               [DEBUG  ]  All 152 points have the same values, metric: 'Avg len'
+[2026-07-06 11:41:30,804] multiqc.plots.violin                               [DEBUG  ]  All 152 points have the same values, metric: 'Median len'
+[2026-07-06 11:41:30,805] multiqc.plots.violin                               [DEBUG  ]  All 152 points have the same values, metric: 'Seqs'
+[2026-07-06 11:41:31,038] multiqc.report                                     [DEBUG  ]  Wrote data file multiqc_general_stats.txt
+[2026-07-06 11:41:31,041] multiqc.report                                     [DEBUG  ]  Wrote data file multiqc_general_stats.json
+[2026-07-06 11:41:31,092] multiqc.core.ai                                    [DEBUG  ]  Saved AI prompt to multiqc_data/llms-full.txt
+[2026-07-06 11:41:31,095] multiqc.core.write_results                         [DEBUG  ]  Exporting plot data to files
+[2026-07-06 11:41:31,095] multiqc.report                                     [DEBUG  ]  Wrote data file fastqc_sequence_counts_plot.txt
+[2026-07-06 11:41:31,117] multiqc.report                                     [DEBUG  ]  Wrote data file fastqc_per_sequence_gc_content_plot_Percentages.txt
+[2026-07-06 11:41:31,139] multiqc.report                                     [DEBUG  ]  Wrote data file fastqc_per_sequence_gc_content_plot_Counts.txt
+[2026-07-06 11:41:31,144] multiqc.report                                     [DEBUG  ]  Wrote data file fastqc_sequence_duplication_levels_plot.txt
+[2026-07-06 11:41:31,144] multiqc.report                                     [DEBUG  ]  Wrote data file fastqc-status-check-heatmap.txt
+[2026-07-06 11:41:31,144] multiqc.core.write_results                         [DEBUG  ]  Moving data file from '/tmp/tmpmkn49ojb/multiqc_data' to '/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB19324/fastq_files/trimmed/multiqc_output/multiqc_data'
+[2026-07-06 11:41:32,174] multiqc.core.write_results                         [INFO   ]  Data        : multiqc_output/multiqc_data
+[2026-07-06 11:41:32,375] multiqc.core.write_results                         [DEBUG  ]  Compressing plot data
+[2026-07-06 11:41:32,846] multiqc.core.write_results                         [INFO   ]  Report      : multiqc_output/multiqc_report.html
