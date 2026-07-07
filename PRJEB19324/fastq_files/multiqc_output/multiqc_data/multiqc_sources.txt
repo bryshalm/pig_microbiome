@@ -48,7 +48,6 @@ FastQC	all_sections	53_S1	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB19324/
 FastQC	all_sections	54_S2	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB19324/fastq_files/fastqc_output/54_S2_fastqc.zip
 FastQC	all_sections	55_S3	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB19324/fastq_files/fastqc_output/55_S3_fastqc.zip
 FastQC	all_sections	56_S4	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB19324/fastq_files/fastqc_output/56_S4_fastqc.zip
-FastQC	all_sections	57_S5	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB19324/fastq_files/fastqc_output/57_S5_fastqc.zip
 FastQC	all_sections	58_S7	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB19324/fastq_files/fastqc_output/58_S7_fastqc.zip
 FastQC	all_sections	59_S8	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB19324/fastq_files/fastqc_output/59_S8_fastqc.zip
 FastQC	all_sections	60_S9	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB19324/fastq_files/fastqc_output/60_S9_fastqc.zip
@@ -59,7 +58,6 @@ FastQC	all_sections	R1.339.w	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB193
 FastQC	all_sections	R1.377.d42	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB19324/fastq_files/fastqc_output/R1.377.d42_fastqc.zip
 FastQC	all_sections	R1.377.d139	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB19324/fastq_files/fastqc_output/R1.377.d139_fastqc.zip
 FastQC	all_sections	R1.377.w	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB19324/fastq_files/fastqc_output/R1.377.w_fastqc.zip
-FastQC	all_sections	R1.378.d42	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB19324/fastq_files/fastqc_output/R1.378.d42_fastqc.zip
 FastQC	all_sections	R1.378.d139	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB19324/fastq_files/fastqc_output/R1.378.d139_fastqc.zip
 FastQC	all_sections	R1.378.w	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB19324/fastq_files/fastqc_output/R1.378.w_fastqc.zip
 FastQC	all_sections	R1.403.d42	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB19324/fastq_files/fastqc_output/R1.403.d42_fastqc.zip
@@ -73,7 +71,6 @@ FastQC	all_sections	R1.407.d139	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB
 FastQC	all_sections	R1.407.w	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB19324/fastq_files/fastqc_output/R1.407.w_fastqc.zip
 FastQC	all_sections	R1.415.d42	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB19324/fastq_files/fastqc_output/R1.415.d42_fastqc.zip
 FastQC	all_sections	R1.415.d139	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB19324/fastq_files/fastqc_output/R1.415.d139_fastqc.zip
-FastQC	all_sections	R1.415.w	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB19324/fastq_files/fastqc_output/R1.415.w_fastqc.zip
 FastQC	all_sections	R1.417.d42	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB19324/fastq_files/fastqc_output/R1.417.d42_fastqc.zip
 FastQC	all_sections	R1.417.d139	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB19324/fastq_files/fastqc_output/R1.417.d139_fastqc.zip
 FastQC	all_sections	R1.417.w	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB19324/fastq_files/fastqc_output/R1.417.w_fastqc.zip
@@ -84,9 +81,7 @@ FastQC	all_sections	R1.453.d42	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB1
 FastQC	all_sections	R1.453.d139	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB19324/fastq_files/fastqc_output/R1.453.d139_fastqc.zip
 FastQC	all_sections	R1.453.w	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB19324/fastq_files/fastqc_output/R1.453.w_fastqc.zip
 FastQC	all_sections	R1.455.d42	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB19324/fastq_files/fastqc_output/R1.455.d42_fastqc.zip
-FastQC	all_sections	R1.455.d139	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB19324/fastq_files/fastqc_output/R1.455.d139_fastqc.zip
 FastQC	all_sections	R1.455.w	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB19324/fastq_files/fastqc_output/R1.455.w_fastqc.zip
-FastQC	all_sections	R1.457.d42	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB19324/fastq_files/fastqc_output/R1.457.d42_fastqc.zip
 FastQC	all_sections	R1.457.d139	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB19324/fastq_files/fastqc_output/R1.457.d139_fastqc.zip
 FastQC	all_sections	R1.457.w	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB19324/fastq_files/fastqc_output/R1.457.w_fastqc.zip
 FastQC	all_sections	R1.481.d42	/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB19324/fastq_files/fastqc_output/R1.481.d42_fastqc.zip

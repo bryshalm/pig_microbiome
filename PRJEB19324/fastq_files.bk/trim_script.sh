@@ -5,7 +5,7 @@ for FQ in *.fastq.gz; do
     SAMPLE="${FQ/.fastq.gz/}"
 
     cutadapt \
-        -g CCTACGGGAGGCAGCAG \
+        -g CCTACGGGNGGCWGCAG \
         --discard-untrimmed \
         -o trimmed/${SAMPLE}_trimmed.fastq.gz \
         "$FQ" \
