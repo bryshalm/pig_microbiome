@@ -1,0 +1,2 @@
+This is cutadapt 4.4 with Python 3.7.12
+Command line parameters: -g CCTACGGGAGGCAGCAG -o trimmed/_trimmed_1.fastq.gz FQ -j 4 2
