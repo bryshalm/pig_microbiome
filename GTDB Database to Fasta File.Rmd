@@ -1,0 +1,37 @@
+---
+title: "GTDB Database to Fasta File"
+author: "Bryshal Moore"
+date: "2026-07-15"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Change my .RDATA Object Into a FASTA file
+```{r}
+#Load Librarys
+
+
+library(tidyverse)
+library(Biostrings)
+library(dplyr)
+
+```
+
+```{r}
+load("/home/brymoore/wsg_gtdb_tax/curated_GTDB/GTDB_r226_classifier.RData")
+ls()
+```
+```{r}
+#str(trainingSet)
+```
+
+```{r}
+?Clusterize
+
+```
+
+

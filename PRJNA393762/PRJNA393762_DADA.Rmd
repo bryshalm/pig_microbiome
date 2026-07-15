@@ -177,6 +177,9 @@ colnames(track) <- c("input", "filtered", "denoisedF", "denoisedR", "merged", "n
 rownames(track) <- sample.names
 head(track)
 ```
+```{r}
+library(DECIPHER)
+```
 
 
 
