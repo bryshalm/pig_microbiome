@@ -1,0 +1,127 @@
+---
+title: "Joining_Tables"
+author: "Bryshal Moore"
+date: "2026-07-27"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# Load Libraries
+
+library(tidyverse)
+library(dplyr)
+library(phyloseq)
+```
+
+```{r}
+#  the repository root
+
+repo_root <- "/home/brymoore/wsg_gtdb_tax/pig_microbiome"
+```
+
+```{r}
+# path roots for  seq table files
+
+seqtab_files <- list.files(
+  path = repo_root,
+  pattern = "^sequence_table\\.csv$",
+  full.names = T,
+  recursive = T
+)
+
+
+# print the count and file paths
+
+cat(sprintf("Found %d seqtab files\n", length(seqtab_files)))
+    for (f in seqtab_files) {print(f)}
+```
+```{r}
+ #path roots for  tax table files
+
+taxtab_files <- list.files(
+  path = repo_root,
+  pattern = "^taxid\\.csv$",
+  full.names = T,
+  recursive = T
+)
+
+
+# print the count and file paths
+
+cat(sprintf("Found %d taxonomy table files\n", length(seqtab_files)))
+    for (f in seqtab_files) {print(f)}
+```
+
+
+
+```{r}
+library(tidyverse)
+
+master_df <- seqtab_files %>% 
+  map_dfr(function(current_file) {
+    
+    study_folder <- dirname(current_file)
+    study_id <- basename(study_folder)
+    
+    # 1. Read sequence count table
+    seqtab <- read.csv(current_file, row.names = 1, check.names = FALSE) %>% 
+      rownames_to_column(var = "sample")
+    
+    # 2. Reshape count table to long format
+    long_df <- seqtab %>% 
+      pivot_longer(
+        cols = -sample, 
+        names_to = "sequence",
+        values_to = "count"
+      ) %>% 
+      filter(count > 0)
+    
+    # 3. Look for a taxonomy file in this folder
+    tax_file <- list.files(
+      path = study_folder, 
+      pattern = "tax.*\\.(csv|tsv|txt)$", 
+      full.names = TRUE,
+      ignore.case = TRUE
+    )
+    
+    # --- IF TAXONOMY FILE IS MISSING ---
+    if (length(tax_file) == 0) {
+      
+      # SKIP folders without tax files:
+      return(NULL) 
+      
+      # DEFAULT: Keeps sequence counts, adds study_id, leaves tax columns empty (NA)
+      message(paste("Skipped taxonomy (file missing) for study:", study_id))
+      return(long_df %>% mutate(study = study_id))
+    }
+    
+    # --- IF TAXONOMY FILE EXISTS ---
+    tax_path <- tax_file[1]
+    
+    if (grepl("\\.tsv$", tax_path, ignore.case = TRUE)) {
+      taxtab <- read.delim(tax_path, check.names = FALSE)
+    } else {
+      taxtab <- read.csv(tax_path, check.names = FALSE)
+    }
+    
+    colnames(taxtab)[1] <- "sequence"
+    
+    # Join taxonomy on sequence and tag with study_id
+    long_df %>% 
+      left_join(taxtab, by = "sequence") %>% 
+      mutate(study = study_id)
+  })
+
+head(master_df)
+```
+
+
+## NEW Quick Method
+```{r}
+
+```
+
