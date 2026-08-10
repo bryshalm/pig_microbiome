@@ -1,0 +1,72 @@
+---
+title: "PS_Object_VSearch_Results"
+author: "Bryshal Moore"
+date: "2026-07-30"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+### Load Libraries
+
+library(tidyverse)
+library(dplyr)
+library(phyloseq)
+library(data.table)
+library(purrr)
+library(Biostrings)
+library(stringr)
+library(readr)
+library(janitor)
+```
+
+
+
+### Read in the csv
+```{r}
+
+mapping <- read.csv("asv_to_gtdb_mapping.csv")
+
+
+head(mapping)
+```
+
+```{r}
+lookup <- read.csv("asv_lookup_master.csv")
+
+head(lookup)
+```
+
+```{r}
+master_df <- readr::read_csv("master_dataframe.csv.gz") %>% 
+  select(sequence, count, study, sample)
+```
+```{r}
+head(master_df)
+```
+
+
+### Join the dataframes
+
+```{r}
+mapping_lookup <- lookup %>% 
+  full_join(mapping, by = "asv_id")
+```
+
+```{r}
+head(mapping_lookup)
+```
+
+
+**Parse the master_df**
+```{r}
+seqtab <- master_df %>% 
+    # Sum count values in case of any duplicate rows
+  group_by(sequence, study, sample) %>%
+  summarise(count = sum(as.numeric(count), na.rm = TRUE), .groups = "drop") 
+```
+

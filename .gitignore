@@ -25,4 +25,6 @@ results/
 output/
 logs/
 tmp/
-
+clean_final_df.csv
+master_dataframe.csv
+full_pig_microbiome_dataframe.csv

@@ -401,6 +401,7 @@ core_fam <- clean_final_df %>%
 ```{r}
 #write.csv(core_gen, "core_gen.csv", row.names = F)
 #write.csv(clean_final_df, "clean_final_df.csv", row.names = F)
+#write.csv(core_fam, "core_fam.csv", row.names = F)
 ```
 
 
@@ -410,3 +411,4 @@ core_fam <- clean_final_df %>%
 #saveRDS(ps_genus, file = "ps_genus.rds")
 ```
 
+### See PS_Object_VSearch_Results.Rmd next
