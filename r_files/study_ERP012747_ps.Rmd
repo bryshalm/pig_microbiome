@@ -1,0 +1,34 @@
+---
+title: "study_ERP012747_ps"
+author: "Bryshal Moore"
+date: "2026-03-17"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+getwd()
+```
+
+Read in libraries
+```{r}
+library(phyloseq)
+library(Biostrings)
+library(tidyverse)
+```
+
+
+```{r}
+#See your sample names from seqtab_nochim
+ps_all_samples <- unlist(lapply(seqtab_nochim, rownames))
+head(ps_all_samples)
+length(ps_all_samples)
+```
+
+
+
+
+

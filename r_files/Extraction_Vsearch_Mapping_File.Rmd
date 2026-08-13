@@ -1,0 +1,212 @@
+---
+title: "Extraction_Vsearch_Mapping_File"
+author: "Bryshal Moore"
+date: "2026-07-30"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(Biostrings)
+```
+
+
+### Load Libraries
+```{r}
+library(tidyverse)
+library(dplyr)
+library(phyloseq)
+library(data.table)
+library(purrr)
+
+library(stringr)
+library(readr)
+library(janitor)
+```
+### Read in the Mapping File
+```{r}
+uc <- read_tsv("closed_ref_map.uc", col_names = c(
+  "type","cluster","qlen","pct_id","strand","x1","x2","cigar","query","target"
+), col_types = cols(.default = "c"))
+```
+
+```{r}
+head(uc)
+```
+
+
+```{r}
+hits <- uc %>% 
+  filter(type == "H") %>% 
+  select(asv_id = query, gtdb_ref = target, pct_identity = pct_id)
+```
+
+```{r}
+head(hits)
+```
+
+### Pull Full Taxonomy from the GTDB Database
+
+**Read the Database**
+```{r}
+gtdb_db <- readDNAStringSet("../curated_GTDB/ssu_all_r226.fna")
+```
+
+```{r}
+fna_headers <- names(gtdb_db)
+```
+
+
+**Split accession from the full tax string**
+```{r}
+accession <- str_extract(fna_headers, "^\\S+")
+
+tax_lookup <- data.frame(target = accession, full_header = fna_headers, stringsAsFactors = FALSE)
+
+```
+
+
+**Join onto hits using the truncated accesion as key**
+```{r}
+hits <- hits %>% 
+  left_join(tax_lookup, by = c("gtdb_ref" = "target"))
+```
+
+
+**Extract tax ranks with regex**
+```{r}
+hits <- hits %>%
+  mutate(
+    kingdom = str_extract(full_header, "(?<=d__)[^;]+"),
+    phylum  = str_extract(full_header, "(?<=p__)[^;]+"),
+    class   = str_extract(full_header, "(?<=c__)[^;]+"),
+    order   = str_extract(full_header, "(?<=o__)[^;]+"),
+    family  = str_extract(full_header, "(?<=f__)[^;]+"),
+    genus   = str_extract(full_header, "(?<=g__)[^;]+"),
+    species = str_extract(full_header, "(?<=s__)[^;\\[]+") %>% str_trim()
+  )
+```
+
+```{r}
+head(hits)
+```
+Save the csv
+```{r}
+#write_csv(hits, "asv_to_gtdb_mapping.csv")
+```
+
+
+## Join Tables
+```{r}
+asv_seq <- read_csv("asv_lookup_master.csv")
+
+head(asv_seq)
+```
+
+```{r}
+hits <- hits |> 
+  left_join(asv_seq, by = "asv_id")
+```
+
+
+**Grab my Seq Tables**
+```{r}
+#  the repository root
+
+repo_root <- "/home/brymoore/wsg_gtdb_tax/pig_microbiome"
+```
+
+
+```{r}
+# path roots for  seq table files
+
+seqtab_files <- list.files(
+  path = repo_root,
+  pattern = "^sequence_table\\.csv$",
+  full.names = T,
+  recursive = T
+)
+
+
+# print the count and file paths
+
+cat(sprintf("Found %d seqtab files\n", length(seqtab_files)))
+    for (f in seqtab_files) {print(f)}
+```
+
+```{r}
+master_list <- map(seqtab_files, function(current_file) {
+  
+  study_folder <- dirname(current_file)
+  study_id <- basename(study_folder)
+  
+  # --- Fast Read Sequence Count Matrix ---
+  seqtab <- fread(current_file, header = TRUE)
+  
+  # Rename first column to 'sample'
+  setnames(seqtab, 1, "sample")
+  
+  # --- Fast In-Place Melt (Reshape to Long) ---
+  long_dt <- melt(
+    seqtab, 
+    id.vars = "sample", 
+    variable.name = "sequence", 
+    value.name = "count",
+    variable.factor = FALSE
+  )
+  
+  # --- Filter Zeros Immediately ---
+  long_dt <- long_dt[count > 0]
+  
+  # --- Add study column ---
+  long_dt[, study := study_id]
+  long_dt[, sequence := as.character(sequence)]
+  
+  return(long_dt)
+})
+
+# Combine all study data tables together
+seq_master_df <- rbindlist(master_list, fill = TRUE)
+
+# Select and order columns: study, sequence, count (and sample)
+seq_master_df <- seq_master_df[, .(study, sequence, count, sample)]
+
+head(seq_master_df)
+```
+
+**Make Join Key**
+```{r}
+asv_key <- hits |> 
+  select(asv_id, sequence, study)
+
+head(asv_key)
+```
+```{r}
+# to make sure both objects are data table
+
+setDT(asv_key)
+setDT(seq_master_df)
+```
+
+```{r}
+# force join keys to character strings
+
+asv_key[, `:=`(study = as.character(study), sequence = as.character(sequence))]
+seq_master_df[, `:=`(study = as.character(study), sequence = as.character(sequence))]
+```
+
+```{r}
+setkey(asv_key, study, sequence)
+setkey(seq_master_df, study, sequence)
+```
+
+```{r}
+#Perform Left Join (Keeps all count data and matches taxonomy/asv_id)
+merged_df <- seq_master_df[asv_key, on = .(study, sequence)]
+
+head(merged_df)
+```
+

@@ -1,0 +1,649 @@
+---
+title: "Parsing_Metadata"
+author: "Bryshal Moore"
+date: "2026-08-11"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+### Load Libraries
+```{r}
+library(tidyverse)
+library(dplyr)
+library(phyloseq)
+library(data.table)
+library(purrr)
+
+library(stringr)
+library(readr)
+library(janitor)
+```
+
+**Grab my SRA Tables**
+```{r}
+#  the repository root
+
+repo_root <- "/home/brymoore/wsg_gtdb_tax/pig_microbiome"
+```
+
+
+```{r}
+# path roots for  seq table files
+
+sra_files <- list.files(
+  path = repo_root,
+  pattern = "^SraRunTable\\.csv$",
+  full.names = T,
+  recursive = T
+)
+
+
+# print the count and file paths
+
+cat(sprintf("Found %d sra files\n", length(sra_files)))
+    for (f in sra_files) {print(f)}
+```
+
+
+
+```{r}
+#Read all of the Sra Run Tables
+
+PRJEB11368 <- read.csv("/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB11368/SraRunTable.csv")
+PRJEB1576 <- read.csv("/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB1576/SraRunTable.csv")
+PRJEB19324 <- read.csv("/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB19324/SraRunTable.csv")
+PRJEB8696 <- read.csv("/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJEB8696/SraRunTable.csv")
+PRJNA1387191 <- read.csv("/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA1387191/SraRunTable.csv")
+PRJNA1439946 <- read.csv("/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA1439946/SraRunTable.csv")
+PRJNA1441127 <- read.csv("/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA1441127/SraRunTable.csv")
+PRJNA237795 <- read.csv("/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA237795/SraRunTable.csv")
+PRJNA244928 <- read.csv("/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA244928/SraRunTable.csv")
+PRJNA252973 <- read.csv("/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA252973/SraRunTable.csv")
+PRJNA257009 <- read.csv("/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA257009/SraRunTable.csv")
+PRJNA257705 <- read.csv("/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA257705/SraRunTable.csv")
+PRJNA263439 <- read.csv("/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA263439/SraRunTable.csv")
+PRJNA266576 <- read.csv("/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA266576/SraRunTable.csv")
+PRJNA266806 <- read.csv("/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA266806/SraRunTable.csv")
+PRJNA267233 <- read.csv("/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA267233/SraRunTable.csv")
+PRJNA281781 <- read.csv("/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA281781/SraRunTable.csv")
+PRJNA302730 <- read.csv("/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA302730/SraRunTable.csv")
+PRJNA335425 <- read.csv("/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA335425/SraRunTable.csv")
+PRJNA427098 <- read.csv("/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA427098/SraRunTable.csv")
+PRJNA437010 <- read.csv("/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA437010/SraRunTable.csv")
+PRJNA72355 <- read.csv("/home/brymoore/wsg_gtdb_tax/pig_microbiome/PRJNA72355/SraRunTable.csv")
+```
+
+
+#PRJEB11368
+```{r}
+head(PRJEB11368)
+```
+
+```{r}
+A <- PRJEB11368 |> 
+  transmute(sample = Run,
+            study = BioProject,
+            host = host_common_name,
+            specific_identifier = anonymized_name,
+            country = "USA",
+            location = physical_specimen_location,
+            date= collection_timestamp,
+            life_stage = "weaned pig", 
+            age = "NA", 
+            treatment = "DDGSc diets", 
+            body_site = str_split_fixed(body_site, ":", 2)[, 2]    , 
+            sex = "NA",
+            sequencing_instrument = Instrument, 
+            variable_region = "V4")
+
+
+```
+
+
+## PRJEB1576
+```{r}
+head(PRJEB1576)
+```
+
+
+
+```{r}
+B <- PRJEB1576 |> 
+   transmute(sample = Run,
+            study = BioProject,
+            host = geographic_location_.longitude., 
+            specific_identifier = BioSample,
+            country = geographic_location_.country_and.or_sea,
+            location = geographic_location_.country_and.or_sea,
+            date= Collection_Date,
+            life_stage = LibrarySource, 
+            age = AGE, 
+            sex = Sequencing_method, 
+            treatment = "calcium-phosphorus diets", 
+            body_site = str_split_fixed(body_habitat, "_", 2)[, 1], 
+            sequencing_instrument = host_taxid, 
+            variable_region = "V1 - V2")
+```
+
+
+
+## PRJEB19324
+```{r}
+head(PRJEB19324)
+```
+
+
+```{r}
+C <-  PRJEB19324 |> 
+   transmute(sample = Run,
+            study = BioProject,
+            host = "pig",
+            specific_identifier = str_split_fixed(Submitter_Id, "_", 2)[, 1],
+            country = "Ireland",
+            location = Center.Name,
+            date= ENA.FIRST.PUBLIC..run.,
+            life_stage = 	"weaned pig", 
+            age = "NA", 
+            sex = "NA",
+            treatment = "residual feed intake", 
+            body_site = "faeces",
+            sequencing_instrument = Instrument, 
+            variable_region = "V3 - V4")
+```
+
+
+
+##
+## PRJEB8696 
+```{r}
+head(PRJEB8696  )
+```
+
+```{r}
+D <- PRJEB8696  |> 
+   transmute(sample = Run,
+            study = BioProject,
+            host = common_name,
+            specific_identifier = Submitter_Id,
+            country = geo_loc_name_country,
+            location = INSDC_center_name,
+            date= Collection_Date,
+            life_stage = 	"growing pigs", 
+            age = "NA", 
+            sex = "NA",
+            treatment = "enzymatically modified starch diets", 
+            body_site = environment_.material.,
+            sequencing_instrument = Instrument, 
+            variable_region = "V3 - V5")
+```
+
+##PRJNA1387191
+```{r}
+head(PRJNA1387191)
+```
+
+```{r}
+E <- PRJNA1387191 |> 
+   transmute(sample = Run,
+            study = BioProject,
+            host = Host,
+            specific_identifier = Animal_and_Replicate,
+            country = geo_loc_name_country,
+            location = geo_loc_name,
+            date= Collection_Date,
+            life_stage = 	"growing pigs", 
+            age = "4 months", 
+            sex = "NA",
+            treatment = "pre-evaluation of the health", 
+            body_site = "feces",
+            sequencing_instrument = Instrument, 
+            variable_region = "NA")
+```
+
+## PRJNA1439946
+```{r}
+head(PRJNA1439946)
+```
+
+```{r}
+F <- PRJNA1439946 |> 
+   transmute(sample = Run,
+            study = BioProject,
+            host = Host,
+            specific_identifier = Id,
+            country = geo_loc_name_country,
+            location = geo_loc_name,
+            date= Collection_Date,
+            life_stage = 	"growing pigs", 
+            age = "49 days", 
+            sex = "NA",
+            treatment = "pre-evaluation of the health", 
+            body_site = isolation_source,
+            sequencing_instrument = Platform, 
+            variable_region = "V4")
+```
+
+## PRJNA1441127 
+```{r}
+head(PRJNA1441127)
+
+remove(PRJNA1441127)
+```
+
+```{}
+# Was a PacBio will not do
+
+PRJNA1441127 |> 
+   transmute(sample = Run,
+            study = BioProject,
+            host = Host,
+            specific_identifier = Id,
+            country = geo_loc_name_country,
+            location = geo_loc_name,
+            date= Collection_Date,
+            life_stage = 	"growing pigs", 
+            age = "49 days", 
+            sex = "NA",
+            treatment = "pre-evaluation of the health", 
+            body_site = isolation_source,
+            sequencing_instrument = Platform, 
+            variable_region = "V4")
+```
+
+ 
+## PRJNA237795 
+```{r}
+head(PRJNA237795 )
+```
+
+```{r}
+G <-  PRJNA237795|> 
+   transmute(sample = Run,
+            study = BioProject,
+            host = Label,
+            specific_identifier = specific_host,
+            country = geo_loc_name_country,
+            location = geo_loc_name,
+            date= collectiondate,
+            life_stage = 	host_life_stage, 
+            age = Host_age, 
+            sex = host_sex,
+            treatment = perturbation, 
+            body_site = material,
+            sequencing_instrument = Instrument, 
+            variable_region = "V1 - V3")
+```
+ ##PRJNA244928 
+```{r}
+head(PRJNA244928 )
+```
+ 
+```{r}
+H <-  PRJNA244928|> 
+   transmute(sample = Run,
+            study = BioProject,
+            host = "pig",
+            specific_identifier = Experiment,
+            country = "Canada",
+            location = "Montreal",
+            date= create_date,
+            life_stage = 	"growing pig", 
+            age = AGE, 
+            sex = sex,
+            treatment = treatment, 
+            body_site = tissue,
+            sequencing_instrument = Instrument, 
+            variable_region = "V4")
+
+```
+ 
+## PRJNA252973 
+```{r}
+head(PRJNA252973 )
+```
+ 
+
+```{r}
+I <-  PRJNA252973 |> 
+   transmute(sample = Run,
+            study = BioProject,
+            host = "pig",
+            specific_identifier = Sample.Name,
+            country = geo_loc_name_country,
+            location = geo_loc_name,
+            date= Collection_Date,
+            life_stage = 	"growing pig", 
+            age = "3–12 wks", 
+            sex = "NA",
+            treatment = "black and white pig", 
+            body_site = "feces",
+            sequencing_instrument = Instrument, 
+            variable_region = "V4")
+
+```
+
+## PRJNA257009
+```{r}
+head(PRJNA257009)
+```
+
+```{r}
+J <-  PRJNA257009 |> 
+   transmute(sample = Run,
+            study = BioProject,
+            host = Host,
+            specific_identifier = isolation_source,
+            country = "South Korea",
+            location = Center.Name,
+            date= Collection_Date,
+            life_stage = 	"growing pig", 
+            age = "3–12 wks", 
+            sex = "NA",
+            treatment = "black and white pig", 
+            body_site = "feces",
+            sequencing_instrument = Instrument, 
+            variable_region = "V4")
+```
+
+## PRJNA257705
+```{r}
+head(PRJNA257705)
+```
+
+
+```{r}
+K <- PRJNA257705 |> 
+   transmute(sample = Run,
+            study = BioProject,
+            host = Host,
+            specific_identifier = str_split_fixed(Library.Name, "(?<=\\d)(?=[A-Z])", 2)[, 1],
+            country = geo_loc_name_country,
+            location = geo_loc_name,
+            date= Collection_Date,
+            life_stage = 	"growing pig", 
+            age = AGE, 
+            sex = sex,
+            treatment = str_split_fixed(Library.Name, "(?<=\\d)(?=[A-Z])", 2)[, 2], 
+            body_site = sample.type,
+            sequencing_instrument = Instrument, 
+            variable_region = "V1 - V3")
+```
+
+## PRJNA263439 
+```{r}
+head(PRJNA263439 )
+```
+
+```{r}
+L <- PRJNA263439  |> 
+   transmute(sample = Run,
+            study = BioProject,
+            host = Organism,
+            specific_identifier = Sample.Name,
+            country = "South Korea",
+            location = geo_loc_name,
+            date= Collection_Date,
+            life_stage = 	"growing pig", 
+            age = "NA", 
+            sex = "NA",
+            treatment = "cohabitation", 
+            body_site = "feces",
+            sequencing_instrument = Instrument, 
+            variable_region = "V1 - V3")
+```
+
+## PRJNA266576 
+```{r}
+head(PRJNA266576 )
+```
+
+
+```{r}
+M <- PRJNA266576 |> 
+   transmute(sample = Run,
+            study = BioProject,
+            host = Host,
+            specific_identifier = Sample.Name,
+            country = geo_loc_name_country,
+            location = geo_loc_name,
+            date= Collection_Date,
+            life_stage = 	"growing pig", 
+            age = "24 wks", 
+            sex = "NA",
+            treatment = "coventionally and organic raised", 
+            body_site = "feces",
+            sequencing_instrument = Instrument, 
+            variable_region = "V3 - V4")
+```
+
+## PRJNA267233
+```{r}
+head(PRJNA267233)
+```
+
+```{r}
+N <- PRJNA267233 |> 
+   transmute(sample = Run,
+            study = BioProject,
+            host = Host,
+            specific_identifier = Sample.Name,
+            country = "South Korea",
+            location = Center.Name,
+            date= Collection_Date,
+            life_stage = 	"growing pig", 
+            age = "NA", 
+            sex = "NA",
+            treatment = "production phase", 
+            body_site = "feces",
+            sequencing_instrument = Instrument, 
+            variable_region = "V4")
+```
+
+## PRJNA281781
+
+```{r}
+head(PRJNA281781)
+glimpse(PRJNA281781)
+```
+
+```{r}
+O <-  PRJNA281781 |> 
+   transmute(sample = Run,
+            study = BioProject,
+            host = Host,
+            specific_identifier = Library.Name,
+            country = geo_loc_name_country,
+            location = geo_loc_name,
+            date= Collection_Date,
+            life_stage = 	"growing pig", 
+            age = "21 wks", 
+            sex = "NA",
+            treatment = "mylose/amylopectin ratio diets", 
+            body_site = Sample.Name,
+            sequencing_instrument = Instrument, 
+            variable_region = "V4")
+
+
+```
+
+## PRJNA302730 
+```{r}
+head(PRJNA302730 )
+
+glimpse(PRJNA302730 )
+```
+
+```{r}
+P <-  PRJNA302730  |> 
+   transmute(sample = Run,
+            study = BioProject,
+            host = Host,
+            specific_identifier = Sample.Name,
+            country = geo_loc_name_country,
+            location = geo_loc_name,
+            date= Collection_Date,
+            life_stage = 	"growing pig", 
+            age = "6 wks", 
+            sex = "NA",
+            treatment = "IgG diet", 
+            body_site = "ileum",
+            sequencing_instrument = Instrument, 
+            variable_region = "V1 - V2")
+
+
+```
+
+PRJNA335425 
+```{r}
+head(PRJNA335425)
+
+
+glimpse(PRJNA335425)
+```
+
+```{r}
+Q <- PRJNA335425 |> 
+   transmute(sample = Run,
+            study = BioProject,
+            host = HOST,
+            specific_identifier = Sample.Name,
+            country = geo_loc_name_country,
+            location = geo_loc_name,
+            date= Collection_Date,
+            life_stage = 	"growing pig", 
+            age = Host_Age, 
+            sex = host_sex,
+            treatment = host_last_meal, 
+            body_site = host_body_product,
+            sequencing_instrument = Instrument, 
+            variable_region = "V1 - V3")
+
+
+```
+
+## PRJNA427098 
+```{r}
+head(PRJNA427098 )
+
+glimpse(PRJNA427098 )
+```
+
+```{r}
+R <- PRJNA427098 |> 
+   transmute(sample = Run,
+            study = BioProject,
+            host = HOST,
+            specific_identifier = str_split_fixed(SAMPLE, "_", 2)[, 2],
+            country = geo_loc_name_country,
+            location = geo_loc_name,
+            date= Collection_Date,
+            life_stage = 	"growing pig", 
+            age = "NA", 
+            sex = "male",
+            treatment = "rapeseed diet", 
+            body_site = str_split_fixed(SAMPLE, "_", 2)[, 1] ,
+            sequencing_instrument = Instrument, 
+            variable_region = "V1 - V3")
+
+```
+
+## PRJNA437010 
+```{r}
+head(PRJNA437010)
+
+glimpse(PRJNA437010)
+```
+
+```{r}
+S <- PRJNA437010 |> 
+   transmute(sample = Run,
+            study = BioProject,
+            host = "pig",
+            specific_identifier = Sample.Name,
+            country = geo_loc_name_country,
+            location = geo_loc_name,
+            date= Collection_Date,
+            life_stage = word(sample_title, 1), 
+            age = "NA", 
+            sex = "NA",
+            treatment = "weaning transition", 
+            body_site = "feces" ,
+            sequencing_instrument = Instrument, 
+            variable_region = "V4 - V5")
+
+```
+
+## PRJNA72355 
+```{r}
+
+
+glimpse(PRJNA72355)
+
+tail(PRJNA72355)
+```
+
+
+ 
+```{r}
+T <- PRJNA72355 |> 
+  filter(project_name == 'Swine gut microbial ecology along the gut transect') |> 
+   transmute(sample = Run,
+            study = BioProject,
+            host = "pig",
+            specific_identifier = specific_host,
+            country = "USA",
+            location = geo_loc_name,
+            date= Collection_Date,
+            life_stage = host_life_stage, 
+            age = Host_age, 
+            sex = host_sex,
+            treatment = perturbation, 
+            body_site = host_tissue_sampled,
+            sequencing_instrument = Instrument, 
+            variable_region = "V1 - V3")
+```
+
+```{r}
+head(PRJNA72355 )
+```
+
+
+```{r}
+U <- PRJNA72355 |> 
+  filter(!project_name == 'Swine gut microbial ecology along the gut transect') |> 
+   transmute(sample = Run,
+            study = BioProject,
+            host = "pig",
+            specific_identifier = Experiment,
+            country = "USA",
+            location = Center.Name,
+            date= ReleaseDate,
+            life_stage ="growing pig", 
+            age = "NA" , 
+            sex ="NA",
+            treatment = Sample.Name , 
+            body_site = "feces",
+            sequencing_instrument = Instrument, 
+            variable_region = "V1 - V3")
+```
+
+
+## Merge the Dataframes
+```{r}
+df_list <- list(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U)
+```
+
+
+```{r}
+master_metadata <- do.call(rbind, df_list)
+```
+
+```{r}
+#write_csv(master_metadata, "master_metadata.csv")
+```
+

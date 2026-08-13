@@ -1,0 +1,414 @@
+---
+title: "Joining_Tables"
+author: "Bryshal Moore"
+date: "2026-07-27"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Markdown File to join all pig studies and store in a "clean" phyloseq object.
+
+
+```{r}
+# Load Libraries
+
+library(tidyverse)
+library(dplyr)
+library(phyloseq)
+library(data.table)
+library(purrr)
+```
+
+```{r}
+#  the repository root
+
+repo_root <- "/home/brymoore/wsg_gtdb_tax/pig_microbiome"
+```
+
+```{r}
+# path roots for  seq table files
+
+seqtab_files <- list.files(
+  path = repo_root,
+  pattern = "^sequence_table\\.csv$",
+  full.names = T,
+  recursive = T
+)
+
+
+# print the count and file paths
+
+cat(sprintf("Found %d seqtab files\n", length(seqtab_files)))
+    for (f in seqtab_files) {print(f)}
+```
+
+
+```{r}
+# Pre-map taxonomy files by study folder
+all_tax_files <- list.files(
+  path = repo_root, 
+  pattern = "(taxid).*\\.(csv|tsv|txt)$", 
+  full.names = TRUE, 
+  recursive = TRUE,
+  ignore.case = TRUE
+)
+```
+
+
+
+```{r}
+# Build a lookup named vector: folder_path -> tax_file_path
+tax_map <- setNames(all_tax_files, dirname(all_tax_files))
+
+cat(sprintf("Found %d sequence tables and %d taxonomy files.\n", 
+            length(seqtab_files), length(all_tax_files)))
+```
+
+```{r}
+#Fast Processing Loop using data.table
+master_list <- map(seqtab_files, function(current_file) {
+  
+  study_folder <- dirname(current_file)
+  study_id <- basename(study_folder)
+  
+  # Check if a matching taxonomy file exists in tax_map
+  tax_path <- tax_map[[study_folder]]
+  if (is.null(tax_path) || length(tax_path) == 0) {
+    message(sprintf("Skipping %s: No taxonomy file found.", study_id))
+    return(NULL)
+  }
+  # --- Fast Read Sequence Count Matrix ---
+  # fread reads CSVs up to 20x faster than read.csv
+  seqtab <- fread(current_file, header = TRUE)
+  
+  # Rename first column to 'sample'
+  setnames(seqtab, 1, "sample")
+  
+  # --- Fast In-Place Melt (Reshape to Long) ---
+  long_dt <- melt(
+    seqtab, 
+    id.vars = "sample", 
+    variable.name = "sequence", 
+    value.name = "count",
+    variable.factor = FALSE
+  )
+  
+  # --- Filter Zeros Immediately ---
+  long_dt <- long_dt[count > 0]
+  
+  # --- Fast Read Taxonomy Table ---
+  taxtab <- fread(tax_path[[1]], header = TRUE)
+  setnames(taxtab, 1, "sequence")
+  
+  # Ensure join keys are character vectors
+  long_dt[, sequence := as.character(sequence)]
+  taxtab[, sequence := as.character(sequence)]
+  
+  # --- Fast C-Optimized Keyed Left Join ---
+  merged_dt <- taxtab[long_dt, on = "sequence"]
+  merged_dt[, study := study_id]
+  
+  return(merged_dt)
+})
+  
+```
+
+
+```{r}
+#Fast Bind into a single data.table
+master_df <- rbindlist(master_list, fill = TRUE)
+
+```
+
+
+```{r}
+# Convert to standard data.frame or tibble if needed
+master_df <- as.data.frame(master_df)
+
+```
+
+```{r}
+head(master_df)
+```
+
+## Add the ASV representative name
+
+```{r}
+master_df <- master_df %>% 
+  group_by(study) %>% 
+  mutate(asv_id = paste0(study, "_ASV", dense_rank(sequence))) %>% 
+  ungroup() %>% 
+  relocate(asv_id, .after = study) # Places asv_id right after study
+
+head(master_df)
+
+```
+
+
+
+#### Save the master_df
+```{r}
+#write.csv(master_df, "master_dataframe.csv", row.names = F)
+```
+
+### Join all the metadata tables
+
+```{r}
+
+#repo_root <- "/home/brymoore/wsg_gtdb_tax/pig_microbiome"
+
+# 1. Find all SraRunTable.csv files
+metadata_files <- list.files(
+  path = repo_root,
+  pattern = "(?i)sraruntable.*\\.csv$",
+  full.names = TRUE,
+  recursive = TRUE
+)
+
+cat(sprintf("Found %d SraRunTable files.\n", length(metadata_files)))
+
+# 2. Read and combine metadata using data.table (forcing character columns)
+all_metadata <- rbindlist(lapply(metadata_files, function(file) {
+  df <- fread(file, header = TRUE, colClasses = "character")
+  
+  if (nrow(df) == 0) {
+    warning(sprintf("Skipping empty metadata file in: %s", basename(dirname(file))))
+    return(NULL)
+  }
+  
+  df[, study := basename(dirname(file))]
+  return(df)
+}), fill = TRUE)
+
+# Convert to standard data frame
+all_metadata <- as.data.frame(all_metadata)
+
+# --- CRITICAL FIX: Make sure all column names are unique ---
+colnames(all_metadata) <- make.unique(colnames(all_metadata))
+
+# 3. Determine which sample identifier column exists
+sample_col <- case_when(
+  "Run" %in% colnames(all_metadata) ~ "Run",
+  "Sample Name" %in% colnames(all_metadata) ~ "Sample Name",
+  "Sample_Name" %in% colnames(all_metadata) ~ "Sample_Name",
+  "BioSample" %in% colnames(all_metadata) ~ "BioSample",
+  TRUE ~ colnames(all_metadata)[1]
+)
+
+cat(sprintf("Joining on metadata column: '%s'\n", sample_col))
+
+# 4. Standardize the join column name to 'sample'
+all_metadata <- all_metadata %>% 
+  rename(sample = !!sym(sample_col)) %>% 
+  mutate(sample = as.character(sample))
+
+# Ensure sample in master_df is character
+if (is.data.table(master_df)) {
+  master_df[, sample := as.character(sample)]
+} else {
+  master_df$sample <- as.character(master_df$sample)
+}
+
+# 5. Join metadata on both study AND sample
+if (is.data.table(master_df)) {
+  setDT(all_metadata)
+  final_df <- all_metadata[master_df, on = .(study, sample)]
+} else {
+  final_df <- master_df %>% 
+    left_join(all_metadata, by = c("study", "sample"))
+}
+
+head(final_df)
+```
+
+
+```{r}
+#write.csv(final_df, "full_pig_microbiome_dataframe.csv", row.names = F)
+```
+
+
+```{r}
+names(final_df)
+```
+
+```{r}
+head(final_df)
+```
+
+
+## Make a Phyloseq Object
+
+### tax table
+```{r}
+taxa <- final_df %>% 
+  select(asv_id, 
+         , domain, phylum, class, order, family, genus, species) %>% 
+  distinct(asv_id, .keep_all = T) %>% 
+  column_to_rownames(var = "asv_id") %>% 
+  as.matrix()
+```
+
+```{r}
+head(taxa)
+```
+```{r}
+TAX <- tax_table(taxa)
+```
+
+
+## otu table
+```{r}
+seqtab <- final_df %>% 
+  select(asv_id, sample, count) %>%
+  # Sum count values in case of any duplicate rows
+  group_by(asv_id, sample) %>%
+  summarise(count = sum(as.numeric(count), na.rm = TRUE), .groups = "drop") %>%
+  pivot_wider(names_from = sample, values_from = count, values_fill = 0)
+```
+
+```{r}
+asv_names <- seqtab$asv_id
+```
+
+```{r}
+otu_mat <- seqtab %>%
+  select(-asv_id) %>%                  # Remove non-numeric ID column
+  mutate(across(everything(), as.numeric)) %>% # Explicitly force numeric type
+  as.matrix()
+
+```
+
+```{r}
+rownames(otu_mat) <- asv_names
+```
+
+```{r}
+OTU <- otu_table(otu_mat, taxa_are_rows = TRUE)
+```
+
+
+### Metadata table
+```{r}
+
+samp_df <- final_df %>% 
+  select(sample, study, BioProject) %>% 
+  distinct(sample, .keep_all = T) %>% 
+  column_to_rownames(var = "sample")
+```
+
+```{r}
+head(samp_df)
+```
+
+
+```{r}
+pig_raw_ps <- phyloseq(TAX,OTU, sample_data(samp_df))
+
+```
+
+
+## Working with the ps object
+
+### Subsetting the ps object
+```{r}
+pig_ps <- subset_taxa(pig_raw_ps, domain != "NA")
+
+```
+
+```{r}
+
+pig_ps <- subset_taxa(pig_ps, family != "Mitochondria")
+
+```
+
+```{r}
+
+pig_ps <- subset_taxa(pig_ps, genus != "Chloroplast")
+
+```
+
+
+
+
+```{r}
+#1. Merge ASVs to the Species level
+ps_genus <- tax_glom(pig_ps, taxrank = "genus", NArm = TRUE)
+
+# 2. Convert to Presence/Absence matrix (1 if count > 0, else 0)
+pa_mat <- otu_table(ps_genus) > 0
+
+# 3. Calculate how many samples each genra appears in
+genus_prevalence <- rowSums(pa_mat)
+total_samples <- nsamples(ps_genus)
+
+
+```
+
+
+```{r}
+core_genra_ids <- names(genus_prevalence[genus_prevalence == total_samples])
+```
+
+
+## Using the master_df
+```{r}
+head(master_df, n = 3)
+```
+
+
+```{r}
+clean_final_df <- final_df %>% 
+  select(study, sample, domain, phylum, class, order, family, genus, species, count, asv_id)
+```
+
+```{r}
+total_samples_count <- n_distinct(clean_final_df$sample)
+```
+
+
+```{r}
+core_gen <- clean_final_df %>% 
+  filter(count > 0) %>% 
+  filter(genus != "" & genus != "NA") %>% 
+  group_by(genus, family, order, class, phylum,domain) %>% 
+  summarize(
+    sample_count = n_distinct(sample),
+    prevalence_pct = (sample_count/total_samples_count) * 100, 
+    total_abundance = sum(count), 
+    .groups = "drop"
+  )
+```
+
+```{r}
+core_fam <- clean_final_df %>% 
+  filter(count > 0) %>% 
+  filter(family != "" & family != "NA") %>% 
+  group_by(family, order, class, phylum, domain) %>% 
+  summarize(
+    sample_count = n_distinct(sample),
+    prevalence_pct = (sample_count/total_samples_count) * 100, 
+    total_abundance = sum(count), 
+    .groups = "drop"
+  )
+```
+
+
+## Save csv
+```{r}
+#write.csv(core_gen, "core_gen.csv", row.names = F)
+#write.csv(clean_final_df, "clean_final_df.csv", row.names = F)
+#write.csv(core_fam, "core_fam.csv", row.names = F)
+```
+
+
+# Save the phyloseq objects
+```{r}
+#saveRDS(pig_raw_ps, file = "pig_raw_ps.rds")
+#saveRDS(ps_genus, file = "ps_genus.rds")
+```
+
+### See PS_Object_VSearch_Results.Rmd next
