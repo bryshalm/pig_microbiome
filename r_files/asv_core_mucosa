@@ -1,0 +1,7 @@
+bodysite_standard,genus,n_individuals_present,n_individuals_total,prop_individuals
+mucosa,Lactobacillus,88,93,0.946236559139785
+mucosa,Prevotella,84,93,0.9032258064516129
+mucosa,Cryptobacteroides,65,93,0.6989247311827957
+mucosa,Alloprevotella,59,93,0.6344086021505376
+mucosa,Faecalibacterium,57,93,0.6129032258064516
+mucosa,Helicobacter_F,56,93,0.6021505376344086

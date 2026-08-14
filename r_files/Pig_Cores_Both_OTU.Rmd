@@ -1,0 +1,186 @@
+---
+title: Pig_Cores_Both_OTU
+author: "Bryshal Moore"
+date: "2026-08-13"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Load Library
+```{r}
+### Load Libraries
+
+library(tidyverse)
+library(dplyr)
+library(phyloseq)
+library(data.table)
+library(purrr)
+library(Biostrings)
+library(stringr)
+library(readr)
+library(janitor)
+```
+
+
+
+## Read the Phyloseq Object
+```{r}
+ps_asv <- readRDS("ps_genus.rds")
+```
+
+```{r}
+ps_otu <- readRDS("ps_v_genus.rds")
+```
+
+## Read the master_metadata file
+```{r}
+metdat <- read.csv("../master_metadata.csv", row.names = 1 )
+```
+
+
+## Extract the tables
+```{r}
+otu <- as.data.frame(otu_table(ps_otu))
+```
+
+```{r}
+tax <- as.data.frame(tax_table(ps_otu))
+```
+
+
+## Recreate the ps_otu object
+
+```{r}
+OTU <- otu_table(as.matrix(otu), taxa_are_rows = T)
+TAX <- tax_table(as.matrix(tax))
+
+ps_otu <- phyloseq(OTU, TAX, metdat)
+```
+
+```{r}
+if (!taxa_are_rows(ps_otu)) otu <- t(otu)
+```
+
+```{r}
+metdat$sample <- rownames(metdat)
+```
+
+
+## Build the Genus x study presence table
+```{r}
+otu_long <- otu |> 
+  as.data.frame() |> 
+  mutate(genus = tax$genus[match(rownames(otu), rownames(tax))]) %>%
+  pivot_longer(-genus, names_to = "sample", values_to = "count") %>%
+  left_join(metdat, by = "sample")
+
+
+```
+
+```{r}
+genus_study_presence <- otu_long %>%
+  group_by(genus, study) %>%
+  summarise(present = any(count > 0), .groups = "drop")
+```
+
+## Strict core
+```{r}
+n_studies <- n_distinct(metdat$study)
+```
+
+```{r}
+core_genera_strict <- genus_study_presence %>%
+  group_by(genus) %>%
+  summarise(n_studies_present = sum(present)) %>%
+  filter(n_studies_present == n_studies)
+```
+
+```{r}
+core_genera_strict
+```
+
+## Threshold of 80%
+
+```{r}
+threshold <- 0.80
+
+core_genera_relaxed <- genus_study_presence %>%
+  group_by(genus) %>%
+  summarise(n_studies_present = sum(present),
+            prop_studies = n_studies_present / n_studies) %>%
+  filter(prop_studies >= threshold) %>%
+  arrange(desc(prop_studies))
+
+core_genera_relaxed
+```
+
+## Variable Region
+```{r}
+genus_variable_presence <- otu_long %>%
+  group_by(genus, variable_region) %>%
+  summarise(present = any(count > 0), .groups = "drop")
+```
+
+```{r}
+n_studies_variable <- n_distinct(metdat$variable_region)
+```
+
+```{r}
+core_genera_variable <- genus_variable_presence %>%
+  group_by(genus) %>%
+  summarise(n_varibles_present = sum(present),
+            prop_studies = n_variables_present / n_studies_variable) %>%
+  filter(prop_studies >= threshold) %>%
+  arrange(desc(prop_studies))
+
+core_genera_variable
+```
+
+## Individual:Specific_Identifier
+
+```{r}
+genus_individual_presence <- otu_long %>%
+  group_by(genus, specific_identifier) %>%
+  summarise(present = any(count > 0), .groups = "drop")
+```
+
+```{r}
+n_individuals_variable <- n_distinct(metdat$specific_identifier)
+```
+
+```{r}
+core_genera_individual <- genus_individual_presence %>%
+  group_by(genus) %>%
+  summarise(n_individuals_present = sum(present),
+            prop_individuals = n_individuals_present / n_individuals_variable) %>%
+  filter(prop_individuals >= 0.50) %>%
+  arrange(desc(prop_individuals))
+
+core_genera_individual
+```
+
+## Individual:Sample
+
+```{r}
+genus_individual_presence <- otu_long %>%
+  group_by(genus, sample) %>%
+  summarise(present = any(count > 0), .groups = "drop")
+```
+
+```{r}
+n_individuals_variable <- n_distinct(metdat$sample)
+```
+
+```{r}
+core_genera_individual <- genus_individual_presence %>%
+  group_by(genus) %>%
+  summarise(n_individuals_present = sum(present),
+            prop_individuals = n_individuals_present / n_individuals_variable) %>%
+  filter(prop_individuals >= 0.50) %>%
+  arrange(desc(prop_individuals))
+
+core_genera_individual
+```

@@ -1,0 +1,84 @@
+---
+title: Pig_Cores_Both_OTU_ASV
+author: "Bryshal Moore"
+date: "2026-08-13"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Load Library
+```{r}
+### Load Libraries
+
+library(tidyverse)
+library(dplyr)
+library(phyloseq)
+library(data.table)
+library(purrr)
+library(Biostrings)
+library(stringr)
+library(readr)
+library(janitor)
+```
+
+
+
+## Read the Phyloseq Object
+```{r}
+ps_asv <- readRDS("ps_genus.rds")
+```
+
+```{r}
+ps_otu <- readRDS("ps_v_genus.rds")
+```
+
+## Read the master_metadata file
+```{r}
+metdat <- read.csv("../master_metadata.csv", row.names = 1 )
+```
+
+
+## Extract the tables
+```{r}
+otu <- as.data.frame(otu_table(ps_otu))
+```
+
+```{r}
+tax <- as.data.frame(tax_table(ps_otu))
+```
+
+
+## Recreate the ps_otu object
+
+```{r}
+OTU <- otu_table(as.matrix(otu), taxa_are_rows = T)
+TAX <- tax_table(as.matrix(tax))
+
+ps_otu <- phyloseq(OTU, TAX, metdat)
+```
+
+```{r}
+if (!taxa_are_rows(ps_otu)) otu <- t(otu)
+```
+
+
+## Build the Genus x study presence table
+```{r}
+otu |> 
+  as.data.frame() |> 
+  mutate(genus = tax$genus[match(rownames(otu), rownames(tax))]) %>%
+  pivot_longer(-genus, names_to = "sample", values_to = "count") %>%
+  left_join(metdat %>% select(sample, study), by = "sample")
+
+
+```
+
+```{r}
+genus_study_presence <- otu_long %>%
+  group_by(genus, study) %>%
+  summarise(present = any(count > 0), .groups = "drop")
+```
+

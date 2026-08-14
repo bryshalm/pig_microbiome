@@ -1,0 +1,13 @@
+bodysite_standard,genus,n_individuals_present,n_individuals_total,prop_individuals
+ileum,Streptococcus,128,151,0.847682119205298
+ileum,Clostridium,122,151,0.8079470198675497
+ileum,Lactobacillus,118,151,0.7814569536423841
+ileum,Prevotella,112,151,0.7417218543046358
+ileum,Megasphaera,106,151,0.7019867549668874
+ileum,CAG-302,104,151,0.6887417218543046
+ileum,Romboutsia,88,151,0.5827814569536424
+ileum,Intestinimonas,84,151,0.5562913907284768
+ileum,Limosilactobacillus,84,151,0.5562913907284768
+ileum,Turicibacter,84,151,0.5562913907284768
+ileum,Mitsuokella,79,151,0.5231788079470199
+ileum,Acidaminococcus,77,151,0.5099337748344371

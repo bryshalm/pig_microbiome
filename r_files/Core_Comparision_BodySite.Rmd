@@ -1,0 +1,109 @@
+---
+title: "Untitled"
+author: "Bryshal Moore"
+date: "2026-08-14"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(dplyr)
+library(phyloseq)
+library(tidyverse)
+```
+
+
+## Read in the CSV
+```{r}
+getwd()
+```
+
+```{r}
+asv_cecum <- read.csv("asv_core_cecum.csv")
+asv_digesta <- read.csv("asv_core_digesta.csv")
+asv_colon <- read.csv("asv_core_colon.csv")
+asv_duo <- read.csv("asv_core_duodenum.csv")
+asv_feces <- read.csv("asv_core_feces.csv")
+asv_ileum <- read.csv("asv_core_ileum.csv")
+asv_jej <- read.csv("asv_core_jejunum.csv")
+asv_muc <- read.csv("asv_core_mucosa.csv")
+```
+
+```{r}
+otu_cecum <- read.csv("otu_core_cecum.csv")
+otu_digesta <- read.csv("otu_core_digesta.csv")
+otu_colon <- read.csv("otu_core_colon.csv")
+otu_duo <- read.csv("otu_core_duodenum.csv")
+otu_feces <- read.csv("otu_core_feces.csv")
+otu_ileum <- read.csv("otu_core_ileum.csv")
+otu_jej <- read.csv("otu_core_jejunum.csv")
+otu_muc <- read.csv("otu_core_mucosa.csv")
+```
+
+## Cecum
+```{r}
+asv_cecum |> 
+  slice_max(prop_individuals, n = 10)
+```
+
+```{r}
+otu_cecum |> 
+  slice_max(prop_individuals, n = 10)
+```
+## Ileum
+```{r}
+asv_ileum |> 
+  slice_max(prop_individuals, n = 10)
+```
+
+```{r}
+otu_ileum |> 
+  slice_max(prop_individuals, n = 10)
+```
+
+## Colon
+```{r}
+asv_colon |> 
+  slice_max(prop_individuals, n = 10)
+```
+
+```{r}
+otu_colon |> 
+  slice_max(prop_individuals, n = 10)
+```
+
+## Feces
+```{r}
+asv_feces |> 
+  slice_max(prop_individuals, n = 10)
+```
+
+```{r}
+otu_feces |> 
+  slice_max(prop_individuals, n = 10)
+```
+## MUC
+```{r}
+asv_muc |> 
+  slice_max(prop_individuals, n = 10)
+```
+
+```{r}
+otu_muc |> 
+  slice_max(prop_individuals, n = 10)
+```
+
+#Digesta
+```{r}
+asv_digesta |> 
+  slice_max(prop_individuals, n = 10)
+```
+
+```{r}
+otu_digesta |> 
+  slice_max(prop_individuals, n = 10)
+```
+

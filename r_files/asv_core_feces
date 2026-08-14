@@ -1,0 +1,12 @@
+bodysite_standard,genus,n_individuals_present,n_individuals_total,prop_individuals
+feces,Prevotella,235,290,0.8103448275862069
+feces,Cryptobacteroides,220,290,0.7586206896551724
+feces,Sodaliphilus,207,290,0.7137931034482758
+feces,Faecousia,166,290,0.5724137931034483
+feces,Alloprevotella,162,290,0.5586206896551724
+feces,Streptococcus,161,290,0.5551724137931034
+feces,Treponema_D,160,290,0.5517241379310345
+feces,Megasphaera,156,290,0.5379310344827586
+feces,F23-B02,150,290,0.5172413793103449
+feces,Limivicinus,148,290,0.5103448275862069
+feces,Butyricicoccus_A,146,290,0.503448275862069

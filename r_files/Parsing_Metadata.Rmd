@@ -643,6 +643,61 @@ df_list <- list(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U)
 master_metadata <- do.call(rbind, df_list)
 ```
 
+
+## Fixing the body_site column
+```{r}
+master_metadata |> 
+  count(body_site) 
+```
+
+```{r}
+master_metadata <- master_metadata |> 
+  mutate(body_site = str_trim(str_to_lower(body_site)))
+```
+
+
+```{r}
+master_metadata <- master_metadata %>%
+  mutate(bodysite_standard = case_when(
+    str_detect(body_site, regex("gastrointestinal tract mucosa", ignore_case = TRUE)) ~ "mucosa",
+    str_detect(body_site, regex("ileal and cecal digesta", ignore_case = TRUE)) ~ "digesta",
+    str_detect(body_site, regex("fec|faec|stool|voided|fresh", ignore_case = TRUE)) ~ "feces",
+    str_detect(body_site, regex("cecum|caecum", ignore_case = TRUE)) ~ "cecum",
+    str_detect(body_site, regex("ileum", ignore_case = TRUE)) ~ "ileum",
+    str_detect(body_site, regex("jejun", ignore_case = TRUE)) ~ "jejunum",
+    str_detect(body_site, regex("colon", ignore_case = TRUE)) ~ "colon",
+    str_detect(body_site, regex("rect", ignore_case = TRUE)) ~ "rectum",
+    str_detect(body_site, regex("stomach|gastric", ignore_case = TRUE)) ~ "stomach",
+    TRUE ~ body_site
+  ))
+```
+
+```{r}
+master_metadata |> 
+  count(bodysite_standard) 
+```
+
+```{r}
+master_metadata |> 
+  count(sequencing_instrument)
+```
+
+
+```{r}
+master_metadata <- master_metadata %>%
+  mutate(sequencing_type = case_when(
+    str_detect(sequencing_instrument, regex("Illu|illu|ILLU", ignore_case = TRUE)) ~ "Illumina",
+    str_detect(sequencing_instrument, regex("454", ignore_case = TRUE)) ~ "454 FLX",
+        TRUE ~ sequencing_instrument
+  ))
+```
+
+```{r}
+master_metadata |> 
+  count(sequencing_type)
+```
+
+
 ```{r}
 #write_csv(master_metadata, "master_metadata.csv")
 ```
