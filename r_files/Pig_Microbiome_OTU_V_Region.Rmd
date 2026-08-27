@@ -298,7 +298,71 @@ core_region_matrix <- genus_region_presence %>%
 
 core_region_matrix
 ```
+## Variable Region Data Table Redo
+
+## Body Site
+
 ```{r}
+genus_site_presence <- otu_long %>%
+  group_by(genus, bodysite_standard) %>%
+  summarise(present = any(count > 0), .groups = "drop")
+```
+
+```{r}
+n_site <- n_distinct(metdat$bodysite_standard)
+```
+
+```{r}
+core_genera_site <- genus_site_presence %>%
+  group_by(genus) %>%
+  summarise(n_site_present = sum(present),
+            prop_site = n_site_present / n_site) %>%
+  filter(prop_site >= 0.50) %>%
+  arrange(desc(prop_site))
+
+core_genera_site
+```
+
+
+```{r}
+genus_region_presence <- otu_long %>%
+  group_by(genus, variable_region, study, treatment, bodysite_standard, sequencing_type, sample) %>%
+  summarise(present = any(count > 0), .groups = "drop")
+```
+
+```{r}
+head(genus_region_presence)
+```
+
+```{r}
+total_per_region_site <- genus_region_presence %>%
+  filter(!is.na(variable_region)) %>%
+  group_by(variable_region, bodysite_standard) %>%
+  summarise(total_individuals = n_distinct(sample), .groups = "drop")
+```
+
+```{r}
+core_genus_region_prop <- genus_region_presence %>%
+  filter(present == TRUE) %>%
+  filter(!is.na(variable_region)) %>%
+  filter(genus %in% core_genera_relaxed$genus) %>%
+  group_by(genus, variable_region, bodysite_standard) %>%
+  summarise(n_individual = n_distinct(sample), .groups = "drop") %>% 
+  left_join(total_per_region_site, by = c("variable_region", "bodysite_standard")) %>%
+  mutate(prop_individuals = (n_individual / total_individuals) * 100) %>%
+  arrange(genus)
+
+
+head(core_genus_region_prop)
+```
+
+```{}
+write_csv(core_genus_region_prop, "otu_core_genus_region_prop.csv")
+```
+
+
+
+```{}
 write_csv(region_genera_cecum, "otu_variable_cecum.csv")
 write_csv(region_genera_digesta, "otu_variable_digesta.csv")
 write_csv(region_genera_colon, "otu_variable_colon.csv")
@@ -309,7 +373,7 @@ write_csv(region_genera_jejunum, "otu_variable_jejunum.csv")
 write_csv(region_genera_mucosa, "otu_variable_mucosa.csv")
 ```
 
-```{r}
+```{}
 write_csv(core_genera_regions, "otu_core_genra_variables.csv")
 ```
 
