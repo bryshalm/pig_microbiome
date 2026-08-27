@@ -1,0 +1,171 @@
+---
+title: "PigMicrobiome_ASV_PERMANOVA"
+author: "Bryshal Moore"
+date: "2026-08-21"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Load Library
+```{r}
+### Load Libraries
+
+library(tidyverse)
+library(dplyr)
+library(phyloseq)
+library(data.table)
+library(purrr)
+library(Biostrings)
+library(stringr)
+library(readr)
+library(janitor)
+library(metagenomeSeq)
+library(vegan)
+```
+
+
+
+## Read the Phyloseq Object
+```{r}
+ps_asv <- readRDS("ps_genus.rds")
+```
+
+## Read the master_metadata file
+```{r}
+metdat <- read.csv("master_metadata.csv", row.names = 1 )
+```
+
+
+## Extract the tables
+```{r}
+otu <- as.data.frame(otu_table(ps_asv))
+```
+
+```{r}
+tax <- as.data.frame(tax_table(ps_asv))
+```
+
+
+## Recreate the ps_otu object
+
+```{r}
+OTU <- otu_table(as.matrix(otu), taxa_are_rows = T)
+TAX <- tax_table(as.matrix(tax))
+MET <- sample_data(metdat)
+
+ps_asv <- phyloseq(OTU, TAX, MET)
+```
+
+
+```{r}
+print(ps_asv)
+```
+
+
+
+## Microbial Community Diversity Analysis Tutorial with Phyloseq [link](http://deneflab.github.io/MicrobeMiseq/demos/mothur_2_phyloseq.html)
+
+```{r}
+#Remove ASVs with 0 total reads
+ps_asv_prune <- prune_taxa(taxa_sums(ps_asv) > 0, ps_asv)
+
+# 2. Extract OTU matrix and count features > 0 per sample
+feature_counts <- sample_sums(otu_table(ps_asv_prune) > 0)
+
+# 3. Filter out samples with 1 or 0 features
+ps_asv_prune <- prune_samples(feature_counts > 1, ps_asv_prune)
+
+print(ps_asv_prune)
+```
+
+```{r}
+# Make a data frame with a column for the read counts of each sample
+sample_sum_df <- data.frame(sum = sample_sums(ps_asv_prune))
+
+```
+
+```{r}
+# Histogram of sample read counts
+ggplot(sample_sum_df, aes(x = sum)) + 
+  geom_histogram(color = "black", fill = "orchid4", binwidth = 2500) +
+  ggtitle("Distribution of sample sequencing depth") + 
+  xlab("Read counts") +
+  theme(axis.title.y = element_blank())
+```
+
+```{r}
+
+# mean, max and min of sample read counts
+smin <- min(sample_sums(ps_asv_prune))
+smean <- mean(sample_sums(ps_asv_prune))
+smax <- max(sample_sums(ps_asv_prune))
+
+smin
+smean
+smax
+```
+
+#Unconstrained Ordinations and Scaling
+```{r}
+# Convert phyloseq object to a metagenomeSeq object
+msgObj <- newMRexperiment(as.data.frame(otu_table(ps_asv_prune)))
+
+```
+
+```{r}
+# Apply cumulative sum scaling (CSS) normalization
+msgObj_scale <- cumNorm(msgObj, p=cumNormStatFast(msgObj))
+```
+
+```{r}
+# convert CSS normalized data into data.frame-formatted OTU table (log transformed data)
+read_count_CSS = data.frame(MRcounts(msgObj, norm=TRUE, log=TRUE))
+```
+
+```{r}
+ps_asv_scale <- phyloseq(
+  otu_table(read_count_CSS, taxa_are_rows = TRUE),
+  sample_data(ps_asv_prune),
+  tax_table(ps_asv_prune)
+)
+```
+
+
+## PERMANOVA
+```{r}
+set.seed(47)
+
+# Calculate the bray curtis distance matric
+
+ps_bc <- phyloseq::distance(ps_asv_scale, method = "bray")
+```
+
+```{r}
+# make a DF from the sample_data
+sam_df <- data.frame(sample_data(ps_asv_scale))
+
+```
+
+### PERMANOVA by Bodysite
+
+```{r}
+perm <- adonis2(ps_bc ~ bodysite_standard, data = sam_df)
+```
+
+```{r}
+perm
+
+```
+
+
+
+### PERMANOVA by
+```{r}
+adonis2(ps_bc ~ sequencing_type, data = sam_df)
+```
+
+

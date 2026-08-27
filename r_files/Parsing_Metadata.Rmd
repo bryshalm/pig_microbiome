@@ -702,3 +702,11 @@ master_metadata |>
 #write_csv(master_metadata, "master_metadata.csv")
 ```
 
+
+```{r}
+master_metadata |> 
+  select(study, sequencing_instrument, sequencing_type, variable_region, body_site, bodysite_standard, country) |> 
+  group_by(study, country) |> 
+  count()
+```
+

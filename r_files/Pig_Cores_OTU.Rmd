@@ -297,3 +297,7 @@ write_csv(core_genera_jejunum, "otu_core_jejunum.csv")
 write_csv(core_genera_mucosa, "otu_core_mucosa.csv")
 ```
 
+
+
+
+
