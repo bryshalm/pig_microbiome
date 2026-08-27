@@ -850,7 +850,80 @@ core_region_matrix</code></pre>
 ##  9 Bariatricus     TRUE      TRUE      TRUE      TRUE      TRUE  TRUE      TRUE 
 ## 10 Bifidobacterium TRUE      TRUE      TRUE      TRUE      TRUE  TRUE      TRUE 
 ## # ℹ 92 more rows</code></pre>
-<pre class="r"><code>write_csv(region_genera_cecum, &quot;otu_variable_cecum.csv&quot;)
+</div>
+<div id="variable-region-data-table-redo" class="section level2">
+<h2>Variable Region Data Table Redo</h2>
+</div>
+<div id="body-site-1" class="section level2">
+<h2>Body Site</h2>
+<pre class="r"><code>genus_site_presence &lt;- otu_long %&gt;%
+  group_by(genus, bodysite_standard) %&gt;%
+  summarise(present = any(count &gt; 0), .groups = &quot;drop&quot;)</code></pre>
+<pre class="r"><code>n_site &lt;- n_distinct(metdat$bodysite_standard)</code></pre>
+<pre class="r"><code>core_genera_site &lt;- genus_site_presence %&gt;%
+  group_by(genus) %&gt;%
+  summarise(n_site_present = sum(present),
+            prop_site = n_site_present / n_site) %&gt;%
+  filter(prop_site &gt;= 0.50) %&gt;%
+  arrange(desc(prop_site))
+
+core_genera_site</code></pre>
+<pre><code>## # A tibble: 843 × 3
+##    genus           n_site_present prop_site
+##    &lt;chr&gt;                    &lt;int&gt;     &lt;dbl&gt;
+##  1 Acetatifactor                9      1.12
+##  2 Acidaminococcus              9      1.12
+##  3 Acinetobacter                9      1.12
+##  4 Agathobacter                 9      1.12
+##  5 Agathobaculum                9      1.12
+##  6 Alistipes                    9      1.12
+##  7 Alloprevotella               9      1.12
+##  8 Anaerovibrio                 9      1.12
+##  9 Apopatosoma                  9      1.12
+## 10 Bacteroides                  9      1.12
+## # ℹ 833 more rows</code></pre>
+<pre class="r"><code>genus_region_presence &lt;- otu_long %&gt;%
+  group_by(genus, variable_region, study, treatment, bodysite_standard, sequencing_type, sample) %&gt;%
+  summarise(present = any(count &gt; 0), .groups = &quot;drop&quot;)</code></pre>
+<pre class="r"><code>head(genus_region_presence)</code></pre>
+<pre><code>## # A tibble: 6 × 8
+##   genus variable_region study treatment bodysite_standard sequencing_type sample
+##   &lt;chr&gt; &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;             &lt;chr&gt;           &lt;chr&gt; 
+## 1 1109  V1 - V2         PRJE… calcium-… mucosa            454 FLX         ERR23…
+## 2 1109  V1 - V2         PRJE… calcium-… mucosa            454 FLX         ERR23…
+## 3 1109  V1 - V2         PRJE… calcium-… mucosa            454 FLX         ERR23…
+## 4 1109  V1 - V2         PRJE… calcium-… mucosa            454 FLX         ERR23…
+## 5 1109  V1 - V2         PRJE… calcium-… mucosa            454 FLX         ERR23…
+## 6 1109  V1 - V2         PRJE… calcium-… mucosa            454 FLX         ERR23…
+## # ℹ 1 more variable: present &lt;lgl&gt;</code></pre>
+<pre class="r"><code>total_per_region_site &lt;- genus_region_presence %&gt;%
+  filter(!is.na(variable_region)) %&gt;%
+  group_by(variable_region, bodysite_standard) %&gt;%
+  summarise(total_individuals = n_distinct(sample), .groups = &quot;drop&quot;)</code></pre>
+<pre class="r"><code>core_genus_region_prop &lt;- genus_region_presence %&gt;%
+  filter(present == TRUE) %&gt;%
+  filter(!is.na(variable_region)) %&gt;%
+  filter(genus %in% core_genera_relaxed$genus) %&gt;%
+  group_by(genus, variable_region, bodysite_standard) %&gt;%
+  summarise(n_individual = n_distinct(sample), .groups = &quot;drop&quot;) %&gt;% 
+  left_join(total_per_region_site, by = c(&quot;variable_region&quot;, &quot;bodysite_standard&quot;)) %&gt;%
+  mutate(prop_individuals = (n_individual / total_individuals) * 100) %&gt;%
+  arrange(genus)
+
+
+head(core_genus_region_prop)</code></pre>
+<pre><code>## # A tibble: 6 × 6
+##   genus         variable_region bodysite_standard n_individual total_individuals
+##   &lt;chr&gt;         &lt;chr&gt;           &lt;chr&gt;                    &lt;int&gt;             &lt;int&gt;
+## 1 Acetatifactor V1 - V2         ileum                        1                24
+## 2 Acetatifactor V1 - V2         mucosa                      15                92
+## 3 Acetatifactor V1 - V3         cecum                       34                76
+## 4 Acetatifactor V1 - V3         colon                       29                76
+## 5 Acetatifactor V1 - V3         feces                        8                90
+## 6 Acetatifactor V1 - V3         ileum                       14               116
+## # ℹ 1 more variable: prop_individuals &lt;dbl&gt;</code></pre>
+<pre><code>write_csv(core_genus_region_prop, &quot;otu_core_genus_region_prop.csv&quot;)</code></pre>
+<pre><code>write_csv(region_genera_cecum, &quot;otu_variable_cecum.csv&quot;)
 write_csv(region_genera_digesta, &quot;otu_variable_digesta.csv&quot;)
 write_csv(region_genera_colon, &quot;otu_variable_colon.csv&quot;)
 write_csv(region_genera_duodenum, &quot;otu_variable_duodenum.csv&quot;)
@@ -858,7 +931,7 @@ write_csv(region_genera_feces, &quot;otu_variable_feces.csv&quot;)
 write_csv(region_genera_ileum, &quot;otu_variable_ileum.csv&quot;)
 write_csv(region_genera_jejunum, &quot;otu_variable_jejunum.csv&quot;)
 write_csv(region_genera_mucosa, &quot;otu_variable_mucosa.csv&quot;)</code></pre>
-<pre class="r"><code>write_csv(core_genera_regions, &quot;otu_core_genra_variables.csv&quot;)</code></pre>
+<pre><code>write_csv(core_genera_regions, &quot;otu_core_genra_variables.csv&quot;)</code></pre>
 </div>
 
 

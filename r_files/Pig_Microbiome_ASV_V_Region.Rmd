@@ -357,7 +357,7 @@ head(core_genus_region_prop)
 ```
 
 ```{}
-write_csv(core_genus_region_prop, "core_genus_region_prop.csv")
+write_csv(core_genus_region_prop, "asv_core_genus_region_prop.csv")
 ```
 
 
