@@ -378,4 +378,42 @@ write_csv(core_genera_regions, "otu_core_genra_variables.csv")
 ```
 
 
+## Body Site - Negative
+
+```{r}
+# All possible genus x region x bodysite combinations that exist 
+  filter(!is.na(variable_region)) %>%
+  filter(genus %in% core_genera_relaxed$genus) %>%
+  distinct(genus, variable_region, bodysite_standard)
+```
+
+```{r}
+# Combos where the genus was detected somewhere in that group
+present_combos <- genus_region_presence %>%
+  filter(!is.na(variable_region)) %>%
+  filter(genus %in% core_genera_relaxed$genus) %>%
+  filter(present == TRUE) %>%
+  distinct(genus, variable_region, bodysite_standard)
+```
+
+```{r}
+# Anti-join: combos that exist in the data but never had this genus present
+genus_never_detected <- all_combos %>%
+  anti_join(present_combos, by = c("genus", "variable_region", "bodysite_standard"))
+
+genus_never_detected
+```
+
+## Nonexistant combinations of sequencing
+```{r}
+sampled_combos <- genus_region_presence %>%
+  filter(!is.na(variable_region)) %>%
+  distinct(variable_region, bodysite_standard)
+
+sampled_combos  # combinations that actually have data
+```
+```{r}
+#write_csv(genus_never_detected, "otu_genus_not_detected.csv")
+
+```
 
