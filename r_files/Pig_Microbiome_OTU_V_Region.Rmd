@@ -382,9 +382,12 @@ write_csv(core_genera_regions, "otu_core_genra_variables.csv")
 
 ```{r}
 # All possible genus x region x bodysite combinations that exist 
+all_combos <- genus_region_presence %>%
   filter(!is.na(variable_region)) %>%
   filter(genus %in% core_genera_relaxed$genus) %>%
   distinct(genus, variable_region, bodysite_standard)
+
+head(all_combos)
 ```
 
 ```{r}
@@ -394,6 +397,8 @@ present_combos <- genus_region_presence %>%
   filter(genus %in% core_genera_relaxed$genus) %>%
   filter(present == TRUE) %>%
   distinct(genus, variable_region, bodysite_standard)
+
+head(present_combos)
 ```
 
 ```{r}

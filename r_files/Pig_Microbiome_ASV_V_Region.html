@@ -923,6 +923,89 @@ write_csv(region_genera_jejunum, &quot;asv_variable_jejunum.csv&quot;)
 write_csv(region_genera_mucosa, &quot;asv_variable_mucosa.csv&quot;)</code></pre>
 <pre><code>write_csv(core_genera_regions, &quot;asv_core_genra_variables.csv&quot;)</code></pre>
 </div>
+<div id="body-site---negative" class="section level2">
+<h2>Body Site - Negative</h2>
+<pre class="r"><code># All possible genus x region x bodysite combinations that exist 
+all_combos &lt;- genus_region_presence %&gt;%
+  filter(!is.na(variable_region)) %&gt;%
+  filter(genus %in% core_genera_relaxed$genus) %&gt;%
+  distinct(genus, variable_region, bodysite_standard)
+
+head(all_combos)</code></pre>
+<pre><code>## # A tibble: 6 × 3
+##   genus         variable_region bodysite_standard
+##   &lt;chr&gt;         &lt;chr&gt;           &lt;chr&gt;            
+## 1 Acetatifactor V1 - V2         mucosa           
+## 2 Acetatifactor V1 - V2         ileum            
+## 3 Acetatifactor V1 - V3         ileum            
+## 4 Acetatifactor V1 - V3         feces            
+## 5 Acetatifactor V1 - V3         cecum            
+## 6 Acetatifactor V1 - V3         colon</code></pre>
+<pre class="r"><code># Combos where the genus was detected somewhere in that group
+present_combos &lt;- genus_region_presence %&gt;%
+  filter(!is.na(variable_region)) %&gt;%
+  filter(genus %in% core_genera_relaxed$genus) %&gt;%
+  filter(present == TRUE) %&gt;%
+  distinct(genus, variable_region, bodysite_standard)
+
+head(present_combos)</code></pre>
+<pre><code>## # A tibble: 6 × 3
+##   genus         variable_region bodysite_standard
+##   &lt;chr&gt;         &lt;chr&gt;           &lt;chr&gt;            
+## 1 Acetatifactor V1 - V3         ileum            
+## 2 Acetatifactor V1 - V3         feces            
+## 3 Acetatifactor V1 - V3         cecum            
+## 4 Acetatifactor V1 - V3         colon            
+## 5 Acetatifactor V4              feces            
+## 6 Acetatifactor V4              cecum</code></pre>
+<pre class="r"><code># Anti-join: combos that exist in the data but never had this genus present
+genus_never_detected &lt;- all_combos %&gt;%
+  anti_join(present_combos, by = c(&quot;genus&quot;, &quot;variable_region&quot;, &quot;bodysite_standard&quot;))
+
+genus_never_detected</code></pre>
+<pre><code>## # A tibble: 319 × 3
+##    genus           variable_region bodysite_standard
+##    &lt;chr&gt;           &lt;chr&gt;           &lt;chr&gt;            
+##  1 Acetatifactor   V1 - V2         mucosa           
+##  2 Acetatifactor   V1 - V2         ileum            
+##  3 Acetatifactor   V3 - V4         feces            
+##  4 Acetatifactor   V3 - V5         cecum            
+##  5 Acetatifactor   V4              jejunum          
+##  6 Acidaminococcus V3 - V5         cecum            
+##  7 Allisonella     V1 - V3         feces            
+##  8 Allisonella     V3 - V5         cecum            
+##  9 Alloenteromonas V1 - V2         ileum            
+## 10 Alloenteromonas V3 - V4         feces            
+## # ℹ 309 more rows</code></pre>
+</div>
+<div id="nonexistant-combinations-of-sequencing" class="section level2">
+<h2>Nonexistant combinations of sequencing</h2>
+<pre class="r"><code>sampled_combos &lt;- genus_region_presence %&gt;%
+  filter(!is.na(variable_region)) %&gt;%
+  distinct(variable_region, bodysite_standard)
+
+sampled_combos  # combinations that actually have data</code></pre>
+<pre><code>## # A tibble: 16 × 2
+##    variable_region bodysite_standard
+##    &lt;chr&gt;           &lt;chr&gt;            
+##  1 V1 - V2         mucosa           
+##  2 V1 - V2         ileum            
+##  3 V1 - V3         ileum            
+##  4 V1 - V3         feces            
+##  5 V1 - V3         cecum            
+##  6 V1 - V3         colon            
+##  7 V3 - V4         feces            
+##  8 V3 - V5         cecum            
+##  9 V4              feces            
+## 10 V4              cecum            
+## 11 V4              colon            
+## 12 V4              duodenum         
+## 13 V4              ileum            
+## 14 V4              jejunum          
+## 15 V4              digesta          
+## 16 V4 - V5         feces</code></pre>
+<pre class="r"><code>#write_csv(genus_never_detected, &quot;asv_genus_not_detected.csv&quot;)</code></pre>
+</div>
 
 
 
