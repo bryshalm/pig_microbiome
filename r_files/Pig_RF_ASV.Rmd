@@ -32,7 +32,7 @@ library(caret)
 
 ## Read the Phyloseq Object
 ```{r}
-ps_otu <- readRDS("ps_v_genus.rds")
+ps_asv <- readRDS("ps_genus.rds")
 ```
 
 ## Read the master_metadata file
@@ -43,11 +43,11 @@ metdat <- read.csv("master_metadata.csv", row.names = 1 )
 
 ## Extract the tables
 ```{r}
-otu <- as.data.frame(otu_table(ps_otu))
+otu <- as.data.frame(otu_table(ps_asv))
 ```
 
 ```{r}
-tax <- as.data.frame(tax_table(ps_otu))
+tax <- as.data.frame(tax_table(ps_asv))
 ```
 
 
@@ -57,11 +57,11 @@ tax <- as.data.frame(tax_table(ps_otu))
 OTU <- otu_table(as.matrix(otu), taxa_are_rows = T)
 TAX <- tax_table(as.matrix(tax))
 
-ps_otu <- phyloseq(OTU, TAX, metdat)
+ps_asv <- phyloseq(OTU, TAX, metdat)
 ```
 
 ```{r}
-if (!taxa_are_rows(ps_otu)) otu <- t(otu)
+if (!taxa_are_rows(ps_asv)) otu <- t(otu)
 ```
 
 ```{r}
@@ -72,7 +72,7 @@ metdat$sample <- rownames(metdat)
 ### Scaling
 ```{r}
 nonzero_per_sample <- colSums(otu > 20)
-sort(nonzero_per_sample)[1:50]   # lowest 50 — the culprits will be at the top
+sort(nonzero_per_sample)[1:80]   # lowest 50 — the culprits will be at the top
 ```
 
 
@@ -187,6 +187,9 @@ studies
 old_studies <- studies
 
 studies <- c("PRJEB11368","PRJEB19324","PRJEB8696","PRJNA1387191","PRJNA1439946","PRJNA237795","PRJNA244928","PRJNA252973","PRJNA257009","PRJNA257705","PRJNA263439","PRJNA266576","PRJNA267233","PRJNA302730", "PRJNA335425", "PRJNA427098","PRJNA437010","PRJNA72355")
+
+
+ 
 ```
 
 
@@ -203,7 +206,7 @@ metdat_filtered <- metdat |>
 
 -----------Trouble Shooting----------------------------------------
 
-```{r}
+```{}
 s <- studies[1]  # test with just the first study
 
 train_samples <- metdat$sample[metdat$study != s]
